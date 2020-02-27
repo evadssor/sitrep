@@ -1,6 +1,6 @@
 :root{
     --red: #cc2028;
-    --green: #067d35;
+    --green: #009d57;
     --grey: #cbcbcb;
     --darkGrey: #32324b;
     --black: #231f20;
@@ -51,7 +51,7 @@ h1{
     width: 800px;
     grid-column: 1 / 2;
     grid-row: 1 / 4;
-    justify-self: center;
+    justify-self: start;
     align-self: center;
 }
 
@@ -88,13 +88,35 @@ a:hover{
 }
 
 .line {
-    display: grid;
+    display: inline-flex;
     grid-column: 1 / -1;
     grid-row: 2 / 3;
+    justify-content: flex-end;
+    align-content: center;
+    margin: 10px 20px 0 20px;
 }
 
-.line li{
-    display: flex;
+.line button{
+    margin: 5px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#addStore:hover, #printRep:hover{
+    cursor: pointer;
+}
+
+#addStore{
+    background-color: var(--green);
+    color: var(--white);
+}
+
+#printRep{
+    background-color: var(--darkGrey);
+    color: var(--white);
 }
 
 .container{
@@ -103,5 +125,12 @@ a:hover{
     grid-row: 3 / 4;
     grid-template-columns: 900px;
     justify-items: center;
+}
+
+
+/*FORM*/
+
+.form{
+
 }
 
