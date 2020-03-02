@@ -69,7 +69,8 @@ h1{
 
 /*O'Reilly Logo*/
 
-#oLogo{
+#big_oLogo{
+    display: inline-block;
     width: 300px;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -77,6 +78,7 @@ h1{
     justify-self: start;
     align-self: end;
 }
+
 
 /*Nav Bar*/
 .nav{
@@ -173,13 +175,15 @@ button:hover{
     grid-row: 1 / 2;
     background-color: var(--black);
     padding: 5px;
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-rows: 1fr;
     /* border-radius: 10px 10px 0 0; */
 }
 
 /*Store Number*/
 .store{
     display: grid;
-    grid-column: 1 / -1;
+    grid-column: 1 / 2;
     margin-left: 10px;
     justify-content: start;
     align-content: center;
@@ -188,11 +192,19 @@ button:hover{
     color: var(--whiter);
 }
 
+.down{
+    grid-column: 2 / 3;
+    justify-self: end;
+    align-self: end;
+    color: var(--whiter);
+    font-weight: bold;
+}   
+
 /*Closed or Open Status*/
 .status{
     display: grid;
-    grid-column: 4 / 7;
-    grid-row: 1 / 2;
+    grid-column: 3 / 4;
+    /* grid-row: 1 / 2; */
     margin-right: 10px;
     justify-content: end;
     align-content: center;
@@ -233,7 +245,8 @@ button:hover{
 }
 
 label{
-    font-weight: bold;
+    font-size: 12px;
+    /* font-weight: bold; */
 }
 
 .issue_info>div>input, select{
@@ -241,7 +254,7 @@ label{
     height: 30px;
     margin: 5px;
     text-align: center;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /*Posted Updates*/
@@ -316,7 +329,7 @@ label{
 .add{
     display: grid;
     padding: 0 5px 5px 5px;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto;
     grid-template-rows: 1fr 1fr auto;
 }
 
@@ -366,8 +379,8 @@ label{
 .new_date, .new_time{
     margin: 5px;
     border: 1px solid var(--dark_grey);
-    height: 25px;
-    padding:5px;
+    height: 30px;
+    /* padding:5px; */
     font-family: 'Ubuntu';
     text-align: center;
 }
@@ -380,9 +393,10 @@ label{
 
 .new_text{
     height: 30px;
-    font-size: 16px;
+    font-size: 12px;
     flex: auto;
     margin: 5px;
+    padding: 5px;
     padding-left: 10px;
     justify-self: center;
     align-self: center;
@@ -414,8 +428,14 @@ label{
 
 
 @media (max-width: 920px){
-    #oLogo{
+    #big_oLogo{
         display: none;
+    }
+
+
+    li>a{
+        font-size: 16px;
+        justify-content: end;
     }
 
     .line{
