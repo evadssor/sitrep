@@ -20,7 +20,4 @@ post_up.addEventListener('click', function(){
 
 delete_up.addEventListener('click', function(){
     confirm('Are you sure you want to cancel this update?');
-    if(confirm){
-        
-    }
 });
