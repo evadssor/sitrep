@@ -156,9 +156,9 @@
                     <p class="add_header">Add Update</p>
                     <div class="dateTime">
                         <label for="new_date">Date:</label>
-                        <input class="new_date" type="date" name="new_date">
+                        <input class="new_date" type="date" name="new_date" required>
                         <label for="new_time">Time:</label>
-                        <input class="new_time" type="time" name="new_time">
+                        <input class="new_time" type="time" name="new_time" min="00:00" max="24:00"required>
                     </div>
                     <div class="new_entry_text">
                         <textarea class="new_text" placeholder="What's new?"></textarea>
