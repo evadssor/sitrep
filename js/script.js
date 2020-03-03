@@ -7,6 +7,7 @@ let delete_up = document.querySelector('.delete_up');
 let update_btn = document.querySelector('.update_btn');
 let resolve = document.querySelector('.resolve');
 let add_update = document.querySelector('.add');
+let issue_type = document.querySelector('.issue_type');
 
 addStore.addEventListener('click', function () {
     alert('New Store Added');
@@ -32,3 +33,12 @@ delete_up.addEventListener('click', function () {
         update.style.display = "inline-flex";
     }
 });
+
+function downTime(start){
+    var time = new Date().getTime();
+    var e = Date.parse(start); 
+    var diff = time - e;
+    return diff;
+}
+
+console.log(downTime("Sept 02, 2002"));
