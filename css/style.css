@@ -12,6 +12,10 @@
     --black: #23232B;
 }
 
+::-webkit-calendar-picker-indicator { 
+    display: none; 
+}
+
 /* Google Fonts
 font-family: 'Faster One';
 font-family: 'Ubuntu', ;
@@ -59,7 +63,6 @@ body{
     justify-items: center;
     align-items: center;
     font-family: 'Faster One';
-    font-weight: bold;
     color: var(--white);
 }
 
