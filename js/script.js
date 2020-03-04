@@ -8,6 +8,7 @@ let update_btn = document.querySelector('.update_btn');
 let resolve = document.querySelector('.resolve');
 let add_update = document.querySelector('.add');
 let issue_type = document.querySelector('.issue_type');
+let down_time = document.querySelector('.down_time');
 
 addStore.addEventListener('click', function () {
     alert('New Store Added');
@@ -34,11 +35,21 @@ delete_up.addEventListener('click', function () {
     }
 });
 
-function downTime(start){
-    var time = new Date().getTime();
-    var e = Date.parse(start); 
-    var diff = time - e;
-    return diff;
+function downTime(d, t){//take in date and time from inputs
+    var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
+    var start_milli = Date.parse(date_time); //parse date_time string to milliseconds
+    var current_milli = new Date().getTime(); //get current time in milliseconds
+    
+    var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;//divide milliseconds into hours 
+    var setHours = Math.floor(down_hours);//Cut off decimal after hour
+
+    var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
+    var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
+    var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
+
+    return(setHours + "hrs " + m + "min");
 }
 
-console.log(downTime("Sept 02, 2002"));
+down_time.innerHTML = (downTime("2020-03-03", "05:25 PM"));
+
+
