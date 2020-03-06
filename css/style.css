@@ -115,7 +115,7 @@ a:hover{
 }
 
 /*Print and Add Store Buttons */
-.line {
+.line{
     display: flex;
     grid-column: 1 / -1;
     grid-row: 2 / 3;
@@ -152,7 +152,6 @@ button:hover{
 
 /*Start of Main Content*/
 /*FORM*/
-
 .form{
     display: grid;
     width: 700px;
@@ -232,35 +231,14 @@ button:hover{
     background-color: var(--green);
 }
 
-/*Issue Info*/
-.issue_info{
-    display: grid;
-    grid-gap: 10px;
-    margin: 10px;
-    grid-column: 1 / -1;
-    grid-row: 2 / -4;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto auto;
-}
-
-.issue_info>div{
-    display: grid;
-    align-content: start;
-    justify-content: center;
-    text-align: center;
-}
-
-label{
-    font-weight: bold;
-}
-
-.issue_info>div>input, select{
-    width: 100px;
-    height: 30px;
+.info>div>p{
     margin: 5px;
-    text-align: center;
-    font-size: 14px;
+    padding: 5px;
+    width: 95px;
+    height: 20px;
+    background-color: var(--whiter);
 }
+
 
 /*Posted Updates*/
 .updates{

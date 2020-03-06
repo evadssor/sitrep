@@ -9,6 +9,7 @@ let resolve = document.querySelector('.resolve');
 let add_update = document.querySelector('.add');
 let issue_type = document.querySelector('.issue_type');
 let down_time = document.querySelector('.down_time');
+let issueNum = 00000;
 
 addStore.addEventListener('click', function () {
     alert('New Store Added');
@@ -50,6 +51,9 @@ function downTime(d, t){//take in date and time from inputs
     return(setHours + "hrs " + m + "min");
 }
 
-down_time.innerHTML = (downTime("2020-03-03", "05:25 PM"));
+down_time.innerHTML = (downTime("2020/03/03", "05:25 PM"));
 
 
+// function StoreIssue(storeNum){
+//     this.issueNum = issueNum + 1;
+// }
