@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" lang="en">
     <link rel="stylesheet" href=".\css\style.css">
+    <link rel="stylesheet" href=".\css\new_issue.css">
     <link href="https://fonts.googleapis.com/css?family=Faster+One&display=swap" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Ubuntu:400,400i,700,700i&display=swap"
@@ -39,62 +40,34 @@
                     <p class="status_open">OPEN</p>
                 </div>
             </section>
-            <section class="issue_info">
+            <section class="info">
                 <div class="type">
                     <label for="issue_type">Issue:</label>
-                    <select class="issue_type">
-                        <option value="1">-Select-</option>
-                        <option value="2">SERVER</option>
-                        <option value="3">WAN</option>
-                        <option value="4">LAN</option>
-                        <option value="5">VOICE</option>
-                        <option value="6">POWER</option>
-                    </select>
+                    <p>SERVER</p>
                 </div>
                 <div class="bmc_tick">
                     <label for="bmc_Num">BMC Ticket:</label>
-                    <input class="bmc_Num" placeholder="-">
+                    <P>1445487</P>
                 </div>
                 <div class="vend_tick">
                     <label for="vend_Num">Service Ticket:</label>
-                    <input class="vend_Num" placeholder="-">
+                    <p class="vend_num">SV0042654</p>
                 </div>
                 <div class="serv_type">
                     <label for="type_num">Server Type:</label>
-                    <select class="type_num">
-                        <option value="1">-Select-</option>
-                        <option value="2">iSeries</option>
-                        <option value="3">Linux</option>
-                    </select>
+                    <p class="type_num">iSeries</p>
                 </div>
                 <div class="serv_model">
                     <label for="model_num">Server Model:</label>
-                    <select class="model_num">
-                        <option value="1">-Select-</option>
-                        <option value="2">P5</option>
-                        <option value="3">P6</option>
-                        <option value="4">P7</option>
-                        <option value="5">P8</option>
-                        <option value="6">P9</option>
-                    </select>
+                    <p class="model_num">P6</p>
                 </div>
                 <div class="comm_type">
-                    <label for="type_num">Comm Type:</label>
-                    <select class="type_num">
-                        <option value="1">-Select-</option>
-                        <option value="2">SDWAN</option>
-                        <option value="3">T1</option>
-                    </select>
+                    <label for="type">Comm Type:</label>
+                    <p class="type">SDWAN</p>
                 </div>
                 <div class="comm_Pro">
-                    <label for="provider">Provider</label>
-                    <select class="provider">
-                        <option value="1">-Select-</option>
-                        <option value="2">MetTel</option>
-                        <option value="3">Vonage</option>
-                        <option value="4">Windstream</option>
-                        <option value="5">Other</option>
-                    </select>
+                    <label for="provider">Provider:</label>
+                    <p class="provider">Windstream</p>
                 </div>
             </section>
             <section class="updates">
@@ -158,7 +131,7 @@
                         <label for="new_date">Date:</label>
                         <input class="new_date" type="date" name="new_date" min="2020-01-01" max="2025-01-01" required>
                         <label for="new_time">Time:</label>
-                        <input class="new_time" type="time" name="new_time" min="00:00" max="24:00"required>
+                        <input class="new_time" type="time" name="new_time" min="00:00" max="24:00" required>
                     </div>
                     <div class="new_entry_text">
                         <textarea class="new_text" placeholder="What's new?"></textarea>
@@ -171,6 +144,151 @@
                 <div class="update">
                     <button class="update_btn">Update</button>
                     <button class="resolve">Resolve</button>
+                </div>
+            </section>
+        </div>
+
+
+        <div class="form shade">
+            <section class="issue_header">
+                <div class="add_issue">
+                    <div class="store">
+                        <p>Add New Store</p>
+                    </div>
+                </div>
+            </section>
+            <section class="info">
+                <div class="add_storeNum">
+                    <label for="new_storeNum">Store:</label>
+                    <input class="new_storeNum" placeholder="-">
+                </div>
+                <div class="type">
+                    <label for="issue_type">Issue:</label>
+                    <select class="issue_type">
+                        <option value="1">-Select-</option>
+                        <option value="2">SERVER</option>
+                        <option value="3">WAN</option>
+                        <option value="4">LAN</option>
+                        <option value="5">VOICE</option>
+                        <option value="6">POWER</option>
+                    </select>
+                </div>
+                <div class="bmc_tick">
+                    <label for="bmc_Num">BMC Ticket:</label>
+                    <input class="bmc_Num" placeholder="-">
+                </div>
+                <div class="vend_tick">
+                    <label for="vend_Num">Service Ticket:</label>
+                    <input class="vend_Num" placeholder="-">
+                </div>
+                <div class="serv_type">
+                    <label for="server">Server Type:</label>
+                    <select class="server">
+                        <option value="1">-Select-</option>
+                        <option value="2">iSeries</option>
+                        <option value="3">Linux</option>
+                    </select>
+                </div>
+                <div class="serv_model">
+                    <label for="model_num">Server Model:</label>
+                    <select class="model_num">
+                        <option value="1">-Select-</option>
+                        <option value="2">P5</option>
+                        <option value="3">P6</option>
+                        <option value="4">P7</option>
+                        <option value="5">P8</option>
+                        <option value="6">P9</option>
+                    </select>
+                </div>
+                <div class="comm_type">
+                    <label for="type_num">Comm Type:</label>
+                    <select class="type_num">
+                        <option value="1">-Select-</option>
+                        <option value="2">SDWAN</option>
+                        <option value="3">T1</option>
+                    </select>
+                </div>
+                <div class="comm_Pro">
+                    <label for="provider">Provider</label>
+                    <select class="provider">
+                        <option value="1">-Select-</option>
+                        <option value="2">MetTel</option>
+                        <option value="3">Vonage</option>
+                        <option value="4">Windstream</option>
+                        <option value="5">Other</option>
+                    </select>
+                </div>
+            </section>
+            <section class="updates">
+                <div class="issue_row">
+                    <div class="date_row">
+                        <p>Date</p>
+                    </div>
+                    <div class="time_row">
+                        <p>Time</p>
+                    </div>
+                    <div class="comment_row">
+                        <p>Updates</p>
+                    </div>
+                </div>
+                <div class="entries">
+                    <div class="entry">
+                        <div class="date_entry">
+                            <p>-</p>
+                        </div>
+                        <div class="time_entry">
+                            <p>-</p>
+                        </div>
+                        <div class="entry_text">
+                            <p></p>
+                        </div>
+                    </div>
+                    <!-- <div class="entry">
+                        <div class="date_entry">
+                            <p>02/20/20</p>
+                        </div>
+                        <div class="time_entry">
+                            <p>06:56</p>
+                        </div>
+                        <div class="entry_text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa
+                            nihil
+                            dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci,
+                            nostrum maiores cupiditate aut quibusdam in?
+                        </div>
+                    </div>
+                    <div class="entry">
+                        <div class="date_entry">
+                            <p>02/20/20</p>
+                        </div>
+                        <div class="time_entry">
+                            <p>06:56</p>
+                        </div>
+                        <div class="entry_text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa
+                            nihil
+                            dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci,
+                            nostrum maiores cupiditate aut quibusdam in?
+                        </div>
+                    </div>-->
+                </div>
+            </section>
+            <section class="add_update">
+                <div class="add">
+                    <p class="add_header">Issue Details</p>
+                    <div class="dateTime">
+                        <label for="new_date">Date:</label>
+                        <input class="new_date" type="date" name="new_date" min="2020-01-01" max="2025-01-01" required>
+                        <label for="new_time">Time:</label>
+                        <input class="new_time" type="time" name="new_time" min="00:00" max="24:00" required>
+                    </div>
+                    <div class="new_entry_text">
+                        <textarea class="new_text" placeholder="What happened?"></textarea>
+                    </div>
+                    <div class="new_entry_btns">
+                        <button class="post_up" type="submit">POST</button>
+                        <button class="delete_up" type="button">X</button>
+                    </div>
                 </div>
             </section>
         </div>
