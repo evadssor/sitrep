@@ -151,6 +151,13 @@ button:hover{
 }
 
 /*Start of Main Content*/
+
+.content{
+    display: grid;
+    grid-column: 2 / 3;
+    grid-template-columns: repeat(auto-fit, minmax(710px, 1fr));
+}
+
 /*FORM*/
 .form{
     display: grid;
@@ -164,6 +171,7 @@ button:hover{
     grid-template-rows: repeat(4, auto);
     /* border-radius: 10px;*/
 }
+
 
 .shade{
     box-shadow: 5px 5px 15px var(--black);
@@ -223,7 +231,7 @@ button:hover{
     border: 1px solid var(--dark_grey);
 }
 
-.status_open{
+.status_text{
     background-color: var(--red);
 }
 
@@ -231,14 +239,22 @@ button:hover{
     background-color: var(--green);
 }
 
+/*Posted Issue Info*/
+
 .info>div>p{
     margin: 5px;
     padding: 5px;
+    color: var(--black);
     width: 95px;
     height: 20px;
     background-color: var(--whiter);
 }
 
+.vend_tick{
+    grid-column: span 2;
+    justify-self: start;
+    margin-left: 25px;
+}
 
 /*Posted Updates*/
 .updates{
@@ -306,10 +322,14 @@ button:hover{
 }
 
 .add{
-    display: none;
+    display: grid;
     padding: 0 5px 5px 5px;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr auto auto;
+}
+
+#add{
+    display: none;
 }
 
 .update{
@@ -328,11 +348,18 @@ button:hover{
 }
 
 .update_btn{
+    display: block;
     background-color: var(--blue);
 }
 
-.resolve{
+.resolve_btn{
+    display: block;
     background-color: var(--green);
+}
+
+.reopen_btn{
+    display: none;
+    background-color: var(--red);
 }
 
 .add_header{

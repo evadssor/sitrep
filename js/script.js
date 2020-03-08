@@ -1,19 +1,21 @@
 let addStore = document.querySelector('.addStore');
 let printRep = document.querySelector('.printRep');
+let status = document.querySelector('.status_text');
 let post_up = document.querySelector('.post_up');
 let add = document.querySelector('.add');
 let update = document.querySelector('.update');
 let delete_up = document.querySelector('.delete_up');
 let update_btn = document.querySelector('.update_btn');
-let resolve = document.querySelector('.resolve');
-let add_update = document.querySelector('.add');
+let add_update = document.querySelector('#add');
+let add_new_store = document.querySelector('#add_new_store');
+let delete_store = document.querySelector('#delete_store');
 let issue_type = document.querySelector('.issue_type');
 let down_time = document.querySelector('.down_time');
 let issueNum = 00000;
 
 addStore.addEventListener('click', function () {
-    alert('New Store Added');
-})
+    add_new_store.style.display = "grid";
+});
 
 printRep.addEventListener('click', function () {
     alert("Printing Today's Report...");
@@ -22,7 +24,7 @@ printRep.addEventListener('click', function () {
 update_btn.addEventListener('click', function () {
     add.style.display = "grid";
     update.style.display = "none";
-})
+});
 
 post_up.addEventListener('click', function () {
     alert('Update Added Successfully!');
@@ -33,6 +35,13 @@ delete_up.addEventListener('click', function () {
     if (cancel) {
         add.style.display = "none";
         update.style.display = "inline-flex";
+    }
+});
+
+delete_store.addEventListener('click', function () {
+    let cancel = confirm('Are you sure you want to cancel this update?');
+    if (cancel) {
+        add_new_store.style.display = "none";
     }
 });
 
@@ -51,7 +60,7 @@ function downTime(d, t){//take in date and time from inputs
     return(setHours + "hrs " + m + "min");
 }
 
-down_time.innerHTML = (downTime("2020/03/03", "05:25 PM"));
+down_time.innerHTML = (downTime("2020/03/08", "01:25 PM"));
 
 
 // function StoreIssue(storeNum){
