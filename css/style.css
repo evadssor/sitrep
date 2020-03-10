@@ -250,11 +250,11 @@ button:hover{
     background-color: var(--whiter);
 }
 
-.vend_tick{
-    grid-column: span 2;
+/* .vend_tick{
+    grid-column: span 1;
     justify-self: start;
     margin-left: 25px;
-}
+} */
 
 /*Posted Updates*/
 .updates{
