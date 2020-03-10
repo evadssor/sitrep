@@ -12,6 +12,10 @@
     --black: #23232B;
 }
 
+::-webkit-calendar-picker-indicator { 
+    display: none; 
+}
+
 /* Google Fonts
 font-family: 'Faster One';
 font-family: 'Ubuntu', ;
@@ -59,7 +63,6 @@ body{
     justify-items: center;
     align-items: center;
     font-family: 'Faster One';
-    font-weight: bold;
     color: var(--white);
 }
 
@@ -112,7 +115,7 @@ a:hover{
 }
 
 /*Print and Add Store Buttons */
-.line {
+.line{
     display: flex;
     grid-column: 1 / -1;
     grid-row: 2 / 3;
@@ -148,8 +151,14 @@ button:hover{
 }
 
 /*Start of Main Content*/
-/*FORM*/
 
+.content{
+    display: grid;
+    grid-column: 2 / 3;
+    grid-template-columns: repeat(auto-fit, minmax(710px, 1fr));
+}
+
+/*FORM*/
 .form{
     display: grid;
     width: 700px;
@@ -163,6 +172,7 @@ button:hover{
     /* border-radius: 10px;*/
 }
 
+
 .shade{
     box-shadow: 5px 5px 15px var(--black);
 }
@@ -173,13 +183,14 @@ button:hover{
     grid-row: 1 / 2;
     background-color: var(--black);
     padding: 5px;
+    grid-template-columns: 1fr 1fr auto;
     /* border-radius: 10px 10px 0 0; */
 }
 
 /*Store Number*/
 .store{
     display: grid;
-    grid-column: 1 / -1;
+    grid-column: 1 / 2;
     margin-left: 10px;
     justify-content: start;
     align-content: center;
@@ -188,10 +199,24 @@ button:hover{
     color: var(--whiter);
 }
 
+.down{
+    grid-column: 2 / 3;
+    color: var(--whiter);
+    margin-right: 30px;
+    justify-self: end;
+    align-self: end;
+    font-weight: bold;
+}
+
+.down_time{
+    font-size: 24px;
+    padding: 5px;
+}
+
 /*Closed or Open Status*/
 .status{
     display: grid;
-    grid-column: 4 / 7;
+    grid-column: 3 / 4;
     grid-row: 1 / 2;
     margin-right: 10px;
     justify-content: end;
@@ -206,7 +231,7 @@ button:hover{
     border: 1px solid var(--dark_grey);
 }
 
-.status_open{
+.status_text{
     background-color: var(--red);
 }
 
@@ -214,35 +239,22 @@ button:hover{
     background-color: var(--green);
 }
 
-/*Issue Info*/
-.issue_info{
-    display: grid;
-    grid-gap: 10px;
-    margin: 10px;
-    grid-column: 1 / -1;
-    grid-row: 2 / -4;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto auto;
-}
+/*Posted Issue Info*/
 
-.issue_info>div{
-    display: grid;
-    align-content: start;
-    justify-content: center;
-    text-align: center;
-}
-
-label{
-    font-weight: bold;
-}
-
-.issue_info>div>input, select{
-    width: 100px;
-    height: 30px;
+.info>div>p{
     margin: 5px;
-    text-align: center;
-    font-size: 14px;
+    padding: 5px;
+    color: var(--black);
+    width: 95px;
+    height: 20px;
+    background-color: var(--whiter);
 }
+
+/* .vend_tick{
+    grid-column: span 1;
+    justify-self: start;
+    margin-left: 25px;
+} */
 
 /*Posted Updates*/
 .updates{
@@ -272,7 +284,7 @@ label{
     grid-column: 2 / 3;
 }
 
-.comment_row, .update_entry{
+.comment_row, .entry_text{
     grid-column: 3 / 4;
     
 }
@@ -296,8 +308,8 @@ label{
     padding-left: 5px;
 }
 
-.update_entry{
-    text-align: left;
+.entry_text{
+    text-align: left !important;
 }
 
 /*Add Update*/
@@ -307,17 +319,17 @@ label{
     grid-row: 6 / 7;
     padding: 5px;
     grid-column: 1fr;
-    /* margin-top: 20px; */
-    /* grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr 1fr auto; */
-    /* justify-content: space-around; */
 }
 
 .add{
     display: grid;
     padding: 0 5px 5px 5px;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr 1fr auto;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto auto;
+}
+
+#add{
+    display: none;
 }
 
 .update{
@@ -336,25 +348,35 @@ label{
 }
 
 .update_btn{
+    display: block;
     background-color: var(--blue);
 }
 
-.resolve{
+.resolve_btn{
+    display: block;
     background-color: var(--green);
 }
 
+.reopen_btn{
+    display: none;
+    background-color: var(--red);
+}
+
 .add_header{
-    grid-column: 1 / 2;
-    justify-self: start;
+    grid-column: 2 / -1;
+    justify-self: center;
     align-self: center;
     margin-left: 10px;
+    padding-right: 25px;
     font-size: 24px;
 }
 
 .dateTime{
-    display: flex;
-    grid-column: 1 / -1;
-    grid-row: 2 / 3;
+    display: grid;
+    grid-gap: 5px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 4;
+    padding: 5px;
     justify-content: start;
 }
 
@@ -370,23 +392,34 @@ label{
     padding:5px;
     font-family: 'Ubuntu';
     text-align: center;
+    font-size: 14px;
 }
 
-.new_entry{
+.new_entry_btns{
+    display: inline-flex;
+    grid-column: 2 / 3;
+    grid-row: 4 / 5;
+    justify-content: flex-end;
+    align-content: flex-end;
+}
+
+.new_entry_text{
     display: flex;
-    grid-column: 1 / -1;
-    grid-row: 3 / 4;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    justify-content: start;
+    align-content: start;
 }
 
 .new_text{
-    height: 30px;
+    display: flex;
+    flex: 1;
     font-size: 16px;
-    flex: auto;
     margin: 5px;
+    padding: 5px;
     padding-left: 10px;
-    justify-self: center;
-    align-self: center;
     border: 1px solid var(--dark_grey);
+    text-align: left;
     /* border-radius: 5px; */
 }
 
@@ -420,5 +453,31 @@ label{
 
     .line{
         justify-content: center;
+    }
+}
+
+@media (max-width: 855px){
+    nav li{
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 815px){
+    nav li{
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 815px){
+    .header{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .h1{
+        grid-column: 1 / 2;
+    }
+
+    nav li{
+        grid-column: 2 / 3;
     }
 }
