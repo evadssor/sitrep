@@ -17,13 +17,19 @@ export class AppComponent {
   delete_up = document.querySelector('.delete_up');
   update_btn = document.querySelector('.update_btn');
   add_update = document.querySelector('#add');
-  add_new_store = document.querySelector('#add_new_store');
+  //add_new_store = document.querySelector('#add_new_store');
+  showStore = false;
   delete_store = document.querySelector('#delete_store');
   issue_type = document.querySelector('.issue_type');
-  down_time = document.querySelector('.down_time');
+  down_time: string;
+
+ngOnInit() {
+  this.down_time = this.downTime("2020/03/08", "01:25 PM");
+}
 
 newStore(){
-  this.add_new_store.style.display = "grid";
+  console.log('New Store');
+  this.showStore = true;
 }
 
 callPrintRep() {
@@ -31,8 +37,8 @@ callPrintRep() {
 };
 
 callUpdateBtn(){
-  add.style.display = "grid";
-  update.style.display = "none";
+ // add.style.display = "grid";
+  //update.style.display = "none";
 };
 
 callPostUp(){
@@ -42,15 +48,15 @@ callPostUp(){
 callDeleteUp(){
   let cancel = confirm('Are you sure you want to cancel this update?');
   if (cancel) {
-    add.style.display = "none";
-    update.style.display = "inline-flex";
+   // add.style.display = "none";
+   // update.style.display = "inline-flex";
   }
 };
 
 callDeleteStore() {
   let cancel = confirm('Are you sure you want to cancel this update?');
   if (cancel) {
-    this.add_new_store.style.display = "none";
+    //this.add_new_store.style.display = "none";
   }
 };
 
@@ -69,7 +75,6 @@ downTime(d, t) {//take in date and time from inputs
   return (setHours + "hrs " + m + "min");
 }
 
-down_time.innerHTML = (downTime("2020/03/08", "01:25 PM"));
 
 
 // function StoreIssue(storeNum){

@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container">
   <header class="header">
-    <img id="oLogo" src="./img/oLogo.png">
+    <img id="oLogo" src="../assets/img/oLogo.png">
     <div class="h1">
       <h1>SITREP</h1>
     </div>
@@ -13,7 +13,7 @@
     </nav>
   </header>
   <div class="line">
-    <button class="addStore" (onclick)="callAddStore()">Add Store</button>
+    <button class="addStore" (click)="newStore()">Add Store</button>
     <button class="printRep">Print Report</button>
   </div>
   <div class="content">
@@ -23,7 +23,7 @@
           <p>Store #<span class="storeNum">4787</span></p>
         </div>
         <div class="down">
-          <p>Down Time: <span class="down_time"></span></p>
+          <p>Down Time: <span class="down_time">{{down_time}}</span></p>
         </div>
         <div class="status">
           <p class="status_text">OPEN</p>
@@ -137,7 +137,7 @@
       </section>
     </div>
 
-    <form class="form shade" id="add_new_store">
+    <form class="form shade" id="add_new_store" (click)="newStore()" *ngIf="showStore">
       <section class="issue_header">
         <p class="store">Add New Store</p>
       </section>
