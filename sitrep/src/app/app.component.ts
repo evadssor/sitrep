@@ -13,9 +13,12 @@ export class AppComponent {
   status = document.querySelector('.status_text');
   post_up = document.querySelector('.post_up');
   add = document.querySelector('.add');
+  showAddUpdate = false;
   update = document.querySelector('.update');
+  showUpdate = true;
   delete_up = document.querySelector('.delete_up');
-  update_btn = document.querySelector('.update_btn');
+  // update_btn = document.querySelector('.update_btn');
+  showUpdateBtn = true;
   add_update = document.querySelector('#add');
   //add_new_store = document.querySelector('#add_new_store');
   showStore = false;
@@ -28,7 +31,6 @@ ngOnInit() {
 }
 
 newStore(){
-  console.log('New Store');
   this.showStore = true;
 }
 
@@ -37,26 +39,32 @@ callPrintRep() {
 };
 
 callUpdateBtn(){
- // add.style.display = "grid";
-  //update.style.display = "none";
+  this.showAddUpdate = true;
+  this.showUpdateBtn = false;
+  this.showUpdate = false;
 };
 
 callPostUp(){
+  console.log('callPostUp');
   alert('Update Added Successfully!');
 };
 
 callDeleteUp(){
+  console.log('callDeleteUp');
   let cancel = confirm('Are you sure you want to cancel this update?');
   if (cancel) {
+    this.showAddUpdate = false;
+    this.showUpdateBtn = true;
    // add.style.display = "none";
    // update.style.display = "inline-flex";
   }
 };
 
 callDeleteStore() {
+  console.log('callDeleteStore');
   let cancel = confirm('Are you sure you want to cancel this update?');
   if (cancel) {
-    //this.add_new_store.style.display = "none";
+    this.showStore = false;
   }
 };
 
