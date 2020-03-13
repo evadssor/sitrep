@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+    --red: #cc2028;
+    --green: #009d57;
+    --lite_green: #00fc8c;
+    --blue: hsl(217, 71%, 53%);
+    --yellow: #fffc9c;
+    --whiter: #ffffff;
+    --white: #c1c1c9;
+    --grey: #9797A0;
+    --greyer: #72727B;
+    --dark_grey: #555562;
+    --black: #23232B;
+}
+
+::-webkit-calendar-picker-indicator { 
+    display: none; 
+}
+
+/* Google Fonts
+font-family: 'Faster One';
+font-family: 'Ubuntu', ;
+font-family: 'Open Sans', ; */
+
+
+body, div, h1, h2, header, p, button, a, img, select, option, input{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body{
+    display: grid;
+    /* grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 1fr auto; */
+    background-color: var(--dark_grey);
+    font-family: 'Ubuntu';
+    color: var(--black);
+}
+
