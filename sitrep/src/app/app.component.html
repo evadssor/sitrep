@@ -71,8 +71,19 @@
             <p>Updates</p>
           </div>
         </div>
-        <div class="entries">
-          <div class="entry" id="entry1">
+        <div class="entries" *ngFor="let update of updates">
+          <div class="entry">
+            <div class="date_entry">
+              <p>{{update.date}}</p>
+            </div>
+            <div class="time_entry">
+              <p>{{update.time}}</p>
+            </div>
+            <div class="entry_text">
+              <p>{{update.message}}</p>
+            </div>
+          </div>
+          <!-- <div class="entry" id="entry1">
             <div class="date_entry">
               <p>02/20/20</p>
             </div>
@@ -110,25 +121,27 @@
               dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci,
               nostrum maiores cupiditate aut quibusdam in?
             </div>
-          </div>
+          </div> -->
         </div>
       </section>
       <section class="add_update">
         <div class="add" id="add" *ngIf="showAddUpdate">
-          <p class="add_header">Add Update</p>
-          <div class="dateTime">
-            <label for="new_date">Date:</label>
-            <input class="new_date" type="date" name="new_date" min="2020-01-01" max="2025-01-01" required>
-            <label for="new_time">Time:</label>
-            <input class="new_time" type="time" name="new_time" min="00:00" max="24:00" required>
-          </div>
-          <div class="new_entry_text">
-            <textarea class="new_text" placeholder="What's new?"></textarea>
-          </div>
-          <div class="new_entry_btns">
-            <button class="post_up" (click)="callPostUp()">POST</button>
-            <button class="delete_up" type="button" (click)="callDeleteUp()">X</button>
-          </div>
+          <form (submit)="addUpdateToList(postForm)" #postForm="ngForm">
+            <p class="add_header">Add Update</p>
+            <div class="dateTime">
+              <label for="new_date">Date:</label>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01" required>
+              <label for="new_time">Time:</label>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+            </div>
+            <div class="new_entry_text">
+              <textarea class="new_text" [(ngModel)]="new_text" name="new_text" placeholder="What's new?" ></textarea>
+            </div>
+            <div class="new_entry_btns">
+              <button class="post_up" type="submit">POST</button>
+              <button class="delete_up" type="button" (click)="callDeleteUp()">X</button>
+            </div>
+          </form>
         </div>
         <div class="update" id="update">
           <button class="update_btn" (click)="callUpdateBtn()" *ngIf="showUpdateBtn">Update</button>
@@ -270,7 +283,7 @@
             <textarea class="new_text" placeholder="What happened?"></textarea>
           </div>
           <div class="new_entry_btns">
-            <button class="post_up" >POST</button>
+            <button class="post_up">POST</button>
             <button class="delete_up" id="delete_store" type="button" (click)="callDeleteStore()">X</button>
           </div>
         </div>
