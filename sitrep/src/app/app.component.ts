@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Update } from './updates/update.model';
 
 @Component({
   selector: 'app-root',
@@ -6,28 +8,31 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'sitrep';
-
-  addStore = document.querySelector('.addStore');
-  printRep = document.querySelector('.printRep');
-  status = document.querySelector('.status_text');
-  post_up = document.querySelector('.post_up');
-  add = document.querySelector('.add');
+  updates: Update[] = [{
+    id: '1001',
+    date: '02/20/20',
+    time: '06:50',
+    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?' 
+  }];
   showAddUpdate = false;
-  update = document.querySelector('.update');
   showUpdate = true;
-  delete_up = document.querySelector('.delete_up');
-  // update_btn = document.querySelector('.update_btn');
   showUpdateBtn = true;
-  add_update = document.querySelector('#add');
-  //add_new_store = document.querySelector('#add_new_store');
   showStore = false;
-  delete_store = document.querySelector('#delete_store');
-  issue_type = document.querySelector('.issue_type');
   down_time: string;
 
 ngOnInit() {
   this.down_time = this.downTime("2020/03/08", "01:25 PM");
+}
+
+addUpdateToList(form: NgForm) {
+  console.log('form: ', form);
+  const newUpdate: Update = {
+    date: form.value.new_date,
+    time: form.value.new_time,
+    message: form.value.new_text
+  }
+  this.updates.push(newUpdate);
+  alert('Update Added Successfully!');
 }
 
 newStore(){
@@ -44,10 +49,7 @@ callUpdateBtn(){
   this.showUpdate = false;
 };
 
-callPostUp(){
-  console.log('callPostUp');
-  alert('Update Added Successfully!');
-};
+
 
 callDeleteUp(){
   console.log('callDeleteUp');
@@ -55,8 +57,6 @@ callDeleteUp(){
   if (cancel) {
     this.showAddUpdate = false;
     this.showUpdateBtn = true;
-   // add.style.display = "none";
-   // update.style.display = "inline-flex";
   }
 };
 

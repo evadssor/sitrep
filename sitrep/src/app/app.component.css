@@ -289,9 +289,9 @@ button:hover{
     grid-template-rows: auto 1fr auto auto;
 }
 
-#add{
-    /* display: none; */
-}
+/* #add{
+    display: none;
+} */
 
 .update{
     display: inline-flex;
