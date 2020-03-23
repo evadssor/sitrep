@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Update } from './updates/update.model';
+import { Subscription } from 'rxjs';
+import { UpdateService } from './updates/update.service';
 
 @Component({
   selector: 'app-root',
@@ -8,31 +10,36 @@ import { Update } from './updates/update.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  updates: Update[] = [{
-    id: '1001',
-    date: '02/20/20',
-    time: '06:50',
-    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?' 
-  }];
+  updates: Update[] = [];
+  private updateSub: Subscription;
   showAddUpdate = false;
   showUpdate = true;
   showUpdateBtn = true;
   showStore = false;
   down_time: string;
 
+  constructor(public updateService: UpdateService) {}
+
 ngOnInit() {
   this.down_time = this.downTime("2020/03/08", "01:25 PM");
+  this.updateService.getUpdates();
+  this.updateSub = this.updateService.getUpdateListener()
+    .subscribe((updates: Update[]) => {
+      this.updates = updates;
+    });
+}
+
+ngOnDestroy() {
+  this.updateSub.unsubscribe();
 }
 
 addUpdateToList(form: NgForm) {
-  console.log('form: ', form);
   const newUpdate: Update = {
     date: form.value.new_date,
     time: form.value.new_time,
     message: form.value.new_text
   }
   this.updates.push(newUpdate);
-  alert('Update Added Successfully!');
 }
 
 newStore(){
@@ -49,10 +56,7 @@ callUpdateBtn(){
   this.showUpdate = false;
 };
 
-
-
 callDeleteUp(){
-  console.log('callDeleteUp');
   let cancel = confirm('Are you sure you want to cancel this update?');
   if (cancel) {
     this.showAddUpdate = false;
@@ -61,7 +65,6 @@ callDeleteUp(){
 };
 
 callDeleteStore() {
-  console.log('callDeleteStore');
   let cancel = confirm('Are you sure you want to cancel this update?');
   if (cancel) {
     this.showStore = false;
@@ -82,11 +85,4 @@ downTime(d, t) {//take in date and time from inputs
 
   return (setHours + "hrs " + m + "min");
 }
-
-
-
-// function StoreIssue(storeNum){
-//     this.issueNum = issueNum + 1;
-// }
-
 }
