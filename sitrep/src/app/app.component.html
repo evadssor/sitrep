@@ -125,8 +125,7 @@
         </div>
       </section>
       <section class="add_update">
-        <div class="add" id="add" *ngIf="showAddUpdate">
-          <form (submit)="addUpdateToList(postForm)" #postForm="ngForm">
+        <form class="add" id="add" *ngIf="showAddUpdate" (submit) ="addUpdateToList(postForm)" #postForm="ngForm">
             <p class="add_header">Add Update</p>
             <div class="dateTime">
               <label for="new_date">Date:</label>
@@ -142,7 +141,6 @@
               <button class="delete_up" type="button" (click)="callDeleteUp()">X</button>
             </div>
           </form>
-        </div>
         <div class="update" id="update">
           <button class="update_btn" (click)="callUpdateBtn()" *ngIf="showUpdateBtn">Update</button>
           <button class="resolve_btn">Resolve</button>
