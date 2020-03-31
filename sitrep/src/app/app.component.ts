@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { UpdateService } from './updates/update.service';
 import { StoreService } from './stores/store.service';
 import { Store } from './stores/store.model';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 
 @Component({
   selector: 'app-root',
@@ -93,6 +92,7 @@ export class AppComponent {
       updates: form.value.updates,
     }
     this.stores.push(newStore);
+    this.showStore = false;
   }
 
   callDeleteStore() {

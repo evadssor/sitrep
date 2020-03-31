@@ -116,11 +116,11 @@
       <section class="info">
         <div class="add_storeNum">
           <label for="new_storeNum">Store:</label>
-          <input class="new_storeNum" placeholder="-">
+          <input class="new_storeNum" placeholder="-" [(ngModel)]="new_storeNum" name="new_storeNum">
         </div>
         <div class="type">
           <label for="issue_type">Issue:</label>
-          <select class="issue_type" name="issue_type">
+          <select class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">
             <option value="1">-Select-</option>
             <option value="2">SERVER</option>
             <option value="3">WAN</option>
@@ -131,15 +131,15 @@
         </div>
         <div class="bmc_tick">
           <label for="bmc_Num">BMC Ticket:</label>
-          <input class="bmc_Num" placeholder="-">
+          <input class="bmc_Num" placeholder="-" [(ngModel)]="bmc_Num" name="bmc_Num">
         </div>
         <div class="vend_tick">
           <label for="vend_Num">Service Ticket:</label>
-          <input class="vend_Num" placeholder="-">
+          <input class="vend_Num" placeholder="-" [(ngModel)]="vend_Num" name="vend_Num">
         </div>
         <div class="serv_type">
           <label for="server">Server Type:</label>
-          <select class="server">
+          <select class="server" [(ngModel)]="server" name="server">
             <option value="1">-Select-</option>
             <option value="2">iSeries</option>
             <option value="3">Linux</option>
@@ -147,7 +147,7 @@
         </div>
         <div class="serv_model">
           <label for="model_num">Server Model:</label>
-          <select class="model_num">
+          <select class="model_num" [(ngModel)]="model_num" name="model_num">
             <option value="1">-Select-</option>
             <option value="2">P5</option>
             <option value="3">P6</option>
@@ -158,7 +158,7 @@
         </div>
         <div class="comm_type">
           <label for="type_num">Comm Type:</label>
-          <select class="type_num" >
+          <select class="type_num" [(ngModel)]="type_num" name="type_num">
             <option value="1">-Select-</option>
             <option value="2">SDWAN</option>
             <option value="3">T1</option>
@@ -166,7 +166,7 @@
         </div>
         <div class="comm_Pro">
           <label for="provider">Provider</label>
-          <select class="provider">
+          <select class="provider" [(ngModel)]="provider" name="provider">
             <option value="1">-Select-</option>
             <option value="2">MetTel</option>
             <option value="3">Vonage</option>
