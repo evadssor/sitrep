@@ -1,16 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-const Update = require('./models/store');
+const Update = require('./models/update');
+const Store = require('./models/store');
 const app = express();
 
 mongoose.connect('mongodb+srv://DJAdmin:UzlXjjD8OacEuTOV@cluster0-6udlx.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to DB!');
     })
-    .catch(() => {
-        console.log('Connection Failed');
+    .catch((e) => {
+        console.log('Connection Failed', e);
     });
 
 app.use(bodyParser.json());
@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
+        id: req.body.id,
         date: req.body.date,
         time: req.body.time,
         message: req.body.message
@@ -67,6 +68,7 @@ app.get('/api/updates', (req, res, next) => {
 
 app.post('/api/stores', (req, res, next) => {
     const store = new Store({
+        id: req.body.id,
         issue: req.body.issue,
         bmcTicket: req.body.bmcTicket,
         serverType: req.body.serverType,
@@ -87,30 +89,55 @@ app.get('/api/stores', (req, res, next) => {
             storeId: '1001',
             issue: 'Issue',
             bmcTicket: '775B46',
-            serviceTicket: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?',
+            serviceTicket: '5001',
             serverType: 'Server Type',
             serverModel: 'Server Model',
             commType: 'Comm Type',
             provider: 'Provider',
-            updates: 
-                [
-                    {
-                        id: '1003',
-                        storeId: '1001',
-                        date: '02/22/20',
-                        time: '16:50',
-                        message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-                    }, 
-                    {
-                        id: '1002',
-                        storeId: '1001',
-                        date: '02/21/20',
-                        time: '10:50',
-                        message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-                    }
-                ]
-             
-            
+            updates:
+            [
+                {
+                    id: '1003',
+                    storeId: '1001',
+                    date: '02/22/20',
+                    time: '16:50',
+                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
+                },
+                {
+                    id: '1002',
+                    storeId: '1001',
+                    date: '02/21/20',
+                    time: '10:50',
+                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
+                }
+            ]
+        },
+        {
+            storeId: '1002',
+            issue: 'Issue',
+            bmcTicket: '775B46',
+            serviceTicket: '5002',
+            serverType: 'Server Type',
+            serverModel: 'Server Model',
+            commType: 'Comm Type',
+            provider: 'Provider',
+            updates:
+            [
+                {
+                    id: '1008',
+                    storeId: '1002',
+                    date: '02/22/20',
+                    time: '16:50',
+                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
+                },
+                {
+                    id: '1020',
+                    storeId: '1002',
+                    date: '02/21/20',
+                    time: '10:50',
+                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
+                }
+            ]
         }
     ]
     res.status(200).json({
