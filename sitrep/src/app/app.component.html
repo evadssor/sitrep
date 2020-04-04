@@ -121,12 +121,12 @@
         <div class="type">
           <label for="issue_type">Issue:</label>
           <select class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">
-            <option value="1">-Select-</option>
-            <option value="2">SERVER</option>
-            <option value="3">WAN</option>
-            <option value="4">LAN</option>
-            <option value="5">VOICE</option>
-            <option value="6">POWER</option>
+            <option value="-">-Select-</option>
+            <option value="SERVER">SERVER</option>
+            <option value="WAN">WAN</option>
+            <option value="LAN">LAN</option>
+            <option value="VOICE">VOICE</option>
+            <option value="POWER">POWER</option>
           </select>
         </div>
         <div class="bmc_tick">
@@ -140,38 +140,38 @@
         <div class="serv_type">
           <label for="server">Server Type:</label>
           <select class="server" [(ngModel)]="server" name="server">
-            <option value="1">-Select-</option>
-            <option value="2">iSeries</option>
-            <option value="3">Linux</option>
+            <option value="-">-Select-</option>
+            <option value="iSeries">iSeries</option>
+            <option value="Linux">Linux</option>
           </select>
         </div>
         <div class="serv_model">
           <label for="model_num">Server Model:</label>
           <select class="model_num" [(ngModel)]="model_num" name="model_num">
-            <option value="1">-Select-</option>
-            <option value="2">P5</option>
-            <option value="3">P6</option>
-            <option value="4">P7</option>
-            <option value="5">P8</option>
-            <option value="6">P9</option>
+            <option value="-">-Select-</option>
+            <option value="P5">P5</option>
+            <option value="P6">P6</option>
+            <option value="P7">P7</option>
+            <option value="P8">P8</option>
+            <option value="P9">P9</option>
           </select>
         </div>
         <div class="comm_type">
           <label for="type_num">Comm Type:</label>
           <select class="type_num" [(ngModel)]="type_num" name="type_num">
-            <option value="1">-Select-</option>
-            <option value="2">SDWAN</option>
-            <option value="3">T1</option>
+            <option value="-">-Select-</option>
+            <option value="SDWAN">SDWAN</option>
+            <option value="T1">T1</option>
           </select>
         </div>
         <div class="comm_Pro">
           <label for="provider">Provider</label>
           <select class="provider" [(ngModel)]="provider" name="provider">
-            <option value="1">-Select-</option>
-            <option value="2">MetTel</option>
-            <option value="3">Vonage</option>
-            <option value="4">Windstream</option>
-            <option value="5">Other</option>
+            <option value="-">-Select-</option>
+            <option value="MetTel">MetTel</option>
+            <option value="Vonage">Vonage</option>
+            <option value="Windstream">Windstream</option>
+            <option value="Other">Other</option>
           </select>
         </div>
       </section>
@@ -206,12 +206,12 @@
           <p class="add_header">Issue Details</p>
           <div class="dateTime">
             <label for="new_date">Date:</label>
-            <input class="new_date" type="date" name="new_date" min="2020-01-01" max="2025-01-01" required>
+            <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01" required>
             <label for="new_time">Time:</label>
-            <input class="new_time" type="time" name="new_time" min="00:00" max="24:00" required>
+            <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
           </div>
           <div class="new_entry_text">
-            <textarea class="new_text" placeholder="What happened?"></textarea>
+            <textarea class="new_text" placeholder="What happened?" [(ngModel)]="new_text" name="new_text"  ></textarea>
           </div>
           <div class="new_entry_btns">
             <button class="post_up">POST</button>
