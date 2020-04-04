@@ -90,8 +90,8 @@ app.get('/api/stores', (req, res, next) => {
             issue: 'Issue',
             bmcTicket: '775B46',
             serviceTicket: '5001',
-            serverType: 'Server Type',
-            serverModel: 'Server Model',
+            serverType: 'Type',
+            serverModel: 'Model',
             commType: 'Comm Type',
             provider: 'Provider',
             updates:
@@ -117,8 +117,8 @@ app.get('/api/stores', (req, res, next) => {
             issue: 'Issue',
             bmcTicket: '775B46',
             serviceTicket: '5002',
-            serverType: 'Server Type',
-            serverModel: 'Server Model',
+            serverType: 'Type',
+            serverModel: 'Model',
             commType: 'Comm Type',
             provider: 'Provider',
             updates:

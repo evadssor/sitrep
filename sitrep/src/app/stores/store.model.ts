@@ -1,7 +1,7 @@
 import { Update } from 'app/updates/update.model';
 
 export interface Store {
-    id?: string;
+    storeId?: string;
     issue: string;
     bmcTicket: string;
     serviceTicket: string;
@@ -9,5 +9,5 @@ export interface Store {
     serverModel: string;
     commType: string;
     provider: string;
-    updates: Update;
+    updates: Update[];
 }

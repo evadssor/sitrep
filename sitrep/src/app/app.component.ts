@@ -81,7 +81,7 @@ export class AppComponent {
 
   saveStore(form: NgForm) {
     const newStore = {
-      id: form.value.new_storeNum,
+      storeId: form.value.new_storeNum,
       issue: form.value.issue_type,
       bmcTicket: form.value.bmc_Num,
       serviceTicket: form.value.vend_Num,
@@ -89,10 +89,16 @@ export class AppComponent {
       serverModel: form.value.model_num,
       commType: form.value.type_num,
       provider: form.value.provider,
-      updates: form.value.updates,
+      updates: [{
+        storeId: form.value.new_storeNum,
+        date: form.value.new_date,
+        time: form.value.new_time,
+        message: form.value.new_text
+      }]
     }
     this.stores.push(newStore);
     this.showStore = false;
+    console.log('form: ', form);
   }
 
   callDeleteStore() {
