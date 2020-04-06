@@ -2,15 +2,20 @@
 const mongoose = require('mongoose');
 
 const storeSchema = mongoose.Schema({
-    id: { type: String, required: false},
-    issue: { type: String, required: true},
-    bmcTicket: { type: String, required: true},
-    serviceTicket: { type: String, required: true},
-    serverType: { type: String, required: true},
-    serverModel: { type: String, required: true},
-    commType: { type: String, required: true},
-    provider: { type: String, required: true},
-    updates: { type: String, required: true}
+    storeNumber: { type: String, required: true},
+    issue: { type: String, required: false},
+    bmcTicket: { type: String, required: false},
+    serviceTicket: { type: String, required: false},
+    serverType: { type: String, required: false},
+    serverModel: { type: String, required: false},
+    commType: { type: String, required: false},
+    provider: { type: String, required: false},
+    // updates: [{
+    //     storeNumber: String,
+    //     time: String,
+    //     date: String,
+    //     message: String
+    // }]
 });
 
 

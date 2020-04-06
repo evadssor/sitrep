@@ -39,7 +39,6 @@ export class AppComponent {
     this.storeSub = this.storeService.getStoreListener()
       .subscribe((stores: Store[]) => {
         this.stores = stores;
-        console.log('Stores: ', this.stores);
       });
   }
 
@@ -81,7 +80,7 @@ export class AppComponent {
 
   saveStore(form: NgForm) {
     const newStore = {
-      storeId: form.value.new_storeNum,
+      storeNumber: form.value.new_storeNum,
       issue: form.value.issue_type,
       bmcTicket: form.value.bmc_Num,
       serviceTicket: form.value.vend_Num,
@@ -96,9 +95,8 @@ export class AppComponent {
         message: form.value.new_text
       }]
     }
-    this.stores.push(newStore);
+    this.storeService.addStore(newStore);
     this.showStore = false;
-    console.log('form: ', form);
   }
 
   callDeleteStore() {
