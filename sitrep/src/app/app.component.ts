@@ -76,7 +76,10 @@ export class AppComponent {
   };
 
   callDeleteStore(storeId: string) {
+    let cancel = confirm('Are you sure you want to DELETE this update?');
+    if (cancel) {
       this.storeService.deleteStore(storeId);
+    }
   };
 
 
