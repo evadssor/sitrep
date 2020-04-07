@@ -40,30 +40,12 @@ app.post('/api/updates', (req, res, next) => {
 });
 
 app.get('/api/updates', (req, res, next) => {
-    const updates = [
-        {
-            id: '1001',
-            date: '02/20/20',
-            time: '06:50',
-            message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-        },
-        {
-            id: '1002',
-            date: '02/21/20',
-            time: '10:50',
-            message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-        },
-        {
-            id: '1003',
-            date: '02/22/20',
-            time: '16:50',
-            message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-        }
-    ]
-    res.status(200).json({
-        message: 'updates fetched succesfully',
-        updates: updates
-    })
+    Update.find().then(documents => {
+        res.status(200).json({
+            message: 'updates fetched succesfully',
+            updates: documents
+        }).catch();
+    });
 });
 
 app.post('/api/stores', (req, res, next) => {
@@ -82,15 +64,30 @@ app.post('/api/stores', (req, res, next) => {
     store.save().then(result => {
         console.log('result', result);
         res.status(201).json({
-            message: 'Store Added Successfully'
+            message: 'Store Added Successfully',
+            storeId: result._id
         });
+        // const update = new Update({
+        //     id: result._id,
+        //     store: req.body.storeNumber,
+        //     date: req.body.date,
+        //     time: req.body.time,
+        //     message: req.body.message
+        // });
+        // update.save().then( updateResult => {
+        //     res.status(201).json({
+        //         message: 'Update Added Successfully',
+        //         result: result
+        //     });
+        // })
     }).catch();
+    
 });
 
 app.get('/api/stores', (req, res, next) => {
     Store.find().then(documents => {
         res.status(200).json({
-            message: 'stores fetched succesfully',
+            message: 'stores fetched successfully',
             stores: documents
         });
     }).catch();
@@ -104,6 +101,16 @@ app.get('/api/stores/:id', (req, res, next) => {
             stores: documents
         });
     }).catch();
+});
+
+app.delete('/api/stores/delete/:storeId', (req, res, next) => {
+    console.log('Backend:', req);
+    Store.deleteOne({_id: req.params.storeId}).then(result => {
+        res.status(200).json({
+            message: 'store delete successfully',
+            result: result
+        });
+    });
 });
 
 module.exports = app;

@@ -20,7 +20,7 @@
     <div class="form shade" *ngFor="let store of stores">
       <section class="issue_header">
         <div class="store">
-          <p>Store #<span class="storeNum">{{store.storeId}}</span></p>
+          <p>Store #<span class="storeNum">{{store.storeNumber}}</span></p>
         </div>
         <div class="down">
           <p>Down Time: <span class="down_time">{{down_time}}</span></p>
@@ -105,6 +105,7 @@
         <div class="update" id="update">
           <button class="update_btn" (click)="callUpdateBtn()" *ngIf="showUpdateBtn">Update</button>
           <button class="resolve_btn">Resolve</button>
+          <button class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
         </div>
       </section>
     </div>
@@ -215,7 +216,7 @@
           </div>
           <div class="new_entry_btns">
             <button class="post_up">POST</button>
-            <button class="delete_up" id="delete_store" type="button" (click)="callDeleteStore()">X</button>
+            <button class="delete_up" id="delete_store" type="button" (click)="callCancelStore()">X</button>
           </div>
         </div>
       </section>

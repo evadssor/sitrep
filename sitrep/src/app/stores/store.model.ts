@@ -1,6 +1,7 @@
 import { Update } from 'app/updates/update.model';
 
 export interface Store {
+    storeId?: string;
     storeNumber?: string;
     issue: string;
     bmcTicket: string;

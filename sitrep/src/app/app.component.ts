@@ -29,16 +29,17 @@ export class AppComponent {
 
   ngOnInit() {
     this.down_time = this.downTime("2020/03/08", "01:25 PM");
-    this.updateService.getUpdates();
-    this.updateSub = this.updateService.getUpdateListener()
-      .subscribe((updates: Update[]) => {
-        this.updates = updates;
-      });
+    // this.updateService.getUpdates();
+    // this.updateSub = this.updateService.getUpdateListener()
+    //   .subscribe((updates: Update[]) => {
+    //     this.updates = updates;
+    //   });
 
     this.storeService.getStores();
     this.storeSub = this.storeService.getStoreListener()
       .subscribe((stores: Store[]) => {
         this.stores = stores;
+        console.log('Store: ', this.stores);
       });
   }
 
@@ -74,6 +75,11 @@ export class AppComponent {
     }
   };
 
+  callDeleteStore(storeId: string) {
+      this.storeService.deleteStore(storeId);
+  };
+
+
   newStore() {
     this.showStore = true;
   }
@@ -99,7 +105,7 @@ export class AppComponent {
     this.showStore = false;
   }
 
-  callDeleteStore() {
+  callCancelStore() {
     let cancel = confirm('Are you sure you want to cancel this update?');
     if (cancel) {
       this.showStore = false;
