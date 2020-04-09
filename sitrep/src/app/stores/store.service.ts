@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store } from './store.model';
 import { map } from 'rxjs/operators';
+import { stringify } from 'querystring';
 
 @Injectable({providedIn: 'root'})
 export class StoreService {
@@ -16,6 +17,10 @@ export class StoreService {
         .pipe(map((storeData) => {
             console.log('StoreDate: ', storeData);
             return storeData.stores.map(store => {
+                this.http.get<{ message: string, updates: any}>('http://localhost:3000/api/updates/' + store._id)
+                    .subscribe((updateData) => {
+                        console.log(updateData);
+                    })
                 return {
                     storeId: store._id,
                     storeNumber: store.storeNumber,
@@ -30,9 +35,7 @@ export class StoreService {
             })
         }))
         .subscribe((transformedStores) => {
-            console.log('TransStores: ', transformedStores);
             this.stores = transformedStores;
-            console.log('Store 2: ', this.stores);
             this.storesUpdated.next([...this.stores]);
         });
     }
@@ -46,6 +49,7 @@ export class StoreService {
         .subscribe((responseData) => {
             const returnedId = responseData.storeId;
             store.storeId = returnedId;
+            store.updates[0].storeId = returnedId;
             this.stores.push(store);
             this.storesUpdated.next([...this.stores]);
             console.log('Stores: ', this.stores);

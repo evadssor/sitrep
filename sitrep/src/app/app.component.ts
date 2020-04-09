@@ -98,7 +98,7 @@ export class AppComponent {
       commType: form.value.type_num,
       provider: form.value.provider,
       updates: [{
-        storeId: form.value.new_storeNum,
+        storeNumber: form.value.new_storeNum,
         date: form.value.new_date,
         time: form.value.new_time,
         message: form.value.new_text

@@ -39,13 +39,14 @@ app.post('/api/updates', (req, res, next) => {
     });
 });
 
-app.get('/api/updates', (req, res, next) => {
-    Update.find().then(documents => {
+app.get('/api/updates/:instanceId', (req, res, next) => {
+    Update.find({instanceId: req.params.instanceId}).then(documents => {
+        console.log('Documents: ', documents);
         res.status(200).json({
             message: 'updates fetched succesfully',
             updates: documents
-        }).catch();
-    });
+        })
+    }).catch();
 });
 
 app.post('/api/stores', (req, res, next) => {
@@ -58,42 +59,43 @@ app.post('/api/stores', (req, res, next) => {
         serverType: req.body.serverType,
         serverModel: req.body.serverModel,
         commType: req.body.commType,
-        provider: req.body.provider,
-        //updates: req.body.updates
+        provider: req.body.provider
     });
     store.save().then(result => {
-        console.log('result', result);
-        res.status(201).json({
-            message: 'Store Added Successfully',
-            storeId: result._id
-        });
-        // const update = new Update({
-        //     id: result._id,
-        //     store: req.body.storeNumber,
-        //     date: req.body.date,
-        //     time: req.body.time,
-        //     message: req.body.message
-        // });
-        // update.save().then( updateResult => {
-        //     res.status(201).json({
-        //         message: 'Update Added Successfully',
-        //         result: result
-        //     });
-        // })
+        if (result._id !== null || result._id !== undefined) {
+            const update = new Update({
+                instanceId: result._id,
+                storeNumber: req.body.updates[0].storeNumber,
+                date: req.body.updates[0].date,
+                time: req.body.updates[0].time,
+                message: req.body.updates[0].message
+            });
+            console.log('Result: ', result);
+            update.save().then(updateResult => {
+                res.status(201).json({
+                    message: 'Store & Updates add successfully',
+                    storeId: result._id,
+                    updateResult: updateResult
+                });
+            }).catch()
+        } else {
+            res.status(500).json({
+                error: 'Error saving Store'
+            });
+        }
     }).catch();
-    
 });
 
 app.get('/api/stores', (req, res, next) => {
-    Store.find().then(documents => {
+    Store.find().then(dbStores => {
         res.status(200).json({
             message: 'stores fetched successfully',
-            stores: documents
+            stores: dbStores
         });
     }).catch();
 });
 
-// TODO 
+// TODO on frontend
 app.get('/api/stores/:id', (req, res, next) => {
     Store.findById(req.params.id).then(documents => {
         res.status(200).json({
@@ -104,8 +106,7 @@ app.get('/api/stores/:id', (req, res, next) => {
 });
 
 app.delete('/api/stores/delete/:storeId', (req, res, next) => {
-    console.log('Backend:', req);
-    Store.deleteOne({_id: req.params.storeId}).then(result => {
+    Store.deleteOne({ _id: req.params.storeId }).then(result => {
         res.status(200).json({
             message: 'store delete successfully',
             result: result
