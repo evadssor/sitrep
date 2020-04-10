@@ -27,7 +27,7 @@ export class AppComponent {
     public storeService: StoreService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.down_time = this.downTime("2020/03/08", "01:25 PM");
     // this.updateService.getUpdates();
     // this.updateSub = this.updateService.getUpdateListener()
@@ -36,7 +36,7 @@ export class AppComponent {
     //   });
 
     this.storeService.getStores();
-    this.storeSub = this.storeService.getStoreListener()
+    this.storeSub = await this.storeService.getStoreListener()
       .subscribe((stores: Store[]) => {
         this.stores = stores;
         console.log('Store: ', this.stores);
@@ -44,7 +44,7 @@ export class AppComponent {
   }
 
   ngOnDestroy() {
-    this.updateSub.unsubscribe();
+  //  this.updateSub.unsubscribe();
     this.storeSub.unsubscribe();
   }
 
@@ -81,7 +81,6 @@ export class AppComponent {
       this.storeService.deleteStore(storeId);
     }
   };
-
 
   newStore() {
     this.showStore = true;

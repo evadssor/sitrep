@@ -13,14 +13,11 @@ export class StoreService {
     constructor(private http: HttpClient) {}
 
     getStores() {
-        this.http.get<{ message: string, stores: any }>('http://localhost:3000/api/stores')
+        this.http.get<{ message: string, stores: any, updates: any }>('http://localhost:3000/api/stores')
         .pipe(map((storeData) => {
-            console.log('StoreDate: ', storeData);
             return storeData.stores.map(store => {
-                this.http.get<{ message: string, updates: any}>('http://localhost:3000/api/updates/' + store._id)
-                    .subscribe((updateData) => {
-                        console.log(updateData);
-                    })
+                var updates = storeData.updates.filter(update => update.instanceId === store._id);
+                console.log('Updates', updates);
                 return {
                     storeId: store._id,
                     storeNumber: store.storeNumber,
@@ -31,6 +28,7 @@ export class StoreService {
                     serverModel: store.serverModel,
                     commType: store.commType,
                     provider: store.provider,
+                    updates: updates
                 }
             })
         }))

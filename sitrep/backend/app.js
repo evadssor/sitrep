@@ -88,10 +88,13 @@ app.post('/api/stores', (req, res, next) => {
 
 app.get('/api/stores', (req, res, next) => {
     Store.find().then(dbStores => {
-        res.status(200).json({
-            message: 'stores fetched successfully',
-            stores: dbStores
-        });
+        Update.find().then(dbUpdates => {
+            res.status(200).json({
+                message: 'stores fetched successfully',
+                stores: dbStores,
+                updates: dbUpdates
+            });
+        }).catch();
     }).catch();
 });
 

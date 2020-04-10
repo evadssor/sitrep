@@ -1,5 +1,5 @@
 export interface Update {
-    id?: string;
+    instanceId?: string;
     storeId?: string;
     date: string;
     time: string;
