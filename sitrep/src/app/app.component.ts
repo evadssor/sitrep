@@ -16,9 +16,8 @@ export class AppComponent {
   stores: Store[] = [];
   private updateSub: Subscription;
   private storeSub: Subscription;
-  showAddUpdate = false;
-  showUpdate = true;
-  showUpdateBtn = true;
+  showAddUpdate = '';
+  showUpdateBtn = '';
   showStore = false;
   down_time: string;
 
@@ -27,19 +26,13 @@ export class AppComponent {
     public storeService: StoreService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.down_time = this.downTime("2020/03/08", "01:25 PM");
-    this.updateService.getUpdates();
-    this.updateSub = this.updateService.getUpdateListener()
-      .subscribe((updates: Update[]) => {
-        this.updates = updates;
-      });
 
     this.storeService.getStores();
-    this.storeSub = this.storeService.getStoreListener()
+    this.storeSub = await this.storeService.getStoreListener()
       .subscribe((stores: Store[]) => {
         this.stores = stores;
-        console.log('Stores: ', this.stores);
       });
   }
 
@@ -48,30 +41,40 @@ export class AppComponent {
     this.storeSub.unsubscribe();
   }
 
-  addUpdateToList(form: NgForm) {
+  addUpdateToList(form: NgForm, store) {
     const newUpdate: Update = {
+      instanceId: store.storeId,
+      storeNumber: store.storeNumber,
       date: form.value.new_date,
       time: form.value.new_time,
       message: form.value.new_text
     }
-    this.updates.push(newUpdate);
+    this.updateService.addUpdate(newUpdate);
+    this.showAddUpdate = '';
+    this.showUpdateBtn = '';
   }
 
   callPrintRep() {
     alert("Printing Today's Report...");
   };
 
-  callUpdateBtn() {
-    this.showAddUpdate = true;
-    this.showUpdateBtn = false;
-    this.showUpdate = false;
+  callUpdateBtn(storeId: string) {
+    this.showAddUpdate = storeId;
+    this.showUpdateBtn = storeId;
   };
 
   callDeleteUp() {
     let cancel = confirm('Are you sure you want to cancel this update?');
     if (cancel) {
-      this.showAddUpdate = false;
-      this.showUpdateBtn = true;
+      this.showAddUpdate = '';
+      this.showUpdateBtn = '';
+    }
+  };
+
+  callDeleteStore(storeId: string) {
+    let cancel = confirm('Are you sure you want to DELETE this update?');
+    if (cancel) {
+      this.storeService.deleteStore(storeId);
     }
   };
 
@@ -81,7 +84,7 @@ export class AppComponent {
 
   saveStore(form: NgForm) {
     const newStore = {
-      storeId: form.value.new_storeNum,
+      storeNumber: form.value.new_storeNum,
       issue: form.value.issue_type,
       bmcTicket: form.value.bmc_Num,
       serviceTicket: form.value.vend_Num,
@@ -90,18 +93,17 @@ export class AppComponent {
       commType: form.value.type_num,
       provider: form.value.provider,
       updates: [{
-        storeId: form.value.new_storeNum,
+        storeNumber: form.value.new_storeNum,
         date: form.value.new_date,
         time: form.value.new_time,
         message: form.value.new_text
       }]
     }
-    this.stores.push(newStore);
+    this.storeService.addStore(newStore);
     this.showStore = false;
-    console.log('form: ', form);
   }
 
-  callDeleteStore() {
+  callCancelStore() {
     let cancel = confirm('Are you sure you want to cancel this update?');
     if (cancel) {
       this.showStore = false;

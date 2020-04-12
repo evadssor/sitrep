@@ -5,7 +5,7 @@ const Update = require('./models/update');
 const Store = require('./models/store');
 const app = express();
 
-mongoose.connect('mongodb+srv://DJAdmin:UzlXjjD8OacEuTOV@cluster0-6udlx.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://DJAdmin:UzlXjjD8OacEuTOV@cluster0-6udlx.mongodb.net/sitrep?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Connected to DB!');
     })
@@ -28,7 +28,8 @@ app.use((req, res, next) => {
 
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
-        id: req.body.id,
+        instanceId: req.body.instanceId,
+        storeNumber: req.body.storeNumber,
         date: req.body.date,
         time: req.body.time,
         message: req.body.message
@@ -39,111 +40,82 @@ app.post('/api/updates', (req, res, next) => {
     });
 });
 
-app.get('/api/updates', (req, res, next) => {
-    const updates = [
-        {
-            id: '1001',
-            date: '02/20/20',
-            time: '06:50',
-            message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-        },
-        {
-            id: '1002',
-            date: '02/21/20',
-            time: '10:50',
-            message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-        },
-        {
-            id: '1003',
-            date: '02/22/20',
-            time: '16:50',
-            message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-        }
-    ]
-    res.status(200).json({
-        message: 'updates fetched succesfully',
-        updates: updates
-    })
+app.get('/api/updates/:instanceId', (req, res, next) => {
+    Update.find({instanceId: req.params.instanceId}).then(documents => {
+        console.log('Documents: ', documents);
+        res.status(200).json({
+            message: 'updates fetched succesfully',
+            updates: documents
+        })
+    }).catch();
 });
 
 app.post('/api/stores', (req, res, next) => {
+    console.log('Store: ', req.body);
     const store = new Store({
-        id: req.body.id,
+        storeNumber: req.body.storeNumber,
         issue: req.body.issue,
         bmcTicket: req.body.bmcTicket,
+        serviceTicket: req.body.serviceTicket,
         serverType: req.body.serverType,
         serverModel: req.body.serverModel,
         commType: req.body.commType,
-        provider: req.body.provider,
-        updates: req.body.updates
+        provider: req.body.provider
     });
-    store.save();
-    res.status(201).json({
-        message: 'Store Added Successfully'
-    });
+    store.save().then(result => {
+        if (result._id !== null || result._id !== undefined) {
+            const update = new Update({
+                instanceId: result._id,
+                storeNumber: req.body.updates[0].storeNumber,
+                date: req.body.updates[0].date,
+                time: req.body.updates[0].time,
+                message: req.body.updates[0].message
+            });
+            console.log('Result: ', result);
+            update.save().then(updateResult => {
+                res.status(201).json({
+                    message: 'Store & Updates add successfully',
+                    storeId: result._id,
+                    updateResult: updateResult
+                });
+            }).catch()
+        } else {
+            res.status(500).json({
+                error: 'Error saving Store'
+            });
+        }
+    }).catch();
 });
 
 app.get('/api/stores', (req, res, next) => {
-    const stores = [
-        {
-            storeId: '1001',
-            issue: 'Issue',
-            bmcTicket: '775B46',
-            serviceTicket: '5001',
-            serverType: 'Type',
-            serverModel: 'Model',
-            commType: 'Comm Type',
-            provider: 'Provider',
-            updates:
-            [
-                {
-                    id: '1003',
-                    storeId: '1001',
-                    date: '02/22/20',
-                    time: '16:50',
-                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-                },
-                {
-                    id: '1002',
-                    storeId: '1001',
-                    date: '02/21/20',
-                    time: '10:50',
-                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-                }
-            ]
-        },
-        {
-            storeId: '1002',
-            issue: 'Issue',
-            bmcTicket: '775B46',
-            serviceTicket: '5002',
-            serverType: 'Type',
-            serverModel: 'Model',
-            commType: 'Comm Type',
-            provider: 'Provider',
-            updates:
-            [
-                {
-                    id: '1008',
-                    storeId: '1002',
-                    date: '02/22/20',
-                    time: '16:50',
-                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-                },
-                {
-                    id: '1020',
-                    storeId: '1002',
-                    date: '02/21/20',
-                    time: '10:50',
-                    message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi voluptatum omnis culpa nihil dignissimos iste amet repudiandae? Ut, voluptate quasi sint velit consequatur adipisci, nostrum maiores cupiditate aut quibusdam in?'
-                }
-            ]
-        }
-    ]
-    res.status(200).json({
-        message: 'stores fetched succesfully',
-        stores: stores
-    })
+    Store.find().then(dbStores => {
+        Update.find().then(dbUpdates => {
+            res.status(200).json({
+                message: 'stores fetched successfully',
+                stores: dbStores,
+                updates: dbUpdates
+            });
+        }).catch();
+    }).catch();
+});
+
+// TODO on frontend
+app.get('/api/stores/:id', (req, res, next) => {
+    Store.findById(req.params.id).then(documents => {
+        res.status(200).json({
+            message: 'store fetched succesfully',
+            stores: documents
+        });
+    }).catch();
+});
+
+app.delete('/api/stores/delete/:storeId', (req, res, next) => {
+    Store.deleteOne({ _id: req.params.storeId }).then(result => {
+        res.status(200).json({
+            message: 'store delete successfully',
+            result: result
+        });
+    });
 });
 
 module.exports = app;

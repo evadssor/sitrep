@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
 const updateSchema = mongoose.Schema({
-    date: { type: String, required: true},
-    time: { type: String, required: true},
-    message: { type: String, required: true}
+    instanceId: { type: String, required: true},
+    storeNumber: { type: String, required: true},
+    date: { type: String, required: false},
+    time: { type: String, required: false},
+    message: { type: String, required: false}
 });
 
 

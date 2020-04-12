@@ -319,6 +319,11 @@ button:hover{
     background-color: var(--red);
 }
 
+.delete_btn{
+    background-color: var(--grey);
+    border: 1px solid var(--dark_grey) !important;
+}
+
 .add_header{
     grid-column: 2 / -1;
     justify-self: center;
