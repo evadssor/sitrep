@@ -1,6 +1,6 @@
 export interface Update {
     instanceId?: string;
-    storeId?: string;
+    storeNumber?: string;
     date: string;
     time: string;
     message?: string

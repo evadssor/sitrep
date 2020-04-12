@@ -16,9 +16,8 @@ export class AppComponent {
   stores: Store[] = [];
   private updateSub: Subscription;
   private storeSub: Subscription;
-  showAddUpdate = false;
-  showUpdate = true;
-  showUpdateBtn = true;
+  showAddUpdate = '';
+  showUpdateBtn = '';
   showStore = false;
   down_time: string;
 
@@ -29,49 +28,46 @@ export class AppComponent {
 
   async ngOnInit() {
     this.down_time = this.downTime("2020/03/08", "01:25 PM");
-    // this.updateService.getUpdates();
-    // this.updateSub = this.updateService.getUpdateListener()
-    //   .subscribe((updates: Update[]) => {
-    //     this.updates = updates;
-    //   });
 
     this.storeService.getStores();
     this.storeSub = await this.storeService.getStoreListener()
       .subscribe((stores: Store[]) => {
         this.stores = stores;
-        console.log('Store: ', this.stores);
       });
   }
 
   ngOnDestroy() {
-  //  this.updateSub.unsubscribe();
+    this.updateSub.unsubscribe();
     this.storeSub.unsubscribe();
   }
 
-  addUpdateToList(form: NgForm) {
+  addUpdateToList(form: NgForm, store) {
     const newUpdate: Update = {
+      instanceId: store.storeId,
+      storeNumber: store.storeNumber,
       date: form.value.new_date,
       time: form.value.new_time,
       message: form.value.new_text
     }
-    this.updates.push(newUpdate);
+    this.updateService.addUpdate(newUpdate);
+    this.showAddUpdate = '';
+    this.showUpdateBtn = '';
   }
 
   callPrintRep() {
     alert("Printing Today's Report...");
   };
 
-  callUpdateBtn() {
-    this.showAddUpdate = true;
-    this.showUpdateBtn = false;
-    this.showUpdate = false;
+  callUpdateBtn(storeId: string) {
+    this.showAddUpdate = storeId;
+    this.showUpdateBtn = storeId;
   };
 
   callDeleteUp() {
     let cancel = confirm('Are you sure you want to cancel this update?');
     if (cancel) {
-      this.showAddUpdate = false;
-      this.showUpdateBtn = true;
+      this.showAddUpdate = '';
+      this.showUpdateBtn = '';
     }
   };
 

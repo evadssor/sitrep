@@ -28,12 +28,13 @@ app.use((req, res, next) => {
 
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
-        id: req.body.id,
+        instanceId: req.body.instanceId,
+        storeNumber: req.body.storeNumber,
         date: req.body.date,
         time: req.body.time,
         message: req.body.message
     });
-    // update.save();
+    update.save();
     res.status(201).json({
         message: 'Update Added Successfully'
     });
