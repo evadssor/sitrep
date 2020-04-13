@@ -11,4 +11,5 @@ export interface Store {
     commType: string;
     provider: string;
     updates: Update[];
+    resolved: boolean;
 }

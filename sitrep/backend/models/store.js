@@ -10,12 +10,7 @@ const storeSchema = mongoose.Schema({
     serverModel: { type: String, required: false},
     commType: { type: String, required: false},
     provider: { type: String, required: false},
-    // updates: [{
-    //     storeNumber: String,
-    //     time: String,
-    //     date: String,
-    //     message: String
-    // }]
+    resolved: { type: Boolean, required: true}
 });
 
 
