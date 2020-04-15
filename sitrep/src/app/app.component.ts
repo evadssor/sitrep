@@ -41,6 +41,10 @@ export class AppComponent {
     this.storeSub.unsubscribe();
   }
 
+  callPrintRep() {
+    alert("Printing Today's Report...");
+  };
+
   addUpdateToList(form: NgForm, store) {
     const newUpdate: Update = {
       storeId: store.storeId,
@@ -54,22 +58,25 @@ export class AppComponent {
     this.showUpdateBtn = '';
   }
 
-  callPrintRep() {
-    alert("Printing Today's Report...");
-  };
-
   callUpdateBtn(storeId: string) {
     this.showAddUpdate = storeId;
     this.showUpdateBtn = storeId;
   };
 
-  callDeleteUp() {
+  callCancelUpdate() {
     let cancel = confirm('Are you sure you want to cancel this update?');
     if (cancel) {
       this.showAddUpdate = '';
       this.showUpdateBtn = '';
     }
   };
+
+  callDeleteUpdate(updateId: string) {
+    let deleteUpdate = confirm('Are you sure you want to delete this update?');
+    if (deleteUpdate) {
+      this.updateService.deleteUpdate(updateId)
+    }
+  }
 
   callDeleteStore(storeId: string) {
     let cancel = confirm('Are you sure you want to DELETE this update?');

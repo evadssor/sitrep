@@ -33,4 +33,11 @@ export class UpdateService {
             this.storeService.getStores();
         });
     }
+
+    deleteUpdate(updateId: string) {
+        this.http.delete('http://localhost:3000/api/stores/delete/' + updateId)
+            .subscribe(() => {
+                this.storeService.getStores();
+            })
+    }
 }

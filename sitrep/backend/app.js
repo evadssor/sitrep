@@ -26,6 +26,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// UPDATE CALLS
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
         storeId: req.body.storeId,
@@ -52,6 +53,16 @@ app.get('/api/updates/:storeId', (req, res, next) => {
     }).catch();
 });
 
+app.delete('/api/updates/delete/:updateId', (req, res, next) => {
+    Update.deleteOne({ _id: req.params.updateId }).then(result => {
+        res.status(200).json({
+            message: 'update delete successfully',
+            result: result
+        });
+    });
+})
+
+// STORE CALLS
 app.post('/api/stores', (req, res, next) => {
     console.log('Store: ', req.body);
     const store = new Store({
