@@ -92,6 +92,7 @@ export class AppComponent {
       serverModel: form.value.model_num,
       commType: form.value.type_num,
       provider: form.value.provider,
+      resolved: false,
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,
