@@ -28,20 +28,22 @@ app.use((req, res, next) => {
 
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
-        instanceId: req.body.instanceId,
+        storeId: req.body.storeId,
         storeNumber: req.body.storeNumber,
         date: req.body.date,
         time: req.body.time,
         message: req.body.message
     });
-    update.save();
-    res.status(201).json({
-        message: 'Update Added Successfully'
+    update.save().then(updateResult => {
+        res.status(201).json({
+            message: 'Update Added Successfully',
+            updateId: updateResult._id
+        });
     });
 });
 
-app.get('/api/updates/:instanceId', (req, res, next) => {
-    Update.find({instanceId: req.params.instanceId}).then(documents => {
+app.get('/api/updates/:storeId', (req, res, next) => {
+    Update.find({ storeId: req.params.storeId }).then(documents => {
         console.log('Documents: ', documents);
         res.status(200).json({
             message: 'updates fetched succesfully',
@@ -65,7 +67,7 @@ app.post('/api/stores', (req, res, next) => {
     store.save().then(result => {
         if (result._id !== null || result._id !== undefined) {
             const update = new Update({
-                instanceId: result._id,
+                storeId: result._id,
                 storeNumber: req.body.updates[0].storeNumber,
                 date: req.body.updates[0].date,
                 time: req.body.updates[0].time,
@@ -95,7 +97,7 @@ app.get('/api/stores', (req, res, next) => {
                 stores: dbStores,
                 updates: dbUpdates
             });
-        }).catch();
+        });
     }).catch();
 });
 

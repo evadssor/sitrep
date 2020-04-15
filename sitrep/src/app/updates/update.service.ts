@@ -25,8 +25,11 @@ export class UpdateService {
     }
 
     addUpdate(update: Update) {
-        this.http.post<{message: string}>('http://localhost:3000/api/updates', update)
+        this.http.post<{message: string, updateId: string}>('http://localhost:3000/api/updates', update)
         .subscribe((responseData) => {
+            const returnedId = responseData.updateId;
+            update.updateId = returnedId
+            console.log('Update', update);
             this.storeService.getStores();
         });
     }

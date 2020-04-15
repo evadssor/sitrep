@@ -43,7 +43,7 @@ export class AppComponent {
 
   addUpdateToList(form: NgForm, store) {
     const newUpdate: Update = {
-      instanceId: store.storeId,
+      storeId: store.storeId,
       storeNumber: store.storeNumber,
       date: form.value.new_date,
       time: form.value.new_time,
