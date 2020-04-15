@@ -1,4 +1,3 @@
-// import { Update } from 'app/updates/update.model';
 const mongoose = require('mongoose');
 
 const storeSchema = mongoose.Schema({
@@ -9,13 +8,7 @@ const storeSchema = mongoose.Schema({
     serverType: { type: String, required: false},
     serverModel: { type: String, required: false},
     commType: { type: String, required: false},
-    provider: { type: String, required: false},
-    // updates: [{
-    //     storeNumber: String,
-    //     time: String,
-    //     date: String,
-    //     message: String
-    // }]
+    provider: { type: String, required: false}
 });
 
 

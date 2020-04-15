@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store } from './store.model';
 import { map } from 'rxjs/operators';
-import { stringify } from 'querystring';
 
 @Injectable({ providedIn: 'root' })
 export class StoreService {
@@ -16,7 +15,7 @@ export class StoreService {
         this.http.get<{ message: string, stores: any, updates: any }>('http://localhost:3000/api/stores')
             .pipe(map((storeData) => {
                 return storeData.stores.map(store => {
-                    var updates = storeData.updates.filter(update => update.instanceId === store._id);
+                    var updates = storeData.updates.filter(update => update.storeId === store._id);
                     return {
                         storeId: store._id,
                         storeNumber: store.storeNumber,
@@ -46,7 +45,7 @@ export class StoreService {
             .subscribe((responseData) => {
                 const returnedId = responseData.storeId;
                 store.storeId = returnedId;
-                store.updates[0].storeNumber= returnedId;
+                store.updates[0].storeId = returnedId;
                 this.stores.push(store);
                 this.storesUpdated.next([...this.stores]);
             });
