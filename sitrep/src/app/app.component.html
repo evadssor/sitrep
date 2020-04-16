@@ -30,29 +30,34 @@
         </div>
       </section>
       <section class="info">
-        <div class="type">
-          <label for="issue_type">Issue</label>
-          <p>{{store.issue}}</p>
+        <div class="edit_info">
+          <i class="fas fa-pencil-alt fa-xs"></i>
         </div>
-        <div class="serv_type">
-          <label for="type_num">Server Type</label>
-          <p class="type_num">{{store.serverType}}</p>
-        </div>
-        <div class="serv_model">
-          <label for="model_num">Server Model</label>
-          <p class="model_num">{{store.serverModel}}</p>
-        </div>
-        <div class="comm_Pro">
-          <label for="provider">Provider</label>
-          <p class="provider">{{store.provider}}</p>
-        </div>
-        <div class="bmc_tick">
-          <label for="bmc_Num">BMC Ticket</label>
-          <p>{{store.bmcTicket}}</p>
-        </div>
-        <div class="vend_tick">
-          <label for="vend_Num">Vendor Ticket</label>
-          <p class="vend_num">{{store.serviceTicket}}</p>
+        <div class="info_details">
+          <div class="type">
+            <label for="issue_type">Issue</label>
+            <p>{{store.issue}}</p>
+          </div>
+          <div class="serv_type">
+            <label for="type_num">Server Type</label>
+            <p class="type_num">{{store.serverType}}</p>
+          </div>
+          <div class="serv_model">
+            <label for="model_num">Server Model</label>
+            <p class="model_num">{{store.serverModel}}</p>
+          </div>
+          <div class="comm_Pro">
+            <label for="provider">Provider</label>
+            <p class="provider">{{store.provider}}</p>
+          </div>
+          <div class="bmc_tick">
+            <label for="bmc_Num">BMC Ticket</label>
+            <p>{{store.bmcTicket}}</p>
+          </div>
+          <div class="vend_tick">
+            <label for="vend_Num">Vendor Ticket</label>
+            <p class="vend_num">{{store.serviceTicket}}</p>
+          </div>
         </div>
       </section>
       <section class="updates">
@@ -78,7 +83,7 @@
             <div class="entry_text">
               <p>{{update.message}}</p>
             </div>
-            <div class="edit_options">
+            <div class="edit_entry">
               <i class="fas fa-pencil-alt fa-xs"></i>
               <i class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"></i>
             </div>

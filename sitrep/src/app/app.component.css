@@ -221,7 +221,7 @@ button:hover{
 
 /*Posted Issue Info*/
 
-.info>div>p{
+.info_details>div>p{
     margin: 5px;
     padding: 5px;
     color: var(--black);
@@ -297,15 +297,24 @@ button:hover{
     text-align: left !important;
 }
 
-.edit_options{
+.edit_entry{
     padding-right: 5px;
 }
 
-.edit_options>*{
+.edit_info{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    justify-self: center;
+    align-self: start;
+    grid-column: 2 / -1;
+}
+
+.edit_entry>*{
     margin: 2px;
 }
 
-.edit_options>i:hover{
+.edit_entry, .edit_info>i:hover{
     cursor: pointer;
 }
 
@@ -464,11 +473,18 @@ i::before{
     margin: 10px;
     grid-column: 1 / -1;
     grid-row: 2 / -4;
+    grid-template-columns: 1fr auto;
+}
+
+.info_details{
+    display: grid;
+    grid-gap: 10px;
+    grid-row: 2 / -1;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-template-rows: auto auto;
 }
 
-.info>div{
+.info_details>div{
     display: grid;
     align-content: start;
     justify-content: center;
@@ -479,7 +495,7 @@ label{
     font-weight: bold;
 }
 
-.info>div>input, select{
+.info_details>div>input, select{
     width: 100px;
     height: 30px;
     margin: 5px;
