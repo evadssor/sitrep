@@ -31,32 +31,28 @@
       </section>
       <section class="info">
         <div class="type">
-          <label for="issue_type">Issue:</label>
+          <label for="issue_type">Issue</label>
           <p>{{store.issue}}</p>
         </div>
-        <div class="bmc_tick">
-          <label for="bmc_Num">BMC Ticket:</label>
-          <p>{{store.bmcTicket}}</p>
-        </div>
-        <div class="vend_tick">
-          <label for="vend_Num">Service Ticket:</label>
-          <p class="vend_num">{{store.serviceTicket}}</p>
-        </div>
         <div class="serv_type">
-          <label for="type_num">Server Type:</label>
+          <label for="type_num">Server Type</label>
           <p class="type_num">{{store.serverType}}</p>
         </div>
         <div class="serv_model">
-          <label for="model_num">Server Model:</label>
+          <label for="model_num">Server Model</label>
           <p class="model_num">{{store.serverModel}}</p>
         </div>
-        <div class="comm_type">
-          <label for="type">Comm Type:</label>
-          <p class="type">{{store.commType}}</p>
-        </div>
         <div class="comm_Pro">
-          <label for="provider">Provider:</label>
+          <label for="provider">Provider</label>
           <p class="provider">{{store.provider}}</p>
+        </div>
+        <div class="bmc_tick">
+          <label for="bmc_Num">BMC Ticket</label>
+          <p>{{store.bmcTicket}}</p>
+        </div>
+        <div class="vend_tick">
+          <label for="vend_Num">Vendor Ticket</label>
+          <p class="vend_num">{{store.serviceTicket}}</p>
         </div>
       </section>
       <section class="updates">
@@ -71,8 +67,8 @@
             <p>Updates</p>
           </div>
         </div>
-        <div class="entries" *ngFor="let update of store.updates">
-          <div class="entry">
+        <div class="entries">
+          <div class="entry" *ngFor="let update of store.updates">
             <div class="date_entry">
               <p>{{update.date}}</p>
             </div>
@@ -81,6 +77,10 @@
             </div>
             <div class="entry_text">
               <p>{{update.message}}</p>
+            </div>
+            <div class="edit_options">
+              <i class="fas fa-pencil-alt fa-xs"></i>
+              <i class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"></i>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@
           </div>
           <div class="new_entry_btns">
             <button class="post_up" type="submit">POST</button>
-            <button class="delete_up" type="button" (click)="callDeleteUp()">X</button>
+            <button class="delete_up" type="button" (click)="callCancelUpdate()">X</button>
           </div>
         </form>
         <div class="update">
@@ -112,16 +112,16 @@
     </div>
 
     <form class="form shade" id="add_new_store" *ngIf="showStore" (submit)="saveStore(postForm)" #postForm="ngForm">
-      <section class="issue_header">
-        <p class="store">Add New Store</p>
+      <section class="new_store_header">
+        <p class="store">Store #</p>
+        <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" required>
       </section>
       <section class="info">
-        <div class="add_storeNum">
+        <!-- <div class="add_storeNum">
           <label for="new_storeNum">Store:</label>
-          <input class="new_storeNum" placeholder="-" [(ngModel)]="new_storeNum" name="new_storeNum">
-        </div>
+        </div> -->
         <div class="type">
-          <label for="issue_type">Issue:</label>
+          <label for="issue_type">Issue</label>
           <select class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">
             <option value="-">-Select-</option>
             <option value="SERVER">SERVER</option>
@@ -131,16 +131,8 @@
             <option value="POWER">POWER</option>
           </select>
         </div>
-        <div class="bmc_tick">
-          <label for="bmc_Num">BMC Ticket:</label>
-          <input class="bmc_Num" placeholder="-" [(ngModel)]="bmc_Num" name="bmc_Num">
-        </div>
-        <div class="vend_tick">
-          <label for="vend_Num">Service Ticket:</label>
-          <input class="vend_Num" placeholder="-" [(ngModel)]="vend_Num" name="vend_Num">
-        </div>
         <div class="serv_type">
-          <label for="server">Server Type:</label>
+          <label for="server">Server Type</label>
           <select class="server" [(ngModel)]="server" name="server">
             <option value="-">-Select-</option>
             <option value="iSeries">iSeries</option>
@@ -148,7 +140,7 @@
           </select>
         </div>
         <div class="serv_model">
-          <label for="model_num">Server Model:</label>
+          <label for="model_num">Server Model</label>
           <select class="model_num" [(ngModel)]="model_num" name="model_num">
             <option value="-">-Select-</option>
             <option value="P5">P5</option>
@@ -156,14 +148,6 @@
             <option value="P7">P7</option>
             <option value="P8">P8</option>
             <option value="P9">P9</option>
-          </select>
-        </div>
-        <div class="comm_type">
-          <label for="type_num">Comm Type:</label>
-          <select class="type_num" [(ngModel)]="type_num" name="type_num">
-            <option value="-">-Select-</option>
-            <option value="SDWAN">SDWAN</option>
-            <option value="T1">T1</option>
           </select>
         </div>
         <div class="comm_Pro">
@@ -175,6 +159,14 @@
             <option value="Windstream">Windstream</option>
             <option value="Other">Other</option>
           </select>
+        </div>
+        <div class="bmc_tick">
+          <label for="bmc_Num">BMC Ticket</label>
+          <input class="bmc_Num" placeholder="-" [(ngModel)]="bmc_Num" name="bmc_Num">
+        </div>
+        <div class="vend_tick">
+          <label for="vend_Num">Vendor Ticket</label>
+          <input class="vend_Num" placeholder="-" [(ngModel)]="vend_Num" name="vend_Num">
         </div>
       </section>
       <section class="updates">
@@ -207,10 +199,10 @@
         <div class="add">
           <p class="add_header">Issue Details</p>
           <div class="dateTime">
-            <label for="new_date">Date:</label>
+            <label for="new_date">Start Date:</label>
             <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
               required>
-            <label for="new_time">Time:</label>
+            <label for="new_time">Start Time:</label>
             <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
           </div>
           <div class="new_entry_text">

@@ -148,6 +148,25 @@ button:hover{
     /* border-radius: 10px 10px 0 0; */
 }
 
+.new_store_header{
+    display: inline-flex;
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    background-color: var(--black);
+    padding: 5px;
+    align-items: center;
+}
+
+.new_storeNum{
+    width: 90px;
+    height: 32px;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--black);
+    text-align: center;
+    margin-left: 3px;
+}
+
 /*Store Number*/
 .store{
     display: grid;
@@ -260,9 +279,13 @@ button:hover{
 .entry{
     display: grid;
     grid-gap: 5px;
-    padding-top: 5px;
+    padding: 2.5px 0 2.5px 0;
     text-align: center;
-    grid-template-columns: 125px 80px 1fr;
+    grid-template-columns: 125px 80px 1fr auto;
+}
+
+.entry:hover{
+    background-color: var(--whiter);
 }
 
 .date_entry{
@@ -270,7 +293,24 @@ button:hover{
 }
 
 .entry_text{
+    margin-right: 10px;
     text-align: left !important;
+}
+
+.edit_options{
+    padding-right: 5px;
+}
+
+.edit_options>*{
+    margin: 2px;
+}
+
+.edit_options>i:hover{
+    cursor: pointer;
+}
+
+i::before{
+    background:transparent;
 }
 
 /*Add Update*/
@@ -424,7 +464,7 @@ button:hover{
     margin: 10px;
     grid-column: 1 / -1;
     grid-row: 2 / -4;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-template-rows: auto auto;
 }
 
