@@ -31,7 +31,7 @@
       </section>
       <section class="info">
         <div class="edit_info">
-          <i class="fas fa-pencil-alt fa-xs"></i>
+          <i class="fas fa-pencil-alt fa-xs" title="Edit Info"></i>
         </div>
         <div class="info_details">
           <div class="type">
@@ -73,7 +73,7 @@
           </div>
         </div>
         <div class="entries">
-          <div class="entry" *ngFor="let update of store.updates">
+          <div class="entry" *ngFor="let update of store.updates" (mouseenter)="hoverOver('edit_btns')" (mouseleave)="hoverOff('edit_btns')">
             <div class="date_entry">
               <p>{{update.date}}</p>
             </div>
@@ -83,9 +83,9 @@
             <div class="entry_text">
               <p>{{update.message}}</p>
             </div>
-            <div class="edit_entry">
-              <i class="fas fa-pencil-alt fa-xs"></i>
-              <i class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"></i>
+            <div class="edit_entry" id="edit_btns">
+              <i class="fas fa-pencil-alt fa-xs" title="Edit Update"></i>
+              <i class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)" title="Delete Update"></i>
             </div>
           </div>
         </div>

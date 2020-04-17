@@ -131,4 +131,14 @@ export class AppComponent {
 
     return (setHours + "hrs " + m + "min");
   }
+
+  hoverOver(e: string){
+    var element: HTMLElement = document.getElementById(e);
+    element.setAttribute("style", "opacity:1;");
+  };
+
+  hoverOff(e: string){
+    var element: HTMLElement = document.getElementById(e);
+    element.setAttribute("style", "opacity:0;");
+  };
 }
