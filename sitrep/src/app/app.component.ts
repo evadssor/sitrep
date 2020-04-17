@@ -27,7 +27,7 @@ export class AppComponent {
   ) { }
 
   async ngOnInit() {
-    this.down_time = this.downTime("2020/03/08", "01:25 PM");
+    this.down_time = this.downTime("2020/04/16", "10:59 PM");
 
     this.storeService.getStores();
     this.storeSub = await this.storeService.getStoreListener()
