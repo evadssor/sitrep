@@ -33,6 +33,13 @@ export class UpdateService {
         });
     }
 
+    editUpdate(update: Update) {
+        this.http.post('http://localhost:3000/api/updates/edit/', update)
+        .subscribe(() => {
+
+        });
+    }
+
     deleteUpdate(updateId: string) {
         this.http.delete('http://localhost:3000/api/updates/delete/' + updateId)
             .subscribe(() => {

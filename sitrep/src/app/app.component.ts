@@ -71,6 +71,10 @@ export class AppComponent {
     }
   };
 
+  callEditUpdate(update: Update) {
+    this.updateService.editUpdate(update);
+  }
+
   callDeleteUpdate(updateId: string) {
     let deleteUpdate = confirm('Are you sure you want to delete this update?');
     if (deleteUpdate) {

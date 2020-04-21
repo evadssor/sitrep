@@ -27,6 +27,7 @@ app.use((req, res, next) => {
 });
 
 // UPDATE CALLS
+// Save Update
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
         storeId: req.body.storeId,
@@ -43,6 +44,7 @@ app.post('/api/updates', (req, res, next) => {
     });
 });
 
+// Get Updates associated with storeId
 app.get('/api/updates/:storeId', (req, res, next) => {
     Update.find({ storeId: req.params.storeId }).then(documents => {
         console.log('Documents: ', documents);
@@ -53,6 +55,21 @@ app.get('/api/updates/:storeId', (req, res, next) => {
     }).catch();
 });
 
+// Edit Update - Save over existing update via the updateId
+app.post('/api/updates/edit/', (req, res, next) => {
+    console.log('req.body.update', req.body.update);
+    const update = req.body.update;
+    console.log('update', update);
+    update.updateOne({ _id: req.params.update.updateId }).then(editResult => {
+        res.status(200).json({
+            message: 'update edit saved successfully',
+            result: editResult
+        });
+    });
+});
+
+
+// Delete Store based on update. 
 app.delete('/api/updates/delete/:updateId', (req, res, next) => {
     Update.deleteOne({ _id: req.params.updateId }).then(result => {
         res.status(200).json({
@@ -60,7 +77,7 @@ app.delete('/api/updates/delete/:updateId', (req, res, next) => {
             result: result
         });
     });
-})
+});
 
 // STORE CALLS
 app.post('/api/stores', (req, res, next) => {
