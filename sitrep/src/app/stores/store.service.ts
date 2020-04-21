@@ -51,6 +51,13 @@ export class StoreService {
             });
     }
 
+    editStore(store: Store) {
+        this.http.post('http://localhost:3000/api/stores/edit/', store)
+            .subscribe(() => {
+                
+            });
+    }
+
     deleteStore(storeId: string) {
         this.http.delete('http://localhost:3000/api/stores/delete/' + storeId)
             .subscribe(() => {

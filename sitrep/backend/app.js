@@ -80,6 +80,7 @@ app.delete('/api/updates/delete/:updateId', (req, res, next) => {
 });
 
 // STORE CALLS
+// Save new store
 app.post('/api/stores', (req, res, next) => {
     console.log('Store: ', req.body);
     const store = new Store({
@@ -117,6 +118,7 @@ app.post('/api/stores', (req, res, next) => {
     }).catch();
 });
 
+// Get stores
 app.get('/api/stores', (req, res, next) => {
     Store.find().then(dbStores => {
         Update.find().then(dbUpdates => {
@@ -129,7 +131,7 @@ app.get('/api/stores', (req, res, next) => {
     }).catch();
 });
 
-// TODO on frontend
+// TODO on frontend (Find Specific Store)
 app.get('/api/stores/:id', (req, res, next) => {
     Store.findById(req.params.id).then(documents => {
         res.status(200).json({
@@ -139,6 +141,16 @@ app.get('/api/stores/:id', (req, res, next) => {
     }).catch();
 });
 
+app.post('/api/stores/edit', (req, res, next) => {
+    const store = req.body.store;
+    store.updateOne({ _id: store.storeId }).then(editResult => {
+        res.status(201).json({
+            result: editResult
+        })
+    })
+});
+
+// Delete Store via storeId
 app.delete('/api/stores/delete/:storeId', (req, res, next) => {
     Store.deleteOne({ _id: req.params.storeId }).then(result => {
         res.status(200).json({

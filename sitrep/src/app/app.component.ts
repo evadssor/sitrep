@@ -82,13 +82,6 @@ export class AppComponent {
     }
   }
 
-  callDeleteStore(storeId: string) {
-    let cancel = confirm('Are you sure you want to DELETE this update?');
-    if (cancel) {
-      this.storeService.deleteStore(storeId);
-    }
-  };
-
   newStore() {
     this.showStore = true;
   }
@@ -115,9 +108,20 @@ export class AppComponent {
   }
 
   callCancelStore() {
-    let cancel = confirm('Are you sure you want to cancel this update?');
+    let cancel = confirm('Are you sure you want to cancel?');
     if (cancel) {
       this.showStore = false;
+    }
+  };
+
+  callEditStore() {
+    this.storeService.editStore();
+  }
+
+  callDeleteStore(storeId: string) {
+    let cancel = confirm('Are you sure you want to DELETE this Store?');
+    if (cancel) {
+      this.storeService.deleteStore(storeId);
     }
   };
 
