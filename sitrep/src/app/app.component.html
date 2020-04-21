@@ -38,11 +38,11 @@
             <label for="issue_type">Issue</label>
             <p>{{store.issue}}</p>
           </div>
-          <div class="serv_type">
+          <div class="serv_type" *ngIf="store.issue === 'SERVER'">
             <label for="type_num">Server Type</label>
             <p class="type_num">{{store.serverType}}</p>
           </div>
-          <div class="serv_model">
+          <div class="serv_model" *ngIf="store.issue === 'SERVER'">
             <label for="model_num">Server Model</label>
             <p class="model_num">{{store.serverModel}}</p>
           </div>
@@ -137,10 +137,9 @@
               <option value="WAN">WAN</option>
               <option value="LAN">LAN</option>
               <option value="VOICE">VOICE</option>
-              <option value="POWER">POWER</option>
             </select>
           </div>
-          <div class="serv_type">
+          <div class="serv_type" *ngIf="issue_type === 'SERVER'">
             <label for="server">Server Type</label>
             <select class="server" [(ngModel)]="server" name="server">
               <option value="-">-Select-</option>
@@ -148,18 +147,22 @@
               <option value="Linux">Linux</option>
             </select>
           </div>
-          <div class="serv_model">
+          <div class="serv_model" *ngIf="issue_type === 'SERVER'">
             <label for="model_num">Server Model</label>
             <select class="model_num" [(ngModel)]="model_num" name="model_num">
               <option value="-">-Select-</option>
-              <option value="P5">P5</option>
-              <option value="P6">P6</option>
-              <option value="P7">P7</option>
-              <option value="P8">P8</option>
-              <option value="P9">P9</option>
+              <option value="P5" *ngIf="server === 'iSeries'">P5</option>
+              <option value="P6" *ngIf="server === 'iSeries'">P6</option>
+              <option value="P7" *ngIf="server === 'iSeries'">P7</option>
+              <option value="P8" *ngIf="server === 'iSeries'">P8</option>
+              <option value="P9" *ngIf="server === 'iSeries'">P9</option>
+              <option value="x3100" *ngIf="server === 'Linux'">X3100</option>
+              <option value="ts460" *ngIf="server === 'Linux'">TS460</option>
+              <option value="st250" *ngIf="server === 'Linux'">ST250</option>
+              <option value="st550" *ngIf="server === 'Linux'">ST550</option>
             </select>
           </div>
-          <div class="comm_Pro">
+          <div class="comm_Pro" *ngIf="issue_type === 'WAN'">
             <label for="provider">Provider</label>
             <select class="provider" [(ngModel)]="provider" name="provider">
               <option value="-">-Select-</option>
@@ -167,6 +170,14 @@
               <option value="Vonage">Vonage</option>
               <option value="Windstream">Windstream</option>
               <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="hard_ware" *ngIf="issue_type === 'LAN'">
+            <label for="hware">Hardware</label>
+            <select class="hware" [(ngModel)]="hware" name="hware">
+              <option value="-">-Select-</option>
+              <option value="Router" *ngIf="issue_type === 'LAN'">Cisco Router</option>
+              <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
             </select>
           </div>
           <div class="bmc_tick">
