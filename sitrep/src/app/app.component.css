@@ -305,7 +305,7 @@ button:hover{
 }
 
 .edit_entry{
-    opacity: 0;
+    /* opacity: 1; */
     margin-right: 5px;
 }
 

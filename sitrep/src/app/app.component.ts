@@ -20,6 +20,7 @@ export class AppComponent {
   showUpdateBtn = '';
   showStore = false;
   down_time: string;
+  hoverOver = '';
 
   constructor(
     public updateService: UpdateService,
@@ -139,14 +140,4 @@ export class AppComponent {
 
     return (setHours + "hrs " + m + "min");
   }
-
-  hoverOver(e: string){
-    var element: HTMLElement = document.getElementById(e);
-    element.setAttribute("style", "opacity:1;");
-  };
-
-  hoverOff(e: string){
-    var element: HTMLElement = document.getElementById(e);
-    element.setAttribute("style", "opacity:0;");
-  };
 }

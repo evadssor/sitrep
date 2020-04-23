@@ -73,8 +73,8 @@
           </div>
         </div>
         <div class="entries">
-          <div class="entry" *ngFor="let update of store.updates" (mouseenter)="hoverOver('edit_btns')"
-            (mouseleave)="hoverOff('edit_btns')">
+          <div class="entry" *ngFor="let update of store.updates" (mouseenter)="hoverOver = update"
+            (mouseleave)="hoverOver = ''">
             <div class="date_entry">
               <p>{{update.date}}</p>
             </div>
@@ -84,7 +84,7 @@
             <div class="entry_text">
               <p>{{update.message}}</p>
             </div>
-            <div class="edit_entry" id="edit_btns">
+            <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
               <i class="fas fa-pencil-alt fa-xs" title="Edit Update"></i>
               <i class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)" title="Delete Update"></i>
             </div>
