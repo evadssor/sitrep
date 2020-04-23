@@ -162,7 +162,7 @@
               <option value="st550" *ngIf="server === 'Linux'">ST550</option>
             </select>
           </div>
-          <div class="comm_Pro" *ngIf="issue_type === 'WAN'">
+          <div class="comm_Pro" *ngIf="issue_type === 'WAN' || issue_type === 'VOICE'">
             <label for="provider">Provider</label>
             <select class="provider" [(ngModel)]="provider" name="provider">
               <option value="-">-Select-</option>
@@ -172,12 +172,17 @@
               <option value="Other">Other</option>
             </select>
           </div>
-          <div class="hard_ware" *ngIf="issue_type === 'LAN'">
+          <div class="hard_ware" *ngIf="issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
             <label for="hware">Hardware</label>
             <select class="hware" [(ngModel)]="hware" name="hware">
               <option value="-">-Select-</option>
               <option value="Router" *ngIf="issue_type === 'LAN'">Cisco Router</option>
               <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
+              <option value="Switch" *ngIf="issue_type === 'WAN'">Modem</option>
+              <option value="Switch" *ngIf="issue_type === 'WAN' || issue_type === 'VOICE'">AdTran/IAD</option>
+              <option value="Switch" *ngIf="issue_type === 'WAN'">VeloCloud</option>
+              <option value="Switch" *ngIf="issue_type === 'VOICE'">PBX</option>
+              <option value="Switch" *ngIf="issue_type === 'VOICE'">Cabling</option>
             </select>
           </div>
           <div class="bmc_tick">
@@ -191,7 +196,7 @@
         </div>
 
       </section>
-      <section class="updates">
+      <!-- <section class="updates">
         <div class="issue_row">
           <div class="date_row">
             <p>Date</p>
@@ -216,7 +221,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <section class="add_update">
         <div class="add">
           <p class="add_header">Issue Details</p>

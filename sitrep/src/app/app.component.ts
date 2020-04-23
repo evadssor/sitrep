@@ -115,9 +115,9 @@ export class AppComponent {
     }
   };
 
-  callEditStore() {
-    this.storeService.editStore();
-  }
+  // callEditStore() {
+  //   this.storeService.editStore();
+  // }
 
   callDeleteStore(storeId: string) {
     let cancel = confirm('Are you sure you want to DELETE this Store?');
