@@ -118,7 +118,6 @@
         </div>
       </section>
     </div>
-
     <form class="form shade" id="add_new_store" *ngIf="showStore" (submit)="saveStore(postForm)" #postForm="ngForm">
       <section class="new_store_header">
         <p class="store">Store #</p>
@@ -169,6 +168,8 @@
               <option value="MetTel">MetTel</option>
               <option value="Vonage">Vonage</option>
               <option value="Windstream">Windstream</option>
+              <option value="TRCA">TRCA</option>
+              <option value="Optus">Optus</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -178,11 +179,12 @@
               <option value="-">-Select-</option>
               <option value="Router" *ngIf="issue_type === 'LAN'">Cisco Router</option>
               <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
-              <option value="Switch" *ngIf="issue_type === 'WAN'">Modem</option>
-              <option value="Switch" *ngIf="issue_type === 'WAN' || issue_type === 'VOICE'">AdTran/IAD</option>
-              <option value="Switch" *ngIf="issue_type === 'WAN'">VeloCloud</option>
-              <option value="Switch" *ngIf="issue_type === 'VOICE'">PBX</option>
-              <option value="Switch" *ngIf="issue_type === 'VOICE'">Cabling</option>
+              <option value="Modem" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Modem</option>
+              <option value="Adtran" *ngIf="issue_type === 'VOICE' && provider !== 'Windstream' && provider !== 'TRCA' && provider !== 'Optus'">AdTran</option>
+              <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
+              <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
+              <option value="PBX" *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">PBX</option>
+              <option value="Cable" *ngIf="issue_type === 'LAN'">Cabling</option>
             </select>
           </div>
           <div class="bmc_tick">
