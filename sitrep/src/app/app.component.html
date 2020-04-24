@@ -76,7 +76,7 @@
           <div class="entry" *ngFor="let update of store.updates" (mouseenter)="hoverOver = update"
             (mouseleave)="hoverOver = ''">
             <div class="date_entry">
-              <p>{{update.date}}</p>
+              <p>{{ convertDate(update.date) }}</p>
             </div>
             <div class="time_entry">
               <p>{{update.time}}</p>

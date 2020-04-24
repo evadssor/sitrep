@@ -140,4 +140,15 @@ export class AppComponent {
 
     return (setHours + "hrs " + m + "min");
   }
+
+  convertDate(date){
+    var d = date;
+    var newDate = '';
+    if (d) { 
+      d = d.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, function(match,y,m,d) { 
+          newDate = m + '/' + d + '/' + y;  
+      });
+      return newDate;
+  }
+  }
 }
