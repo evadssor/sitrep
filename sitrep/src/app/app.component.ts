@@ -19,6 +19,7 @@ export class AppComponent {
   showAddUpdate = '';
   showUpdateBtn = '';
   showStore = false;
+  showRestore = false;
   down_time: string;
   hoverOver = '';
 

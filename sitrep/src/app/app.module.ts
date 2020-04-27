@@ -5,10 +5,12 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ResolveStoreComponent
   ],
   imports: [
     BrowserModule,

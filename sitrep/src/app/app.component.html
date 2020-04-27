@@ -1,4 +1,6 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<app-resolve-store *ngIf="showRestore === true"></app-resolve-store>
+
+
 <div class="container">
   <header class="header">
     <img id="oLogo" src="../assets/img/oLogo.png">
@@ -113,7 +115,7 @@
         <div class="update">
           <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
             *ngIf="showUpdateBtn !== store.storeId">Update</button>
-          <button class="resolve_btn">Resolve</button>
+          <button class="resolve_btn" (click)="showRestore = true">Resolve</button>
           <button class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
         </div>
       </section>
