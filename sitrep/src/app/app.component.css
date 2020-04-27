@@ -230,6 +230,7 @@ button:hover{
     background-color: var(--whiter);
 }
 
+
 /* .vend_tick{
     grid-column: span 1;
     justify-self: start;
@@ -354,7 +355,7 @@ i::before{
 }
 
 .delete_btn{
-    background-color: palevioletred;
+    background-color: var(--red);
     border: 1px solid var(--dark_grey) !important;
 }
 
@@ -365,6 +366,50 @@ i::before{
     margin-left: 10px;
     padding-right: 25px;
     font-size: 24px;
+}
+
+.new_info{
+    display: grid;
+    /* grid-gap: 10px; */
+    grid-column: 1 / -1;
+    grid-row: 2 / -4;
+    grid-template-columns: 1fr 10px;
+}
+
+.new_info_details{
+    display: grid;
+    /* grid-gap: 10px; */
+    grid-column: 1 / 2;
+    margin: 5px;
+    margin-left: 15px;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: auto auto;
+    justify-content: center;
+}
+
+.new_info_details>div{
+    display: grid;
+    align-content: start;
+    justify-content: center;
+    text-align: center;
+}
+
+.new_info_details>div>p{
+    margin: 5px;
+    padding: 5px;
+    color: var(--black);
+    width: 95px;
+    height: 20px;
+    background-color: var(--whiter);
+}
+
+.new_info_details>div>input, select{
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+    font-size: 14px;
 }
 
 .dateTime{
@@ -457,17 +502,18 @@ i::before{
     /* grid-gap: 10px; */
     grid-column: 1 / -1;
     grid-row: 2 / -4;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 10px;
 }
 
 .info_details{
     display: grid;
     /* grid-gap: 10px; */
-    grid-row: 1 / 2;
+    grid-column: 1 / 2;
     margin: 5px;
+    margin-left: 15px;
     padding: 10px;
-    padding-bottom: 0;
-    margin-bottom: 0;
+    padding-top: 0;
+    margin-top: 0;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-template-rows: auto auto;
     justify-content: center;
@@ -481,12 +527,11 @@ i::before{
 }
 
 .edit_info{
-    padding: 0 5px 5px 0;
-    margin-right: 5px;
     justify-self: end;
-    align-self: center;
+    padding-right: 5px;
+    /* align-self: center; */
     align-content: center;
-    grid-row: 2 / -1 ;
+    grid-column: 2 / -1 ;
 }
 
 .edit_info>i{

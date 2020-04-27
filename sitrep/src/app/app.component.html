@@ -29,11 +29,9 @@
           <p class="status_text">OPEN</p>
         </div>
       </section>
-      <section class="info" (mouseenter)="hoverOver = store"
-      (mouseleave)="hoverOver = ''">
-        <div class="edit_info" [ngStyle]="{opacity: hoverOver === store ? '1' : '0'}">
+      <section class="info">
+        <div class="edit_info">
           <i class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"></i>
-          <i class="fas fa-trash-alt fa-xs" (click)="callDeleteStore(store.storeId)" title="Delete Issue"></i>
         </div>
         <div class="info_details">
           <div class="type">
@@ -116,7 +114,7 @@
           <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
             *ngIf="showUpdateBtn !== store.storeId">Update</button>
           <button class="resolve_btn">Resolve</button>
-          <!-- <button class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button> -->
+          <button class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
         </div>
       </section>
     </div>
@@ -125,11 +123,11 @@
         <p class="store">Store #</p>
         <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" required>
       </section>
-      <section class="info">
+      <section class="new_info">
         <!-- <div class="add_storeNum">
           <label for="new_storeNum">Store:</label>
         </div> -->
-        <div class="info_details">
+        <div class="new_info_details">
           <div class="type">
             <label for="issue_type">Issue</label>
             <select class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">

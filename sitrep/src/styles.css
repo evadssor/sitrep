@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 :root{
+    --pink: rgb(206, 33, 85);
     --red: #cc2028;
     --green: #009d57;
     --lite_green: #00fc8c;
