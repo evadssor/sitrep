@@ -96,7 +96,7 @@ a:hover{
 }
 
 .addStore{
-    background-color: var(--red);
+    background-color: var(--grey);
 }
 
 .printRep{
@@ -297,15 +297,7 @@ button:hover{
     text-align: left !important;
 }
 
-.edit_info{
-    padding: 5px;
-    justify-self: center;
-    align-self: start;
-    grid-column: 2 / -1;
-}
-
 .edit_entry{
-    /* opacity: 1; */
     margin-right: 5px;
 }
 
@@ -342,6 +334,7 @@ i::before{
     justify-content: flex-end;
 }
 
+
 .update>button{
     padding: 5px;
     margin: 5px;
@@ -353,22 +346,15 @@ i::before{
 }
 
 .update_btn{
-    display: block;
     background-color: var(--blue);
 }
 
 .resolve_btn{
-    display: block;
     background-color: var(--green);
 }
 
-.reopen_btn{
-    /* display: none; */
-    background-color: var(--red);
-}
-
 .delete_btn{
-    background-color: var(--grey);
+    background-color: palevioletred;
     border: 1px solid var(--dark_grey) !important;
 }
 
@@ -452,7 +438,7 @@ i::before{
 .delete_up{
     color: var(--black);
     margin-left: 5px;
-    background-color: var(--greyer);
+    background-color: transparent;
 }
 
 /*New Store Entry*/
@@ -468,19 +454,23 @@ i::before{
 
 .info{
     display: grid;
-    grid-gap: 10px;
+    /* grid-gap: 10px; */
     grid-column: 1 / -1;
     grid-row: 2 / -4;
-    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
 }
 
 .info_details{
     display: grid;
-    margin: 10px 0 0 10px;
-    grid-gap: 10px;
-    grid-row: 2 / -1;
+    /* grid-gap: 10px; */
+    grid-row: 1 / 2;
+    margin: 5px;
+    padding: 10px;
+    padding-bottom: 0;
+    margin-bottom: 0;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-template-rows: auto auto;
+    justify-content: center;
 }
 
 .info_details>div{
@@ -488,6 +478,20 @@ i::before{
     align-content: start;
     justify-content: center;
     text-align: center;
+}
+
+.edit_info{
+    padding: 0 5px 5px 0;
+    margin-right: 5px;
+    justify-self: end;
+    align-self: center;
+    align-content: center;
+    grid-row: 2 / -1 ;
+}
+
+.edit_info>i{
+    display: inline-block;
+    margin: 2px;
 }
 
 label{
