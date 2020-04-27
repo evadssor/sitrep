@@ -355,7 +355,7 @@ i::before{
 }
 
 .delete_btn{
-    background-color: var(--red);
+    background-color: var(--black);
     border: 1px solid var(--dark_grey) !important;
 }
 

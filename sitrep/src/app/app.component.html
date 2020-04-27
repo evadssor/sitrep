@@ -1,6 +1,13 @@
+<<<<<<< Updated upstream
 <app-resolve-store *ngIf="showRestore === true"></app-resolve-store>
 
 
+=======
+<<<<<<< Updated upstream
+<!--The content below is only a placeholder and can be replaced.-->
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 <div class="container">
   <header class="header">
     <img id="oLogo" src="../assets/img/oLogo.png">
@@ -25,7 +32,7 @@
           <p>Store #<span class="storeNum">{{store.storeNumber}}</span></p>
         </div>
         <div class="down">
-          <p>Down Time: <span class="down_time">{{down_time }}</span></p>
+          <p>Down Time: <span class="down_time">{{down_time}}</span></p>
         </div>
         <div class="status">
           <p class="status_text">OPEN</p>
@@ -48,9 +55,13 @@
             <label for="model_num">Server Model</label>
             <p class="model_num">{{store.serverModel}}</p>
           </div>
-          <div class="comm_Pro">
+          <div class="comm_Pro" *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">
             <label for="provider">Provider</label>
             <p class="provider">{{store.provider}}</p>
+          </div>
+          <div class="hard_ware" *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">
+            <label for="hardware">Hardware</label>
+            <p class="hardware">{{store.hardware}}</p>
           </div>
           <div class="bmc_tick">
             <label for="bmc_Num">BMC Ticket</label>
@@ -113,6 +124,7 @@
           </div>
         </form>
         <div class="update">
+
           <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
             *ngIf="showUpdateBtn !== store.storeId">Update</button>
           <button class="resolve_btn" (click)="showRestore = true">Resolve</button>
@@ -176,8 +188,8 @@
             </select>
           </div>
           <div class="hard_ware" *ngIf="issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="hware">Hardware</label>
-            <select class="hware" [(ngModel)]="hware" name="hware">
+            <label for="hardware">Hardware</label>
+            <select class="hardware" [(ngModel)]="hardware" name="hardware">
               <option value="-">-Select-</option>
               <option value="Router" *ngIf="issue_type === 'LAN'">Cisco Router</option>
               <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>

@@ -26,6 +26,7 @@ export class StoreService {
                         serverModel: store.serverModel,
                         commType: store.commType,
                         provider: store.provider,
+                        hardware: store.hardware,
                         updates: updates
                     }
                 });

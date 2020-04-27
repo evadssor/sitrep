@@ -91,7 +91,8 @@ app.post('/api/stores', (req, res, next) => {
         serverType: req.body.serverType,
         serverModel: req.body.serverModel,
         commType: req.body.commType,
-        provider: req.body.provider
+        provider: req.body.provider,
+        hardware: req.body.hardware
     });
     store.save().then(result => {
         if (result._id !== null || result._id !== undefined) {

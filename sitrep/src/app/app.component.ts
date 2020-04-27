@@ -29,7 +29,7 @@ export class AppComponent {
   ) { }
 
   async ngOnInit() {
-    this.down_time = this.downTime("2020/04/16", "10:59 PM");
+    this.down_time = this.downTime("2020/04/26", "10:59 PM");
 
     this.storeService.getStores();
     this.storeSub = await this.storeService.getStoreListener()
@@ -98,12 +98,13 @@ export class AppComponent {
       serverModel: form.value.model_num,
       commType: form.value.type_num,
       provider: form.value.provider,
+      hardware: form.value.hardware,
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,
         time: form.value.new_time,
         message: form.value.new_text
-      }]
+      }],
     }
     this.storeService.addStore(newStore);
     this.showStore = false;
@@ -150,6 +151,6 @@ export class AppComponent {
           newDate = m + '/' + d + '/' + y;  
       });
       return newDate;
-  }
+    }
   }
 }
