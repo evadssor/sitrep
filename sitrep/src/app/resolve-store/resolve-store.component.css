@@ -9,13 +9,6 @@
     align-content: center;
 }
 
-<<<<<<< Updated upstream
-=======
-.shade{
-    box-shadow: 5px 5px 15px var(--black);
-}
-
->>>>>>> Stashed changes
 .resolveStore{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
