@@ -23,7 +23,7 @@
           <p>Store #<span class="storeNum">{{store.storeNumber}}</span></p>
         </div>
         <div class="down">
-          <p>Down Time: <span class="down_time">{{down_time}}</span></p>
+          <p>Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
         </div>
         <div class="status">
           <p class="status_text">OPEN</p>

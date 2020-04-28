@@ -12,4 +12,6 @@ export interface Store {
     provider: string;
     hardware: string;
     updates: Update[];
+    startDate: string;
+    startTime: string;
 }

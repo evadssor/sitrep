@@ -20,7 +20,7 @@ export class AppComponent {
   showUpdateBtn = '';
   showStore = false;
   showRestore = false;
-  down_time: string;
+  // down_time: string;
   hoverOver = '';
 
   constructor(
@@ -29,7 +29,7 @@ export class AppComponent {
   ) { }
 
   async ngOnInit() {
-    this.down_time = this.downTime("2020/04/26", "10:59 PM");
+    // this.down_time = this.downTime("2020/04/26", "10:59 PM");
 
     this.storeService.getStores();
     this.storeSub = await this.storeService.getStoreListener()
@@ -99,6 +99,8 @@ export class AppComponent {
       commType: form.value.type_num,
       provider: form.value.provider,
       hardware: form.value.hardware,
+      startDate: form.value.new_date,
+      startTime: form.value.new_time,
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,

@@ -27,6 +27,8 @@ export class StoreService {
                         commType: store.commType,
                         provider: store.provider,
                         hardware: store.hardware,
+                        startDate: store.startDate,
+                        startTime: store.startTime,
                         updates: updates
                     }
                 });

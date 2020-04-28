@@ -10,6 +10,8 @@ const storeSchema = mongoose.Schema({
     commType: { type: String, required: false},
     provider: { type: String, required: false},
     hardware: { type: String, required: false},
+    startDate: { type: String, required: true},
+    startTime: { type: String, required: true},
 });
 
 
