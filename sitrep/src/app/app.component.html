@@ -173,8 +173,8 @@
               <option value="MetTel">MetTel</option>
               <option value="Vonage">Vonage</option>
               <option value="Windstream">Windstream</option>
-              <option value="TRCA">TRCA</option>
-              <option value="Optus">Optus</option>
+              <option value="TRCA" *ngIf="issue_type !== 'WAN'">TRCA</option>
+              <option value="Optus" *ngIf="issue_type !== 'WAN'">Optus</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -182,14 +182,15 @@
             <label for="hardware">Hardware</label>
             <select class="hardware" [(ngModel)]="hardware" name="hardware">
               <option value="-">-Select-</option>
-              <option value="Router" *ngIf="issue_type === 'LAN'">Cisco Router</option>
+              <option value="Router" *ngIf="issue_type === 'LAN'">Router</option>
               <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
+              <option value="Cabling" *ngIf="issue_type === 'LAN'">Cabling</option>
               <option value="Modem" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Modem</option>
               <option value="Adtran" *ngIf="issue_type === 'VOICE' && provider !== 'Windstream' && provider !== 'TRCA' && provider !== 'Optus'">AdTran</option>
               <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
               <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
+              <option value="Circuit Only" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Circuit Only</option>
               <option value="PBX" *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">PBX</option>
-              <option value="Cable" *ngIf="issue_type === 'LAN'">Cabling</option>
             </select>
           </div>
           <div class="bmc_tick">

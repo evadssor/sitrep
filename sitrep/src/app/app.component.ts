@@ -52,7 +52,7 @@ export class AppComponent {
 
   resolveStore() {
     const dialogRef = this.dialog.open(ResolveStoreComponent, {
-      
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -76,6 +76,7 @@ export class AppComponent {
     this.updateService.addUpdate(newUpdate);
     this.showAddUpdate = '';
     this.showUpdateBtn = '';
+    form.resetForm();
   }
 
   callUpdateBtn(storeId: string) {
@@ -128,6 +129,7 @@ export class AppComponent {
     }
     this.storeService.addStore(newStore);
     this.showStore = false;
+    form.reset(); //<-- added to reset form on submit - evad
   }
 
   callCancelStore() {
