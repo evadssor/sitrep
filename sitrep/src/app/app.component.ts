@@ -24,6 +24,7 @@ export class AppComponent {
   showRestore = false;
   // down_time: string;
   hoverOver = '';
+  editing = '';
 
   constructor(
     public updateService: UpdateService,

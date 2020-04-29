@@ -31,36 +31,85 @@
       </section>
       <section class="info">
         <div class="edit_info">
-          <i class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"></i>
+          <i *ngIf="editing !== store" class="fas fa-pencil-alt fa-xs" title="Edit Issue Info" (click)="editing = store"></i>
+          <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit" (click)="editing = ''"></i>
+          <i *ngIf="editing === store" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
         </div>
         <div class="info_details">
           <div class="type">
             <label for="issue_type">Issue</label>
-            <p>{{store.issue}}</p>
+            <p *ngIf="editing !== store">{{store.issue}}</p>
+            <select *ngIf="editing === store" class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">
+              <option value="-">-Select-</option>
+              <option value="SERVER">SERVER</option>
+              <option value="WAN">WAN</option>
+              <option value="LAN">LAN</option>
+              <option value="VOICE">VOICE</option>
+            </select>
           </div>
-          <div class="serv_type" *ngIf="store.issue === 'SERVER'">
+          <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
             <label for="type_num">Server Type</label>
-            <p class="type_num">{{store.serverType}}</p>~
+            <p *ngIf="editing !== store" class="type_num">{{store.serverType}}</p>
+            <select *ngIf="editing === store" class="server" [(ngModel)]="server" name="server">
+              <option value="-">-Select-</option>
+              <option value="iSeries">iSeries</option>
+              <option value="Linux">Linux</option>
+            </select>
           </div>
-          <div class="serv_model" *ngIf="store.issue === 'SERVER'">
+          <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
             <label for="model_num">Server Model</label>
-            <p class="model_num">{{store.serverModel}}</p>
+            <p *ngIf="editing !== store" class="model_num">{{store.serverModel}}</p>
+            <select *ngIf="editing === store" class="model_num" [(ngModel)]="model_num" name="model_num">
+              <option value="-">-Select-</option>
+              <option value="P5" *ngIf="server === 'iSeries'">P5</option>
+              <option value="P6" *ngIf="server === 'iSeries'">P6</option>
+              <option value="P7" *ngIf="server === 'iSeries'">P7</option>
+              <option value="P8" *ngIf="server === 'iSeries'">P8</option>
+              <option value="P9" *ngIf="server === 'iSeries'">P9</option>
+              <option value="x3100" *ngIf="server === 'Linux'">X3100</option>
+              <option value="ts460" *ngIf="server === 'Linux'">TS460</option>
+              <option value="st250" *ngIf="server === 'Linux'">ST250</option>
+              <option value="st550" *ngIf="server === 'Linux'">ST550</option>
+            </select>
           </div>
           <div class="comm_Pro" *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">
             <label for="provider">Provider</label>
-            <p class="provider">{{store.provider}}</p>
+            <p *ngIf="editing !== store" class="provider">{{store.provider}}</p>
+            <select *ngIf="editing === store" class="provider" [(ngModel)]="provider" name="provider">
+              <option value="-">-Select-</option>
+              <option value="MetTel">MetTel</option>
+              <option value="Vonage">Vonage</option>
+              <option value="Windstream">Windstream</option>
+              <option value="TRCA" *ngIf="issue_type !== 'WAN'">TRCA</option>
+              <option value="Optus" *ngIf="issue_type !== 'WAN'">Optus</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
           <div class="hard_ware" *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">
             <label for="hardware">Hardware</label>
-            <p class="hardware">{{store.hardware}}</p>
+            <p *ngIf="editing !== store" class="hardware">{{store.hardware}}</p>
+            <select *ngIf="editing === store" class="hardware" [(ngModel)]="hardware" name="hardware">
+              <option value="-">-Select-</option>
+              <option value="Router" *ngIf="issue_type === 'LAN'">Router</option>
+              <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
+              <option value="Cabling" *ngIf="issue_type === 'LAN'">Cabling</option>
+              <option value="Modem" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Modem</option>
+              <option value="Adtran" *ngIf="issue_type === 'VOICE' && provider !== 'Windstream' && provider !== 'TRCA' && provider !== 'Optus'">AdTran</option>
+              <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
+              <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
+              <option value="Circuit Only" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Circuit Only</option>
+              <option value="PBX" *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">PBX</option>
+            </select>
           </div>
           <div class="bmc_tick">
             <label for="bmc_Num">BMC Ticket</label>
-            <p>{{store.bmcTicket}}</p>
+            <p *ngIf="editing !== store">{{store.bmcTicket}}</p>
+            <input *ngIf="editing === store" class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="bmc_Num" name="bmc_Num">
           </div>
           <div class="vend_tick">
             <label for="vend_Num">Vendor Ticket</label>
-            <p class="vend_num">{{store.serviceTicket}}</p>
+            <p *ngIf="editing !== store" class="vend_num">{{store.serviceTicket}}</p>
+            <input *ngIf="editing === store" class="vend_Num" placeholder="{{store.serviceTicket}}" [(ngModel)]="vend_Num" name="vend_Num">
           </div>
         </div>
       </section>
@@ -89,8 +138,10 @@
               <p>{{update.message}}</p>
             </div>
             <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
-              <i class="fas fa-pencil-alt fa-xs" title="Edit Update"></i>
-              <i class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)" title="Delete Update"></i>
+              <i *ngIf="editing === ''" class="fas fa-pencil-alt fa-xs" title="Edit Update" (click)="editing = update"></i>
+              <i *ngIf="editing === ''" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)" title="Delete Update"></i>
+              <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit" (click)="editing = ''"></i>
+              <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
             </div>
           </div>
         </div>
@@ -115,7 +166,6 @@
           </div>
         </form>
         <div class="update">
-
           <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
             *ngIf="showUpdateBtn !== store.storeId">Update</button>
           <button class="resolve_btn" (click)="resolveStore()">Resolve</button>

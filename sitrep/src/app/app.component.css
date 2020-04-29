@@ -300,10 +300,13 @@ button:hover{
 
 .edit_entry{
     margin-right: 5px;
+    align-items: center;
 }
 
 .edit_entry>*{
     margin: 2px;
+    height: 12px;
+    width: 12px;
 }
 
 .edit_entry, .edit_info>i:hover{
@@ -503,16 +506,17 @@ i::before{
     grid-column: 1 / -1;
     grid-row: 2 / -4;
     grid-template-columns: 1fr 10px;
+    grid-template-rows: 1fr;
 }
 
 .info_details{
     display: grid;
     /* grid-gap: 10px; */
     grid-column: 1 / 2;
+    grid-row: 1 / 2;
     margin: 5px;
     margin-left: 15px;
-    padding: 10px;
-    padding-top: 0;
+    padding: 10px 0 10px 0;
     margin-top: 0;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-template-rows: auto auto;
@@ -532,6 +536,7 @@ i::before{
     /* align-self: center; */
     align-content: center;
     grid-column: 2 / -1 ;
+    grid-row: 1 / 2;
 }
 
 .edit_info>i{
