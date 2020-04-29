@@ -39,3 +39,8 @@ body{
     font-family: 'Ubuntu';
     color: var(--black);
 }
+
+
+.mat-dialog-container {
+    padding: 0 !important;
+}

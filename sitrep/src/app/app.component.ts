@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { UpdateService } from './updates/update.service';
 import { StoreService } from './stores/store.service';
 import { Store } from './stores/store.model';
+import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,8 @@ export class AppComponent {
 
   constructor(
     public updateService: UpdateService,
-    public storeService: StoreService
+    public storeService: StoreService,
+    public dialog: MatDialog
   ) { }
 
   async ngOnInit() {
@@ -46,6 +49,21 @@ export class AppComponent {
   callPrintRep() {
     alert("Printing Today's Report...");
   };
+
+  resolveStore() {
+    const dialogRef = this.dialog.open(ResolveStoreComponent, {
+      
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        // resolve store
+      } else {
+        // don't resolve store
+      }
+    });
+    return;
+  }
 
   addUpdateToList(form: NgForm, store) {
     const newUpdate: Update = {

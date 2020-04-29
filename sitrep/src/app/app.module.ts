@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
+import {MatDialogModule} from '@angular/material/dialog'; 
 
 @NgModule({
   declarations: [
@@ -17,9 +18,12 @@ import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+
+    MatDialogModule
   ],
   providers: [],
+  entryComponents: [ResolveStoreComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
