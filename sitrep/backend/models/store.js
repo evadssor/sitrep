@@ -12,6 +12,7 @@ const storeSchema = mongoose.Schema({
     hardware: { type: String, required: false},
     startDate: { type: String, required: true},
     startTime: { type: String, required: true},
+    downTime: { type: String, required: false},
 });
 
 

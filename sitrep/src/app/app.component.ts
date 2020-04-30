@@ -26,6 +26,7 @@ export class AppComponent {
   hoverOver = '';
   editing = '';
 
+
   constructor(
     public updateService: UpdateService,
     public storeService: StoreService,
@@ -121,6 +122,7 @@ export class AppComponent {
       hardware: form.value.hardware,
       startDate: form.value.new_date,
       startTime: form.value.new_time,
+      downTime: '',
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,

@@ -29,6 +29,7 @@ export class StoreService {
                         hardware: store.hardware,
                         startDate: store.startDate,
                         startTime: store.startTime,
+                        downTime: store.downTime,
                         updates: updates
                     }
                 });

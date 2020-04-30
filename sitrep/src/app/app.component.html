@@ -72,7 +72,7 @@
               <option value="st550" *ngIf="server === 'Linux'">ST550</option>
             </select>
           </div>
-          <div class="comm_Pro" *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">
+          <div class="comm_Pro" *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
             <label for="provider">Provider</label>
             <p *ngIf="editing !== store" class="provider">{{store.provider}}</p>
             <select *ngIf="editing === store" class="provider" [(ngModel)]="provider" name="provider">
@@ -85,7 +85,7 @@
               <option value="Other">Other</option>
             </select>
           </div>
-          <div class="hard_ware" *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">
+          <div class="hard_ware" *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
             <label for="hardware">Hardware</label>
             <p *ngIf="editing !== store" class="hardware">{{store.hardware}}</p>
             <select *ngIf="editing === store" class="hardware" [(ngModel)]="hardware" name="hardware">

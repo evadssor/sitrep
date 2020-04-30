@@ -14,4 +14,5 @@ export interface Store {
     updates: Update[];
     startDate: string;
     startTime: string;
+    downTime: string;
 }

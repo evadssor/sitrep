@@ -95,6 +95,7 @@ app.post('/api/stores', (req, res, next) => {
         hardware: req.body.hardware,
         startDate: req.body.startDate,
         startTime: req.body.startTime,
+        downTime: req.body.downTime
     });
     store.save().then(result => {
         if (result._id !== null || result._id !== undefined) {

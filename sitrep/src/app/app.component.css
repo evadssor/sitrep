@@ -307,6 +307,7 @@ button:hover{
     margin: 2px;
     height: 12px;
     width: 12px;
+    align-self: center;
 }
 
 .edit_entry, .edit_info>i:hover{
