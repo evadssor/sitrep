@@ -165,35 +165,42 @@
         </div>
         <div class="entries">
           <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
-            <div class="entry" *ngIf="editing === ''">
-              <div class="date_entry">
-                <p>{{ convertDate(update.date) }}</p>
+              <div class="entry" *ngIf="editing !== update">
+                <div class="date_entry">
+                  <p>{{ convertDate(update.date) }}</p>
+                </div>
+                <div class="time_entry">
+                  <p>{{update.time}}</p>
+                </div>
+                <div class="entry_text">
+                  <p>{{update.message}}</p>
+                </div>
+                <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
+                  <i *ngIf="editing === ''" class="fas fa-pencil-alt fa-xs" title="Edit Update"
+                    (click)="editing = update"></i>
+                  <i *ngIf="editing === ''" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
+                    title="Delete Update"></i>
+                </div>
               </div>
-              <div class="time_entry">
-                <p>{{update.time}}</p>
+              <div class="entry" *ngIf="editing === update">
+                <div class="date_entry">
+                  <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
+                  max="2025-01-01" >
+                </div>
+                <div class="time_entry">
+                  <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
+                </div>
+                <div class="edit_entry_text">
+                  <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message" name="edit_text"></textarea>
+                </div>
+                <div class="edit_entry">
+                  <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
+                    (click)="saveUpdate(update)"></i>
+                  <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
+                </div>
               </div>
-              <div class="entry_text">
-                <p>{{update.message}}</p>
-              </div>
-            </div>
-            <div class="entry" *ngIf="editing === update">
-              <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
-                max="2025-01-01">
-              <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
-              <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
-                name="edit_text"></textarea>
-            </div>
-            <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
-              <i *ngIf="editing === ''" class="fas fa-pencil-alt fa-xs" title="Edit Update"
-                (click)="editing = update"></i>
-              <i *ngIf="editing === ''" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
-                title="Delete Update"></i>
-              <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
-                (click)="saveUpdate(update)"></i>
-              <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
             </div>
           </div>
-        </div>
       </section>
       <section class="add_update">
         <form class="add" *ngIf="showAddUpdate == store.storeId" (submit)="addUpdateToList(postForm, store)"
