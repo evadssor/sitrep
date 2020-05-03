@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store } from './store.model';
 import { map } from 'rxjs/operators';
+import { Update } from 'app/updates/update.model';
 
 @Injectable({ providedIn: 'root' })
 export class StoreService {
@@ -30,7 +31,7 @@ export class StoreService {
                         startDate: store.startDate,
                         startTime: store.startTime,
                         downTime: this.downTime(store.startDate, store.startTime),
-                        updates: updates
+                        updates: this.sortUpdates(updates)
                     }
                 });
             }))
@@ -90,6 +91,11 @@ export class StoreService {
             });
     }
 
+    sortUpdates(updates: Update[]) {
+        const sortedUpdates = updates.sort((a, b) => this.downTime(a.date, a.time) - this.downTime(b.date, b.time));
+        sortedUpdates.reverse();
+        return sortedUpdates;
+    }
 
     downTime(d, t) {//take in date and time from inputs
         var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
