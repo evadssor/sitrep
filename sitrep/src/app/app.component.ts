@@ -99,7 +99,6 @@ export class AppComponent {
   }
 
   saveUpdate(update: Update) {
-    console.log('Update in saveUpdate()', update);
     this.editing = '';
     this.updateService.editUpdate(update);
   }

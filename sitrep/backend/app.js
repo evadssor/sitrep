@@ -66,7 +66,6 @@ app.put('/api/updates/edit/:id', (req, res, next) => {
         time: req.body.time,
         message: req.body.message
     });
-    console.log('Update in app.js:', updateEdited);
     Update.updateOne({ _id: req.params.id }, updateEdited).then(editResult => {
         res.status(200).json({
             message: 'update edit saved successfully',
