@@ -153,7 +153,6 @@ app.get('/api/stores/:id', (req, res, next) => {
 
 // Save Store Edit
 app.put('/api/stores/edit/:id', (req, res, next) => {
-    console.log('Store body: ', req.body);
     const store = new Store({
         _id: req.body.storeId,
         storeNumber: req.body.storeNumber,
@@ -169,7 +168,6 @@ app.put('/api/stores/edit/:id', (req, res, next) => {
         startTime: req.body.startTime,
         downTime: req.body.downTime
     });
-    console.log('store in app.js: ', store);
     Store.updateOne({ _id: store._id }, store).then(editResult => {
         res.status(201).json({
             message: 'Store edit saved successfully',

@@ -120,22 +120,22 @@
           <div class="hard_ware"
             *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
             <label for="hardware">Hardware</label>
-            <select class="hardware" [(ngModel)]="hardware" name="hardware">
+            <select class="hardware" [(ngModel)]="store.hardware" name="hardware">
               <option value="-">-Select-</option>
-              <option value="Router" *ngIf="issue_type === 'LAN'">Router</option>
-              <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
-              <option value="Cabling" *ngIf="issue_type === 'LAN'">Cabling</option>
-              <option value="Modem" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Modem
+              <option value="Router" *ngIf="store.issue === 'LAN'">Router</option>
+              <option value="Switch" *ngIf="store.issue === 'LAN'">Switch</option>
+              <option value="Cabling" *ngIf="store.issue === 'LAN'">Cabling</option>
+              <option value="Modem" *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
               </option>
               <option value="Adtran"
-                *ngIf="issue_type === 'VOICE' && provider !== 'Windstream' && provider !== 'TRCA' && provider !== 'Optus'">
+                *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
                 AdTran</option>
-              <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
-              <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
-              <option value="Circuit Only" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">
+              <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD</option>
+              <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
+              <option value="Circuit Only" *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
                 Circuit Only</option>
               <option value="PBX"
-                *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">
+                *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">
                 PBX</option>
             </select>
           </div>
