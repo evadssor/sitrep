@@ -127,7 +127,7 @@ export class AppComponent {
       hardware: form.value.hardware,
       startDate: form.value.new_date,
       startTime: form.value.new_time,
-      downTime: '',
+      downTime: this.downTime(form.value.new_date, form.value.new_time),
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,

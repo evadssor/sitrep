@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Store } from './store.model';
 import { map } from 'rxjs/operators';
+import { Update } from 'app/updates/update.model';
 
 @Injectable({ providedIn: 'root' })
 export class StoreService {
@@ -29,12 +30,16 @@ export class StoreService {
                         hardware: store.hardware,
                         startDate: store.startDate,
                         startTime: store.startTime,
-                        downTime: store.downTime,
-                        updates: updates
+                        downTime: this.downTime(store.startDate, store.startTime),
+                        updates: this.sortUpdates(updates)
                     }
                 });
             }))
             .subscribe((transformedStores) => {
+                console.log('transformedStores pre sort: ', transformedStores);
+                transformedStores.sort((a, b) => parseFloat(a.downTime) - parseFloat(b.downTime));
+                transformedStores.reverse();
+                console.log('transformedStores post sort: ', transformedStores);
                 this.stores = transformedStores;
                 this.storesUpdated.next([...this.stores]);
             });
@@ -69,7 +74,7 @@ export class StoreService {
             hardware: store.hardware,
             startDate: store.startDate,
             startTime: store.startTime,
-            downTime: store.downTime
+            downTime: this.downTime(store.startDate, store.startTime)
         }
         this.http.put('http://localhost:3000/api/stores/edit/' + store.storeId, editedStore)
             .subscribe((response) => {
@@ -85,4 +90,25 @@ export class StoreService {
                 this.storesUpdated.next([...this.stores]);
             });
     }
+
+    sortUpdates(updates: Update[]) {
+        const sortedUpdates = updates.sort((a, b) => this.downTime(a.date, a.time) - this.downTime(b.date, b.time));
+        sortedUpdates.reverse();
+        return sortedUpdates;
+    }
+
+    downTime(d, t) {//take in date and time from inputs
+        var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
+        var start_milli = Date.parse(date_time); //parse date_time string to milliseconds
+        var current_milli = new Date().getTime(); //get current time in milliseconds
+    
+        var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;//divide milliseconds into hours 
+        var setHours = Math.floor(down_hours);//Cut off decimal after hour
+    
+        var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
+        var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
+        var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
+    
+        return (setHours + setMinutes);
+      }
 }
