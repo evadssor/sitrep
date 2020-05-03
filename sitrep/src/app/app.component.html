@@ -20,7 +20,10 @@
     <div class="form shade" *ngFor="let store of stores">
       <section class="issue_header">
         <div class="store">
-          <p>Store #<span class="storeNum">{{store.storeNumber}}</span></p>
+          <p>Store #
+            <span class="storeNum" *ngIf="editing !== store">{{store.storeNumber}}</span>
+            <input *ngIf="editing === store" class="new_storeNum" [(ngModel)]="store.storeNumber" name="new_storeNum" maxlength="4" required>
+          </p>
         </div>
         <div class="down">
           <p>Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
@@ -72,8 +75,7 @@
         <div class="info_details" *ngIf="editing === store">
           <div class="type">
             <label for="issue_type">Issue</label>
-            <select class="issue_type" name="issue_type" [(ngModel)]="store.issue"
-              name="issue_type">
+            <select class="issue_type" name="issue_type" [(ngModel)]="store.issue" name="issue_type">
               <option value="-">-Select-</option>
               <option value="SERVER">SERVER</option>
               <option value="WAN">WAN</option>
@@ -125,14 +127,16 @@
               <option value="Router" *ngIf="store.issue === 'LAN'">Router</option>
               <option value="Switch" *ngIf="store.issue === 'LAN'">Switch</option>
               <option value="Cabling" *ngIf="store.issue === 'LAN'">Cabling</option>
-              <option value="Modem" *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
+              <option value="Modem"
+                *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
               </option>
               <option value="Adtran"
                 *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
                 AdTran</option>
               <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD</option>
               <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
-              <option value="Circuit Only" *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
+              <option value="Circuit Only"
+                *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
                 Circuit Only</option>
               <option value="PBX"
                 *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">
@@ -141,13 +145,12 @@
           </div>
           <div class="bmc_tick">
             <label for="bmc_Num">BMC Ticket</label>
-            <input class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="store.bmcTicket"
-              name="bmc_Num">
+            <input class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="store.bmcTicket" name="bmc_Num">
           </div>
           <div class="vend_tick">
             <label for="vend_Num">Vendor Ticket</label>
-            <input class="vend_Num" placeholder="{{store.serviceTicket}}"
-              [(ngModel)]="store.serviceTicket" name="vend_Num">
+            <input class="vend_Num" placeholder="{{store.serviceTicket}}" [(ngModel)]="store.serviceTicket"
+              name="vend_Num">
           </div>
         </div>
       </section>
@@ -165,42 +168,43 @@
         </div>
         <div class="entries">
           <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
-              <div class="entry" *ngIf="editing !== update">
-                <div class="date_entry">
-                  <p>{{ convertDate(update.date) }}</p>
-                </div>
-                <div class="time_entry">
-                  <p>{{update.time}}</p>
-                </div>
-                <div class="entry_text">
-                  <p>{{update.message}}</p>
-                </div>
-                <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
-                  <i *ngIf="editing === ''" class="fas fa-pencil-alt fa-xs" title="Edit Update"
-                    (click)="editing = update"></i>
-                  <i *ngIf="editing === ''" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
-                    title="Delete Update"></i>
-                </div>
+            <div class="entry" *ngIf="editing !== update">
+              <div class="date_entry">
+                <p>{{ convertDate(update.date) }}</p>
               </div>
-              <div class="entry" *ngIf="editing === update">
-                <div class="date_entry">
-                  <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
-                  max="2025-01-01" >
-                </div>
-                <div class="time_entry">
-                  <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
-                </div>
-                <div class="edit_entry_text">
-                  <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message" name="edit_text"></textarea>
-                </div>
-                <div class="edit_entry">
-                  <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
-                    (click)="saveUpdate(update)"></i>
-                  <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
-                </div>
+              <div class="time_entry">
+                <p>{{update.time}}</p>
+              </div>
+              <div class="entry_text">
+                <p>{{update.message}}</p>
+              </div>
+              <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
+                <i *ngIf="editing === ''" class="fas fa-pencil-alt fa-xs" title="Edit Update"
+                  (click)="editing = update"></i>
+                <i *ngIf="editing === ''" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
+                  title="Delete Update"></i>
+              </div>
+            </div>
+            <div class="entry" *ngIf="editing === update">
+              <div class="date_entry">
+                <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
+                  max="2025-01-01">
+              </div>
+              <div class="time_entry">
+                <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
+              </div>
+              <div class="edit_entry_text">
+                <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
+                  name="edit_text"></textarea>
+              </div>
+              <div class="edit_entry">
+                <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
+                  (click)="saveUpdate(update)"></i>
+                <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
               </div>
             </div>
           </div>
+        </div>
       </section>
       <section class="add_update">
         <form class="add" *ngIf="showAddUpdate == store.storeId" (submit)="addUpdateToList(postForm, store)"
