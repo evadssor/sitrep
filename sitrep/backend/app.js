@@ -130,6 +130,7 @@ app.post('/api/stores', (req, res, next) => {
 // Get stores
 app.get('/api/stores', (req, res, next) => {
     Store.find().then(dbStores => {
+        console.log('dbStores: ', dbStores);
         Update.find().then(dbUpdates => {
             res.status(200).json({
                 message: 'stores fetched successfully',
@@ -150,10 +151,28 @@ app.get('/api/stores/:id', (req, res, next) => {
     }).catch();
 });
 
-app.post('/api/stores/edit', (req, res, next) => {
-    const store = req.body.store;
-    store.updateOne({ _id: store.storeId }).then(editResult => {
+// Save Store Edit
+app.put('/api/stores/edit/:id', (req, res, next) => {
+    console.log('Store body: ', req.body);
+    const store = new Store({
+        _id: req.body.storeId,
+        storeNumber: req.body.storeNumber,
+        issue: req.body.issue,
+        bmcTicket: req.body.bmcTicket,
+        serviceTicket: req.body.serviceTicket,
+        serverType: req.body.serverType,
+        serverModel: req.body.serverModel,
+        commType: req.body.commType,
+        provider: req.body.provider,
+        hardware: req.body.hardware,
+        startDate: req.body.startDate,
+        startTime: req.body.startTime,
+        downTime: req.body.downTime
+    });
+    console.log('store in app.js: ', store);
+    Store.updateOne({ _id: store._id }, store).then(editResult => {
         res.status(201).json({
+            message: 'Store edit saved successfully',
             result: editResult
         })
     })

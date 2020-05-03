@@ -56,9 +56,24 @@ export class StoreService {
     }
 
     editStore(store: Store) {
-        this.http.post('http://localhost:3000/api/stores/edit/', store)
-            .subscribe(() => {
-                
+        const editedStore = {
+            storeId: store.storeId,
+            storeNumber: store.storeNumber,
+            issue: store.issue,
+            bmcTicket: store.bmcTicket,
+            serviceTicket: store.serviceTicket,
+            serverType: store.serverType,
+            serverModel: store.serverModel,
+            commType: store.commType,
+            provider: store.provider,
+            hardware: store.hardware,
+            startDate: store.startDate,
+            startTime: store.startTime,
+            downTime: store.downTime
+        }
+        this.http.put('http://localhost:3000/api/stores/edit/' + store.storeId, editedStore)
+            .subscribe((response) => {
+                console.log('Reponse from Edit Store: ', response);
             });
     }
 
