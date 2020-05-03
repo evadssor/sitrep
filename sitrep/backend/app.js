@@ -22,7 +22,7 @@ app.use((req, res, next) => {
         'Origin, X-Requested-With, Content-Type, Accept'
     );
     res.setHeader('Access-Control-Allow-Methods',
-        'GET, POST, PATCH, DELETE, OPTIONS');
+        'GET, POST, PATCH, PUT, DELETE, OPTIONS');
     next();
 });
 
@@ -56,18 +56,23 @@ app.get('/api/updates/:storeId', (req, res, next) => {
 });
 
 // Edit Update - Save over existing update via the updateId
-app.post('/api/updates/edit/', (req, res, next) => {
-    console.log('req.body.update', req.body.update);
-    const update = req.body.update;
-    console.log('update', update);
-    update.updateOne({ _id: req.params.update.updateId }).then(editResult => {
+app.put('/api/updates/edit/:id', (req, res, next) => {
+    console.log('From client side; body: ', req.body);
+    const updateEdited = new Update({
+        _id: req.body.updateId,
+        storeId: req.body.storeId,
+        storeNumber: req.body.storeNumber,
+        date: req.body.date,
+        time: req.body.time,
+        message: req.body.message
+    });
+    Update.updateOne({ _id: req.params.id }, updateEdited).then(editResult => {
         res.status(200).json({
             message: 'update edit saved successfully',
             result: editResult
         });
     });
 });
-
 
 // Delete Store based on update. 
 app.delete('/api/updates/delete/:updateId', (req, res, next) => {
@@ -125,6 +130,7 @@ app.post('/api/stores', (req, res, next) => {
 // Get stores
 app.get('/api/stores', (req, res, next) => {
     Store.find().then(dbStores => {
+        console.log('dbStores: ', dbStores);
         Update.find().then(dbUpdates => {
             res.status(200).json({
                 message: 'stores fetched successfully',
@@ -145,10 +151,26 @@ app.get('/api/stores/:id', (req, res, next) => {
     }).catch();
 });
 
-app.post('/api/stores/edit', (req, res, next) => {
-    const store = req.body.store;
-    store.updateOne({ _id: store.storeId }).then(editResult => {
+// Save Store Edit
+app.put('/api/stores/edit/:id', (req, res, next) => {
+    const store = new Store({
+        _id: req.body.storeId,
+        storeNumber: req.body.storeNumber,
+        issue: req.body.issue,
+        bmcTicket: req.body.bmcTicket,
+        serviceTicket: req.body.serviceTicket,
+        serverType: req.body.serverType,
+        serverModel: req.body.serverModel,
+        commType: req.body.commType,
+        provider: req.body.provider,
+        hardware: req.body.hardware,
+        startDate: req.body.startDate,
+        startTime: req.body.startTime,
+        downTime: req.body.downTime
+    });
+    Store.updateOne({ _id: store._id }, store).then(editResult => {
         res.status(201).json({
+            message: 'Store edit saved successfully',
             result: editResult
         })
     })

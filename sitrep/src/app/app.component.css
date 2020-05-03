@@ -298,6 +298,15 @@ button:hover{
     text-align: left !important;
 }
 
+.edit_entry_text{
+    margin: 0 0 0 25px;
+    text-align: left !important;
+}
+
+.edit_entry_text>textarea{
+    width: 415px;
+}
+
 .edit_entry{
     margin-right: 5px;
     align-items: center;

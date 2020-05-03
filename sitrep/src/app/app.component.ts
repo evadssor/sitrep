@@ -22,9 +22,9 @@ export class AppComponent {
   showUpdateBtn = '';
   showStore = false;
   showRestore = false;
-  // down_time: string;
   hoverOver = '';
   editing = '';
+  updateEditable = '';
 
 
   constructor(
@@ -58,10 +58,10 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        // resolve store
+      if (result) {
+        // TODO: resolve store
       } else {
-        // don't resolve store
+        // TODO: don't resolve store
       }
     });
     return;
@@ -94,7 +94,12 @@ export class AppComponent {
     }
   };
 
-  callEditUpdate(update: Update) {
+  triggerEdit(updateId: string) {
+    this.updateEditable = updateId;
+  }
+
+  saveUpdate(update: Update) {
+    this.editing = '';
     this.updateService.editUpdate(update);
   }
 
@@ -142,9 +147,11 @@ export class AppComponent {
     }
   };
 
-  // callEditStore() {
-  //   this.storeService.editStore();
-  // }
+  saveStoreEdit(store: Store) {
+    this.editing = '';
+    console.log('store in app.comonpent.ts: ', store);
+    this.storeService.editStore(store);
+  }
 
   callDeleteStore(storeId: string) {
     let cancel = confirm('Are you sure you want to DELETE this Store?');
@@ -168,12 +175,12 @@ export class AppComponent {
     return (setHours + "hrs " + m + "min");
   }
 
-  convertDate(date){
+  convertDate(date) {
     var d = date;
     var newDate = '';
-    if (d) { 
-      d = d.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, function(match,y,m,d) { 
-          newDate = m + '/' + d + '/' + y;  
+    if (d) {
+      d = d.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, function (match, y, m, d) {
+        newDate = m + '/' + d + '/' + y;
       });
       return newDate;
     }

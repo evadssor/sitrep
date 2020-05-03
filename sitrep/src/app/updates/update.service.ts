@@ -33,10 +33,18 @@ export class UpdateService {
         });
     }
 
-    editUpdate(update: Update) {
-        this.http.post('http://localhost:3000/api/updates/edit/', update)
-        .subscribe(() => {
-
+    editUpdate(update: any) {
+        const updateEdited = {
+            updateId: update._id,
+            storeId: update.storeId,
+            storeNumber: update.storeNumber,
+            date: update.date,
+            time: update.time,
+            message: update.message
+        };
+        this.http.put('http://localhost:3000/api/updates/edit/' + update._id, updateEdited)
+        .subscribe((response) => {
+            console.log('Response: ', response);
         });
     }
 
