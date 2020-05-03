@@ -27,6 +27,7 @@ app.use((req, res, next) => {
 });
 
 // UPDATE CALLS
+// Save Update
 app.post('/api/updates', (req, res, next) => {
     const update = new Update({
         storeId: req.body.storeId,
@@ -43,6 +44,7 @@ app.post('/api/updates', (req, res, next) => {
     });
 });
 
+// Get Updates associated with storeId
 app.get('/api/updates/:storeId', (req, res, next) => {
     Update.find({ storeId: req.params.storeId }).then(documents => {
         console.log('Documents: ', documents);
@@ -53,6 +55,21 @@ app.get('/api/updates/:storeId', (req, res, next) => {
     }).catch();
 });
 
+// Edit Update - Save over existing update via the updateId
+app.post('/api/updates/edit/', (req, res, next) => {
+    console.log('req.body.update', req.body.update);
+    const update = req.body.update;
+    console.log('update', update);
+    update.updateOne({ _id: req.params.update.updateId }).then(editResult => {
+        res.status(200).json({
+            message: 'update edit saved successfully',
+            result: editResult
+        });
+    });
+});
+
+
+// Delete Store based on update. 
 app.delete('/api/updates/delete/:updateId', (req, res, next) => {
     Update.deleteOne({ _id: req.params.updateId }).then(result => {
         res.status(200).json({
@@ -60,9 +77,10 @@ app.delete('/api/updates/delete/:updateId', (req, res, next) => {
             result: result
         });
     });
-})
+});
 
 // STORE CALLS
+// Save new store
 app.post('/api/stores', (req, res, next) => {
     console.log('Store: ', req.body);
     const store = new Store({
@@ -73,7 +91,11 @@ app.post('/api/stores', (req, res, next) => {
         serverType: req.body.serverType,
         serverModel: req.body.serverModel,
         commType: req.body.commType,
-        provider: req.body.provider
+        provider: req.body.provider,
+        hardware: req.body.hardware,
+        startDate: req.body.startDate,
+        startTime: req.body.startTime,
+        downTime: req.body.downTime
     });
     store.save().then(result => {
         if (result._id !== null || result._id !== undefined) {
@@ -100,6 +122,7 @@ app.post('/api/stores', (req, res, next) => {
     }).catch();
 });
 
+// Get stores
 app.get('/api/stores', (req, res, next) => {
     Store.find().then(dbStores => {
         Update.find().then(dbUpdates => {
@@ -112,7 +135,7 @@ app.get('/api/stores', (req, res, next) => {
     }).catch();
 });
 
-// TODO on frontend
+// TODO on frontend (Find Specific Store)
 app.get('/api/stores/:id', (req, res, next) => {
     Store.findById(req.params.id).then(documents => {
         res.status(200).json({
@@ -122,6 +145,16 @@ app.get('/api/stores/:id', (req, res, next) => {
     }).catch();
 });
 
+app.post('/api/stores/edit', (req, res, next) => {
+    const store = req.body.store;
+    store.updateOne({ _id: store.storeId }).then(editResult => {
+        res.status(201).json({
+            result: editResult
+        })
+    })
+});
+
+// Delete Store via storeId
 app.delete('/api/stores/delete/:storeId', (req, res, next) => {
     Store.deleteOne({ _id: req.params.storeId }).then(result => {
         res.status(200).json({

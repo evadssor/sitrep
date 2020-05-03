@@ -1,0 +1,84 @@
+
+
+.container{
+    /* position: fixed; */
+    display: grid;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.70);
+    justify-content: center;
+    align-content: center;
+}
+
+.resolveStore{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: rgb(87, 87, 87);
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    z-index: 2;
+}
+
+.resolve-header{
+    grid-column: 1 / -1;
+    grid-row: 1 / 2;
+    background-color: var(--black);
+    padding: 10px;
+}
+
+.resolve-header>p{
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--whiter);
+}
+
+form{
+    display: inline-flex;
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+
+form>div>input{
+    width: 115px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+label{
+    padding-right: 10px;
+    color: black;
+}
+
+.resolveBtns{
+    grid-column: 1 / -1;
+    grid-row: 3 / 4;
+    padding: 5px;
+    justify-self: end;
+}
+
+.resolveBtns>button{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--whiter);
+    background-color: var(--green);
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid var(--dark_grey);
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.cancel{
+    border: none !important;
+    background: transparent !important;
+    color: var(--black) !important;
+}
+
+

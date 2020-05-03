@@ -26,6 +26,10 @@ export class StoreService {
                         serverModel: store.serverModel,
                         commType: store.commType,
                         provider: store.provider,
+                        hardware: store.hardware,
+                        startDate: store.startDate,
+                        startTime: store.startTime,
+                        downTime: store.downTime,
                         updates: updates
                     }
                 });
@@ -48,6 +52,13 @@ export class StoreService {
                 store.updates[0].storeId = returnedId;
                 this.stores.push(store);
                 this.storesUpdated.next([...this.stores]);
+            });
+    }
+
+    editStore(store: Store) {
+        this.http.post('http://localhost:3000/api/stores/edit/', store)
+            .subscribe(() => {
+                
             });
     }
 

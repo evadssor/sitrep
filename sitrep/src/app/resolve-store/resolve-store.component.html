@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="resolveStore">
+    <div class="resolve-header">
+      <p>Enter Date and Time Issue Resolved:</p>
+    </div>
+    <form action="restore">
+      <div class="date">
+        <label for="resovleDate">Date:</label>
+        <input matInput type="date" name="resolveDate" id="resolveDate" [(ngModel)]="restoreDate">  
+      </div>
+      <div class="time">
+        <label for="resolveTime">Time:</label>
+      <input type="time" name="resolveTime" id="resolveTime" [(ngModel)]="restoreDate">
+      </div>
+    </form>
+    <div class="resolveBtns">
+      <button class="confirm" (click)="onConfirmClick()">Confirm</button>
+      <button class="cancel" (click)="onCancelClick()">X</button>
+    </div>
+  </div>
+</div>

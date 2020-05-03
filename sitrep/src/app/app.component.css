@@ -96,7 +96,7 @@ a:hover{
 }
 
 .addStore{
-    background-color: var(--red);
+    background-color: var(--grey);
 }
 
 .printRep{
@@ -122,7 +122,7 @@ button:hover{
 /*FORM*/
 .form{
     display: grid;
-    width: 700px;
+    width: 725px;
     margin: 20px 0 20px 0;
     grid-column: 2 / 3;
     /* justify-content: center;
@@ -171,7 +171,7 @@ button:hover{
 .store{
     display: grid;
     grid-column: 1 / 2;
-    margin-left: 10px;
+    margin-left: 5px;
     justify-content: start;
     align-content: center;
     font-size: 32px;
@@ -198,7 +198,7 @@ button:hover{
     display: grid;
     grid-column: 3 / 4;
     grid-row: 1 / 2;
-    margin-right: 10px;
+    margin-right: 5px;
     justify-content: end;
     align-content: center;
 }
@@ -221,7 +221,7 @@ button:hover{
 
 /*Posted Issue Info*/
 
-.info>div>p{
+.info_details>div>p{
     margin: 5px;
     padding: 5px;
     color: var(--black);
@@ -229,6 +229,7 @@ button:hover{
     height: 20px;
     background-color: var(--whiter);
 }
+
 
 /* .vend_tick{
     grid-column: span 1;
@@ -297,15 +298,19 @@ button:hover{
     text-align: left !important;
 }
 
-.edit_options{
-    padding-right: 5px;
+.edit_entry{
+    margin-right: 5px;
+    align-items: center;
 }
 
-.edit_options>*{
+.edit_entry>*{
     margin: 2px;
+    height: 12px;
+    width: 12px;
+    align-self: center;
 }
 
-.edit_options>i:hover{
+.edit_entry, .edit_info>i:hover{
     cursor: pointer;
 }
 
@@ -334,6 +339,7 @@ i::before{
     justify-content: flex-end;
 }
 
+
 .update>button{
     padding: 5px;
     margin: 5px;
@@ -345,22 +351,15 @@ i::before{
 }
 
 .update_btn{
-    display: block;
     background-color: var(--blue);
 }
 
 .resolve_btn{
-    display: block;
     background-color: var(--green);
 }
 
-.reopen_btn{
-    /* display: none; */
-    background-color: var(--red);
-}
-
 .delete_btn{
-    background-color: var(--grey);
+    background-color: var(--black);
     border: 1px solid var(--dark_grey) !important;
 }
 
@@ -371,6 +370,50 @@ i::before{
     margin-left: 10px;
     padding-right: 25px;
     font-size: 24px;
+}
+
+.new_info{
+    display: grid;
+    /* grid-gap: 10px; */
+    grid-column: 1 / -1;
+    grid-row: 2 / -4;
+    grid-template-columns: 1fr 10px;
+}
+
+.new_info_details{
+    display: grid;
+    /* grid-gap: 10px; */
+    grid-column: 1 / 2;
+    margin: 5px;
+    margin-left: 15px;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: auto auto;
+    justify-content: center;
+}
+
+.new_info_details>div{
+    display: grid;
+    align-content: start;
+    justify-content: center;
+    text-align: center;
+}
+
+.new_info_details>div>p{
+    margin: 5px;
+    padding: 5px;
+    color: var(--black);
+    width: 95px;
+    height: 20px;
+    background-color: var(--whiter);
+}
+
+.new_info_details>div>input, select{
+    width: 100px;
+    height: 30px;
+    margin: 5px;
+    text-align: center;
+    font-size: 14px;
 }
 
 .dateTime{
@@ -444,7 +487,7 @@ i::before{
 .delete_up{
     color: var(--black);
     margin-left: 5px;
-    background-color: var(--greyer);
+    background-color: transparent;
 }
 
 /*New Store Entry*/
@@ -460,26 +503,53 @@ i::before{
 
 .info{
     display: grid;
-    grid-gap: 10px;
-    margin: 10px;
+    /* grid-gap: 10px; */
     grid-column: 1 / -1;
     grid-row: 2 / -4;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 10px;
+    grid-template-rows: 1fr;
 }
 
-.info>div{
+.info_details{
+    display: grid;
+    /* grid-gap: 10px; */
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    margin: 5px;
+    margin-left: 15px;
+    padding: 10px 0 10px 0;
+    margin-top: 0;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: auto auto;
+    justify-content: center;
+}
+
+.info_details>div{
     display: grid;
     align-content: start;
     justify-content: center;
     text-align: center;
 }
 
+.edit_info{
+    justify-self: end;
+    padding-right: 5px;
+    /* align-self: center; */
+    align-content: center;
+    grid-column: 2 / -1 ;
+    grid-row: 1 / 2;
+}
+
+.edit_info>i{
+    display: inline-block;
+    margin: 2px;
+}
+
 label{
     font-weight: bold;
 }
 
-.info>div>input, select{
+.info_details>div>input, select{
     width: 100px;
     height: 30px;
     margin: 5px;

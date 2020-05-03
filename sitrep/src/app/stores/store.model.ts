@@ -10,5 +10,9 @@ export interface Store {
     serverModel: string;
     commType: string;
     provider: string;
+    hardware: string;
     updates: Update[];
+    startDate: string;
+    startTime: string;
+    downTime: string;
 }

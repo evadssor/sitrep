@@ -8,7 +8,11 @@ const storeSchema = mongoose.Schema({
     serverType: { type: String, required: false},
     serverModel: { type: String, required: false},
     commType: { type: String, required: false},
-    provider: { type: String, required: false}
+    provider: { type: String, required: false},
+    hardware: { type: String, required: false},
+    startDate: { type: String, required: true},
+    startTime: { type: String, required: true},
+    downTime: { type: String, required: false},
 });
 
 
