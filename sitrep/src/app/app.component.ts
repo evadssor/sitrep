@@ -22,9 +22,9 @@ export class AppComponent {
   showUpdateBtn = '';
   showStore = false;
   showRestore = false;
-  // down_time: string;
   hoverOver = '';
   editing = '';
+  updateEditable = '';
 
 
   constructor(
@@ -59,9 +59,9 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        // resolve store
+        // TODO: resolve store
       } else {
-        // don't resolve store
+        // TODO: don't resolve store
       }
     });
     return;
@@ -94,7 +94,13 @@ export class AppComponent {
     }
   };
 
-  callEditUpdate(update: Update) {
+  triggerEdit(updateId: string) {
+    this.updateEditable = updateId;
+  }
+
+  saveUpdate(update: Update) {
+    console.log('Update in saveUpdate()', update);
+    this.editing = '';
     this.updateService.editUpdate(update);
   }
 

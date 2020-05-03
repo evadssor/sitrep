@@ -22,7 +22,7 @@ app.use((req, res, next) => {
         'Origin, X-Requested-With, Content-Type, Accept'
     );
     res.setHeader('Access-Control-Allow-Methods',
-        'GET, POST, PATCH, DELETE, OPTIONS');
+        'GET, POST, PATCH, PUT, DELETE, OPTIONS');
     next();
 });
 
@@ -56,18 +56,24 @@ app.get('/api/updates/:storeId', (req, res, next) => {
 });
 
 // Edit Update - Save over existing update via the updateId
-app.post('/api/updates/edit/', (req, res, next) => {
-    console.log('req.body.update', req.body.update);
-    const update = req.body.update;
-    console.log('update', update);
-    update.updateOne({ _id: req.params.update.updateId }).then(editResult => {
+app.put('/api/updates/edit/:id', (req, res, next) => {
+    console.log('From client side; body: ', req.body);
+    const updateEdited = new Update({
+        _id: req.body.updateId,
+        storeId: req.body.storeId,
+        storeNumber: req.body.storeNumber,
+        date: req.body.date,
+        time: req.body.time,
+        message: req.body.message
+    });
+    console.log('Update in app.js:', updateEdited);
+    Update.updateOne({ _id: req.params.id }, updateEdited).then(editResult => {
         res.status(200).json({
             message: 'update edit saved successfully',
             result: editResult
         });
     });
 });
-
 
 // Delete Store based on update. 
 app.delete('/api/updates/delete/:updateId', (req, res, next) => {
