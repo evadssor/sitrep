@@ -52,19 +52,41 @@ export class AppComponent {
     alert("Printing Today's Report...");
   };
 
-  resolveStore() {
+  resolveStore(store: Store) {
     const dialogRef = this.dialog.open(ResolveStoreComponent, {
-
+      data: store
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // TODO: resolve store
-      } else {
-        // TODO: don't resolve store
+      if (result.resolved) {
+        console.log('True Result', result);
+        const resolvedStore: Store = {
+            storeId: store.storeId,
+            storeNumber: store.storeNumber,
+            issue: store.issue,
+            bmcTicket: store.bmcTicket,
+            serviceTicket: store.serviceTicket,
+            serverType: store.serverType,
+            serverModel: store.serverModel,
+            commType: store.commType,
+            provider: store.provider,
+            hardware: store.hardware,
+            startDate: store.startDate,
+            startTime: store.startTime,
+            downTime: this.downTime(store.startDate, store.startTime),
+            endDate: result.endDate,
+            endTime: result.endTime,
+            resolved: true,
+            show: false
+        }
+        this.saveStoreEdit(resolvedStore)
       }
     });
     return;
+  }
+
+  removeStoreFromList(store: Store) {
+
   }
 
   addUpdateToList(form: NgForm, store) {
@@ -128,6 +150,8 @@ export class AppComponent {
       startDate: form.value.new_date,
       startTime: form.value.new_time,
       downTime: this.downTime(form.value.new_date, form.value.new_time),
+      resolved: false,
+      show: true,
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,

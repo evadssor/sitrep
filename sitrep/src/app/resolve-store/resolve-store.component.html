@@ -1,20 +1,20 @@
 <div class="container">
   <div class="resolveStore">
     <div class="resolve-header">
-      <p>Enter Date and Time Issue Resolved:</p>
+      <p>Enter Store {{data.storeNumber}}'s Resolve Date/Time:</p>
     </div>
     <form action="restore">
       <div class="date">
         <label for="resovleDate">Date:</label>
-        <input matInput type="date" name="resolveDate" id="resolveDate" [(ngModel)]="restoreDate">  
+        <input matInput type="date" name="resolveDate" id="resolveDate" [(ngModel)]="endDate">  
       </div>
       <div class="time">
         <label for="resolveTime">Time:</label>
-      <input type="time" name="resolveTime" id="resolveTime" [(ngModel)]="restoreDate">
+      <input type="time" name="resolveTime" id="resolveTime" [(ngModel)]="endTime">
       </div>
     </form>
     <div class="resolveBtns">
-      <button class="confirm" (click)="onConfirmClick()">Confirm</button>
+      <button class="confirm" (click)="onConfirmClick(endDate, endTime)">Confirm</button>
       <button class="cancel" (click)="onCancelClick()">X</button>
     </div>
   </div>

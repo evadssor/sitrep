@@ -13,6 +13,10 @@ const storeSchema = mongoose.Schema({
     startDate: { type: String, required: true},
     startTime: { type: String, required: true},
     downTime: { type: String, required: false},
+    endDate: { type: String, required: false},
+    endTime: { type: String, required: false},
+    resolved: { type: Boolean, required: false},
+    show: { type: Boolean, required: false}
 });
 
 

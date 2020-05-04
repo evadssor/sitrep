@@ -11,8 +11,12 @@ export interface Store {
     commType: string;
     provider: string;
     hardware: string;
-    updates: Update[];
+    updates?: Update[];
     startDate: string;
     startTime: string;
     downTime: string;
+    endDate?: string;
+    endTime?: string;
+    resolved?: boolean;
+    show?: boolean;
 }

@@ -31,15 +31,17 @@ export class StoreService {
                         startDate: store.startDate,
                         startTime: store.startTime,
                         downTime: this.downTime(store.startDate, store.startTime),
+                        endDate: store.endDate,
+                        endTime: store.endTime,
+                        resolved: store.resolved,
+                        show: store.show,
                         updates: this.sortUpdates(updates)
                     }
                 });
             }))
             .subscribe((transformedStores) => {
-                console.log('transformedStores pre sort: ', transformedStores);
                 transformedStores.sort((a, b) => parseFloat(a.downTime) - parseFloat(b.downTime));
                 transformedStores.reverse();
-                console.log('transformedStores post sort: ', transformedStores);
                 this.stores = transformedStores;
                 this.storesUpdated.next([...this.stores]);
             });
@@ -74,7 +76,11 @@ export class StoreService {
             hardware: store.hardware,
             startDate: store.startDate,
             startTime: store.startTime,
-            downTime: this.downTime(store.startDate, store.startTime)
+            downTime: store.downTime,
+            endDate: store.endDate,
+            endTime: store.endTime,
+            resolved: store.resolved,
+            show: store.show
         }
         this.http.put('http://localhost:3000/api/stores/edit/' + store.storeId, editedStore)
             .subscribe((response) => {
