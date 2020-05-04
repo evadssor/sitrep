@@ -308,12 +308,11 @@ button:hover{
 }
 
 .edit_entry{
-    margin-right: 5px;
     align-items: center;
 }
 
 .edit_entry>*{
-    margin: 2px;
+    margin-right: 4px;
     height: 12px;
     width: 12px;
     align-self: center;
@@ -515,17 +514,16 @@ i::before{
     /* grid-gap: 10px; */
     grid-column: 1 / -1;
     grid-row: 2 / -4;
-    grid-template-columns: 1fr 10px;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10px 1fr;
 }
 
 .info_details{
     display: grid;
     /* grid-gap: 10px; */
     grid-column: 1 / 2;
-    grid-row: 1 / 2;
+    grid-row: 2 / -1;
     margin: 5px;
-    margin-left: 15px;
     padding: 10px 0 10px 0;
     margin-top: 0;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -545,13 +543,13 @@ i::before{
     padding-right: 5px;
     /* align-self: center; */
     align-content: center;
-    grid-column: 2 / -1 ;
+    grid-column: 1 / 2 ;
     grid-row: 1 / 2;
 }
 
 .edit_info>i{
     display: inline-block;
-    margin: 2px;
+    margin-left: 4px;
 }
 
 label{

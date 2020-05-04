@@ -95,15 +95,15 @@
             <label for="model_num">Server Model</label>
             <select class="model_num" [(ngModel)]="store.serverModel" name="model_num">
               <option value="-">-Select-</option>
-              <option value="P5" *ngIf="server === 'iSeries'">P5</option>
-              <option value="P6" *ngIf="server === 'iSeries'">P6</option>
-              <option value="P7" *ngIf="server === 'iSeries'">P7</option>
-              <option value="P8" *ngIf="server === 'iSeries'">P8</option>
-              <option value="P9" *ngIf="server === 'iSeries'">P9</option>
-              <option value="x3100" *ngIf="server === 'Linux'">X3100</option>
-              <option value="ts460" *ngIf="server === 'Linux'">TS460</option>
-              <option value="st250" *ngIf="server === 'Linux'">ST250</option>
-              <option value="st550" *ngIf="server === 'Linux'">ST550</option>
+              <option value="P5" *ngIf="store.serverType === 'iSeries'">P5</option>
+              <option value="P6" *ngIf="store.serverType === 'iSeries'">P6</option>
+              <option value="P7" *ngIf="store.serverType === 'iSeries'">P7</option>
+              <option value="P8" *ngIf="store.serverType === 'iSeries'">P8</option>
+              <option value="P9" *ngIf="store.serverType === 'iSeries'">P9</option>
+              <option value="x3100" *ngIf="store.serverType === 'Linux'">X3100</option>
+              <option value="ts460" *ngIf="store.serverType === 'Linux'">TS460</option>
+              <option value="st250" *ngIf="store.serverType === 'Linux'">ST250</option>
+              <option value="st550" *ngIf="store.serverType === 'Linux'">ST550</option>
             </select>
           </div>
           <div class="comm_Pro"
@@ -114,8 +114,8 @@
               <option value="MetTel">MetTel</option>
               <option value="Vonage">Vonage</option>
               <option value="Windstream">Windstream</option>
-              <option value="TRCA" *ngIf="issue_type !== 'WAN'">TRCA</option>
-              <option value="Optus" *ngIf="issue_type !== 'WAN'">Optus</option>
+              <option value="TRCA" *ngIf="store.issue !== 'WAN'">TRCA</option>
+              <option value="Optus" *ngIf="store.issue  !== 'WAN'">Optus</option>
               <option value="Other">Other</option>
             </select>
           </div>
