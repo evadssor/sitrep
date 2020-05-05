@@ -29,7 +29,7 @@
           <p>Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
         </div>
         <div class="status">
-          <p class="status_text">OPEN</p>
+          <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}" class="status_text">{{checkResolved(store.resolved)}}</p>
         </div>
       </section>
       <section class="info">
@@ -179,9 +179,9 @@
                 <p>{{update.message}}</p>
               </div>
               <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
-                <i *ngIf="editing === ''" class="fas fa-pencil-alt fa-xs" title="Edit Update"
+                <i *ngIf="editing !== update" class="fas fa-pencil-alt fa-xs" title="Edit Update"
                   (click)="editing = update"></i>
-                <i *ngIf="editing === ''" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
+                <i *ngIf="editing !== update" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
                   title="Delete Update"></i>
               </div>
             </div>
@@ -228,9 +228,10 @@
         <div class="update">
           <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
             *ngIf="showUpdateBtn !== store.storeId">Update</button>
+          <button *ngIf="store.resolved" class="reopen_btn" (click)="store.resolved = false">Reopen</button>
           <button *ngIf="!store.resolved" class="resolve_btn" (click)="resolveStore(store)">Resolve</button>
-          <button *ngIf="store.resolved" class="resolve_btn" (click)="removeStoreFromList(store)">Remove</button>
-          <button class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
+          <button *ngIf="store.resolved" class="remove_btn" (click)="removeStoreFromList(store)">Remove</button>
+          <button *ngIf="!store.resolved" class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
         </div>
       </section>
     </div>

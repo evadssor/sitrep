@@ -366,7 +366,11 @@ i::before{
     background-color: var(--green);
 }
 
-.delete_btn{
+.reopen_btn{
+    background-color: var(--red);
+}
+
+.delete_btn, .remove_btn{
     background-color: var(--black);
     border: 1px solid var(--dark_grey) !important;
 }
