@@ -209,4 +209,12 @@ export class AppComponent {
       return newDate;
     }
   }
+  
+  checkResolved(status){
+    if(status === true){
+      return 'CLOSED';
+    }else{
+      return 'OPEN';
+    }
+  }
 }
