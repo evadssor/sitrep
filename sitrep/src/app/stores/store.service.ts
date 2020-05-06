@@ -85,6 +85,7 @@ export class StoreService {
         this.http.put('http://localhost:3000/api/stores/edit/' + store.storeId, editedStore)
             .subscribe((response) => {
                 console.log('Reponse from Edit Store: ', response);
+                this.getStores();
             });
     }
 

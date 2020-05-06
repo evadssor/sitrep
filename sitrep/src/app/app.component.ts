@@ -34,7 +34,6 @@ export class AppComponent {
   ) { }
 
   async ngOnInit() {
-    // this.down_time = this.downTime("2020/04/26", "10:59 PM");
 
     this.storeService.getStores();
     this.storeSub = await this.storeService.getStoreListener()
@@ -195,6 +194,23 @@ export class AppComponent {
     var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
     var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
     var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
+
+    return (setHours + "hrs " + m + "min");
+  }
+
+  finalDownTime(d1, t1, d2, t2){
+    var date_time1 = (d1.toString() + " " + t1.toString());
+    var date_time2 = (d2.toString() + " " + t2.toString());
+
+    var start_milli = Date.parse(date_time1);
+    var end_milli = Date.parse(date_time2);
+
+    var down_hours = (end_milli - start_milli) / 1000 / 60 / 60;
+    var setHours = Math.floor(down_hours);
+
+    var down_minutes = (down_hours - setHours) * 60;
+    var setMinutes = Math.floor(down_minutes);
+    var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;
 
     return (setHours + "hrs " + m + "min");
   }
