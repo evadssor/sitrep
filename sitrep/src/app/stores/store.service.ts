@@ -43,6 +43,7 @@ export class StoreService {
                 transformedStores.sort((a, b) => parseFloat(a.downTime) - parseFloat(b.downTime));
                 transformedStores.reverse();
                 this.stores = transformedStores;
+                console.log('Stores:', this.stores);
                 this.storesUpdated.next([...this.stores]);
             });
     }
