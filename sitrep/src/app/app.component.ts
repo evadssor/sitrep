@@ -7,6 +7,7 @@ import { StoreService } from './stores/store.service';
 import { Store } from './stores/store.model';
 import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NewStoreComponent } from './new-store/new-store.component';
 
 @Component({
   selector: 'app-root',
@@ -50,6 +51,7 @@ export class AppComponent {
   callPrintRep() {
     alert("Printing Today's Report...");
   };
+
 
   resolveStore(store: Store) {
     const dialogRef = this.dialog.open(ResolveStoreComponent, {
@@ -137,7 +139,13 @@ export class AppComponent {
   }
 
   newStore() {
-    this.showStore = true;
+    const dialogRef = this.dialog.open(NewStoreComponent, {
+      
+    });
+
+    dialogRef.afterOpen().subscribe( result => {
+      console.log('Result', result);
+    })
   }
 
   saveStore(form: NgForm) {

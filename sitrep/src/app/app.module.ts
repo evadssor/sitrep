@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
-import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import { NewStoreComponent } from './new-store/new-store.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ResolveStoreComponent
+    ResolveStoreComponent,
+    NewStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDialogModule
   ],
   providers: [],
-  entryComponents: [ResolveStoreComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ResolveStoreComponent, NewStoreComponent]
 })
 export class AppModule { }
