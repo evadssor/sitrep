@@ -228,7 +228,7 @@
         <div class="update">
           <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
             *ngIf="showUpdateBtn !== store.storeId">Update</button>
-          <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn" (click)="store.resolved = false">Reopen</button>
+          <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn" (click)="reopenStore(store)">Reopen</button>
           <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="resolve_btn" (click)="resolveStore(store)">Resolve</button>
           <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="remove_btn" (click)="removeStoreFromList(store)">Remove</button>
           <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>

@@ -84,6 +84,11 @@ export class AppComponent {
     return;
   }
 
+  reopenStore(store: Store) {
+    store.resolved = false;
+    this.storeService.editStore(store);
+  }
+
   removeStoreFromList(store: Store) {
 
   }
@@ -225,7 +230,7 @@ export class AppComponent {
       return newDate;
     }
   }
-  
+
   checkResolved(status){
     if(status === true){
       return 'CLOSED';
