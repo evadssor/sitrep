@@ -296,6 +296,7 @@ button:hover{
 .entry_text{
     margin-right: 10px;
     text-align: left !important;
+    white-space: pre-wrap;
 }
 
 .edit_entry_text{

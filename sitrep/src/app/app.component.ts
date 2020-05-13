@@ -58,7 +58,6 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.resolved) {
-        console.log('True Result', result);
         const resolvedStore: Store = {
             storeId: store.storeId,
             storeNumber: store.storeNumber,
@@ -76,7 +75,7 @@ export class AppComponent {
             endDate: result.endDate,
             endTime: result.endTime,
             resolved: true,
-            show: false
+            show: store.show
         }
         this.saveStoreEdit(resolvedStore)
       }
@@ -90,7 +89,8 @@ export class AppComponent {
   }
 
   removeStoreFromList(store: Store) {
-
+    store.show = false;
+    this.storeService.editStore(store);
   }
 
   addUpdateToList(form: NgForm, store) {

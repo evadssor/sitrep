@@ -100,7 +100,11 @@ app.post('/api/stores', (req, res, next) => {
         hardware: req.body.hardware,
         startDate: req.body.startDate,
         startTime: req.body.startTime,
-        downTime: req.body.downTime
+        downTime: req.body.downTime,
+        endDate: req.body.endDate,
+        endTime: req.body.endTime,
+        resolved: req.body.resolved,
+        show: req.body.show
     });
     store.save().then(result => {
         if (result._id !== null || result._id !== undefined) {
@@ -129,7 +133,7 @@ app.post('/api/stores', (req, res, next) => {
 
 // Get stores
 app.get('/api/stores', (req, res, next) => {
-    Store.find().then(dbStores => {
+    Store.find({ show: true }).then(dbStores => {
         console.log('dbStores: ', dbStores);
         Update.find().then(dbUpdates => {
             res.status(200).json({
