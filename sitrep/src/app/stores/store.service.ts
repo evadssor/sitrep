@@ -105,17 +105,20 @@ export class StoreService {
     }
 
     downTime(d, t) {//take in date and time from inputs
-        var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
-        var start_milli = Date.parse(date_time); //parse date_time string to milliseconds
-        var current_milli = new Date().getTime(); //get current time in milliseconds
-    
-        var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;//divide milliseconds into hours 
-        var setHours = Math.floor(down_hours);//Cut off decimal after hour
-    
-        var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
-        var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
-        var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
-    
-        return (setHours + setMinutes);
+        if(d !== null && d !== undefined && t !== null && t !== undefined ) {
+            var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
+            var start_milli = Date.parse(date_time); //parse date_time string to milliseconds
+            var current_milli = new Date().getTime(); //get current time in milliseconds
+        
+            var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;//divide milliseconds into hours 
+            var setHours = Math.floor(down_hours);//Cut off decimal after hour
+        
+            var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
+            var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
+            var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
+        
+            return (setHours + setMinutes);
+        }
+        return 0;
       }
 }
