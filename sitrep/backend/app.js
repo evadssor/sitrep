@@ -166,7 +166,11 @@ app.put('/api/stores/edit/:id', (req, res, next) => {
         hardware: req.body.hardware,
         startDate: req.body.startDate,
         startTime: req.body.startTime,
-        downTime: req.body.downTime
+        downTime: req.body.downTime,
+        endDate: req.body.endDate,
+        endTime: req.body.endTime,
+        resolved: req.body.resolved,
+        show: req.body.show
     });
     Store.updateOne({ _id: store._id }, store).then(editResult => {
         res.status(201).json({

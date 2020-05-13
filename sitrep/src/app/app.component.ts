@@ -34,7 +34,6 @@ export class AppComponent {
   ) { }
 
   async ngOnInit() {
-    // this.down_time = this.downTime("2020/04/26", "10:59 PM");
 
     this.storeService.getStores();
     this.storeSub = await this.storeService.getStoreListener()
@@ -52,19 +51,46 @@ export class AppComponent {
     alert("Printing Today's Report...");
   };
 
-  resolveStore() {
+  resolveStore(store: Store) {
     const dialogRef = this.dialog.open(ResolveStoreComponent, {
-
+      data: store
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // TODO: resolve store
-      } else {
-        // TODO: don't resolve store
+      if (result.resolved) {
+        console.log('True Result', result);
+        const resolvedStore: Store = {
+            storeId: store.storeId,
+            storeNumber: store.storeNumber,
+            issue: store.issue,
+            bmcTicket: store.bmcTicket,
+            serviceTicket: store.serviceTicket,
+            serverType: store.serverType,
+            serverModel: store.serverModel,
+            commType: store.commType,
+            provider: store.provider,
+            hardware: store.hardware,
+            startDate: store.startDate,
+            startTime: store.startTime,
+            downTime: this.downTime(store.startDate, store.startTime),
+            endDate: result.endDate,
+            endTime: result.endTime,
+            resolved: true,
+            show: false
+        }
+        this.saveStoreEdit(resolvedStore)
       }
     });
     return;
+  }
+
+  reopenStore(store: Store) {
+    store.resolved = false;
+    this.storeService.editStore(store);
+  }
+
+  removeStoreFromList(store: Store) {
+
   }
 
   addUpdateToList(form: NgForm, store) {
@@ -128,6 +154,8 @@ export class AppComponent {
       startDate: form.value.new_date,
       startTime: form.value.new_time,
       downTime: this.downTime(form.value.new_date, form.value.new_time),
+      resolved: false,
+      show: true,
       updates: [{
         storeNumber: form.value.new_storeNum,
         date: form.value.new_date,
@@ -175,6 +203,23 @@ export class AppComponent {
     return (setHours + "hrs " + m + "min");
   }
 
+  finalDownTime(d1, t1, d2, t2){
+    var date_time1 = (d1.toString() + " " + t1.toString());
+    var date_time2 = (d2.toString() + " " + t2.toString());
+
+    var start_milli = Date.parse(date_time1);
+    var end_milli = Date.parse(date_time2);
+
+    var down_hours = (end_milli - start_milli) / 1000 / 60 / 60;
+    var setHours = Math.floor(down_hours);
+
+    var down_minutes = (down_hours - setHours) * 60;
+    var setMinutes = Math.floor(down_minutes);
+    var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;
+
+    return (setHours + "hrs " + m + "min");
+  }
+
   convertDate(date) {
     var d = date;
     var newDate = '';
@@ -183,6 +228,14 @@ export class AppComponent {
         newDate = m + '/' + d + '/' + y;
       });
       return newDate;
+    }
+  }
+
+  checkResolved(status){
+    if(status === true){
+      return 'CLOSED';
+    }else{
+      return 'OPEN';
     }
   }
 }
