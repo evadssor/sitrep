@@ -1,7 +1,7 @@
-<form class="form shade" id="add_new_store" (submit)="saveStore(postForm)" #postForm="ngForm">
+<form class="form shade" id="add_new_store" (submit)="onConfirmClick(postForm)" #postForm="ngForm">
   <section class="new_store_header">
     <p class="store">Store #</p>
-    <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" required>
+    <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" type="number" required>
   </section>
   <section class="new_info">
     <!-- <div class="add_storeNum">
@@ -99,7 +99,7 @@
       </div>
       <div class="new_entry_btns">
         <button class="post_up">POST</button>
-        <button class="delete_up" id="delete_store" type="button" (click)="callCancelStore()">X</button>
+        <button class="delete_up" id="delete_store" type="button" (click)="onCancelClick()">X</button>
       </div>
     </div>
   </section>
