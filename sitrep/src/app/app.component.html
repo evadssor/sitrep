@@ -1,241 +1,767 @@
-<!-- <app-resolve-store *ngIf="showRestore === true"></app-resolve-store> -->
-<div class="container">
-  <header class="header">
-    <img id="oLogo" src="../assets/img/oLogo.png">
-    <div class="h1">
-      <h1>SITREP</h1>
+<div class="doNotPrint">
+  <div class="container">
+    <header class="header">
+      <img id="oLogo" src="../assets/img/oLogo.png">
+      <div class="h1">
+        <h1>SITREP</h1>
+      </div>
+      <nav id="nav">
+        <ul>
+          <!-- <li><a href="#">Today's report</a></li> -->
+          <li><a href="#">Previous Reports</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="line">
+      <button class="addStore" (click)="newStore()">Add Store</button>
+      <button class="printRep" (click)="callPrintRep()">Print Report</button>
     </div>
-    <nav id="nav">
-      <ul>
-        <!-- <li><a href="#">Today's report</a></li> -->
-        <li><a href="#">Previous Reports</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="line">
-    <button class="addStore" (click)="newStore()">Add Store</button>
-    <button class="printRep" (click)="callPrintRep()">Print Report</button>
-  </div>
-  <div class="content">
-    <div class="form shade" *ngFor="let store of stores">
-      <section class="issue_header">
-        <div class="store">
-          <p>Store #
-            <span class="storeNum" *ngIf="editing !== store">{{store.storeNumber}}</span>
-            <input *ngIf="editing === store" class="new_storeNum" [(ngModel)]="store.storeNumber" name="new_storeNum" maxlength="4" required>
-          </p>
-        </div>
-        <div class="down">
-          <p *ngIf="store.resolved">Down Time: <span class="down_time">{{finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime)}}</span> </p>
-          <p *ngIf="!store.resolved">Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
-        </div>
-        <div class="status">
-          <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}" class="status_text">{{checkResolved(store.resolved)}}</p>
-        </div>
-      </section>
-      <section class="info">
-        <div class="edit_info">
-          <i *ngIf="editing !== store" class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"
-            (click)="editing = store"></i>
-          <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit" (click)="saveStoreEdit(store)"></i>
-          <i *ngIf="editing === store" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
-        </div>
-        <div class="info_details" *ngIf="editing !== store">
-          <div class="type">
-            <label for="issue_type">Issue</label>
-            <p>{{store.issue}}</p>
+    <div class="content">
+      <div class="form shade" *ngFor="let store of stores">
+        <section class="issue_header">
+          <div class="store">
+            <p>Store #
+              <span class="storeNum" *ngIf="editing !== store">{{store.storeNumber}}</span>
+              <input *ngIf="editing === store" class="new_storeNum" [(ngModel)]="store.storeNumber" name="new_storeNum"
+                maxlength="4" required>
+            </p>
           </div>
-          <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="type_num">Server Type</label>
-            <p class="type_num">{{store.serverType}}</p>
+          <div class="down">
+            <p>Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
           </div>
-          <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="model_num">Server Model</label>
-            <p class="model_num">{{store.serverModel}}</p>
+          <div class="status">
+            <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}"
+              class="status_text">{{checkResolved(store.resolved)}}</p>
           </div>
-          <div class="comm_Pro"
-            *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="provider">Provider</label>
-            <p class="provider">{{store.provider}}</p>
+        </section>
+        <section class="info">
+          <div class="edit_info">
+            <i *ngIf="editing !== store" class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"
+              (click)="editing = store"></i>
+            <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit" (click)="saveStoreEdit(store)"></i>
+            <i *ngIf="editing === store" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
           </div>
-          <div class="hard_ware"
-            *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="hardware">Hardware</label>
-            <p class="hardware">{{store.hardware}}</p>
-          </div>
-          <div class="bmc_tick">
-            <label for="bmc_Num">BMC Ticket</label>
-            <p>{{store.bmcTicket}}</p>
-          </div>
-          <div class="vend_tick">
-            <label for="vend_Num">Vendor Ticket</label>
-            <p class="vend_Num">{{store.serviceTicket}}</p>
-          </div>
-        </div>
-        <!-- Editable HTML for Store -->
-        <div class="info_details" *ngIf="editing === store">
-          <div class="type">
-            <label for="issue_type">Issue</label>
-            <select class="issue_type" name="issue_type" [(ngModel)]="store.issue" name="issue_type">
-              <option value="-">-Select-</option>
-              <option value="SERVER">SERVER</option>
-              <option value="WAN">WAN</option>
-              <option value="LAN">LAN</option>
-              <option value="VOICE">VOICE</option>
-            </select>
-          </div>
-          <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="type_num">Server Type</label>
-            <select class="server" [(ngModel)]="store.serverType" name="server">
-              <option value="-">-Select-</option>
-              <option value="iSeries">iSeries</option>
-              <option value="Linux">Linux</option>
-            </select>
-          </div>
-          <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="model_num">Server Model</label>
-            <select class="model_num" [(ngModel)]="store.serverModel" name="model_num">
-              <option value="-">-Select-</option>
-              <option value="P5" *ngIf="store.serverType === 'iSeries'">P5</option>
-              <option value="P6" *ngIf="store.serverType === 'iSeries'">P6</option>
-              <option value="P7" *ngIf="store.serverType === 'iSeries'">P7</option>
-              <option value="P8" *ngIf="store.serverType === 'iSeries'">P8</option>
-              <option value="P9" *ngIf="store.serverType === 'iSeries'">P9</option>
-              <option value="x3100" *ngIf="store.serverType === 'Linux'">X3100</option>
-              <option value="ts460" *ngIf="store.serverType === 'Linux'">TS460</option>
-              <option value="st250" *ngIf="store.serverType === 'Linux'">ST250</option>
-              <option value="st550" *ngIf="store.serverType === 'Linux'">ST550</option>
-            </select>
-          </div>
-          <div class="comm_Pro"
-            *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="provider">Provider</label>
-            <select class="provider" [(ngModel)]="store.provider" name="provider">
-              <option value="-">-Select-</option>
-              <option value="MetTel">MetTel</option>
-              <option value="Vonage">Vonage</option>
-              <option value="Windstream">Windstream</option>
-              <option value="TRCA" *ngIf="store.issue !== 'WAN'">TRCA</option>
-              <option value="Optus" *ngIf="store.issue  !== 'WAN'">Optus</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="hard_ware"
-            *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="hardware">Hardware</label>
-            <select class="hardware" [(ngModel)]="store.hardware" name="hardware">
-              <option value="-">-Select-</option>
-              <option value="Router" *ngIf="store.issue === 'LAN'">Router</option>
-              <option value="Switch" *ngIf="store.issue === 'LAN'">Switch</option>
-              <option value="Cabling" *ngIf="store.issue === 'LAN'">Cabling</option>
-              <option value="Modem"
-                *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
-              </option>
-              <option value="Adtran"
-                *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
-                AdTran</option>
-              <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD</option>
-              <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
-              <option value="Circuit Only"
-                *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
-                Circuit Only</option>
-              <option value="PBX"
-                *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">
-                PBX</option>
-            </select>
-          </div>
-          <div class="bmc_tick">
-            <label for="bmc_Num">BMC Ticket</label>
-            <input class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="store.bmcTicket" name="bmc_Num">
-          </div>
-          <div class="vend_tick">
-            <label for="vend_Num">Vendor Ticket</label>
-            <input class="vend_Num" placeholder="{{store.serviceTicket}}" [(ngModel)]="store.serviceTicket"
-              name="vend_Num">
-          </div>
-        </div>
-      </section>
-      <section class="updates">
-        <div class="issue_row">
-          <div class="date_row">
-            <p>Date</p>
-          </div>
-          <div class="time_row">
-            <p>Time</p>
-          </div>
-          <div class="comment_row">
-            <p>Updates</p>
-          </div>
-        </div>
-        <div class="entries">
-          <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
-            <div class="entry" *ngIf="editing !== update">
-              <div class="date_entry">
-                <p>{{ convertDate(update.date) }}</p>
-              </div>
-              <div class="time_entry">
-                <p>{{update.time}}</p>
-              </div>
-              <div class="entry_text">
-                <p>{{update.message}}</p>
-              </div>
-              <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
-                <i *ngIf="editing !== update" class="fas fa-pencil-alt fa-xs" title="Edit Update"
-                  (click)="editing = update"></i>
-                <i *ngIf="editing !== update" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
-                  title="Delete Update"></i>
-              </div>
+          <div class="info_details" *ngIf="editing !== store">
+            <div class="type">
+              <label for="issue_type">Issue</label>
+              <p>{{store.issue}}</p>
             </div>
-            <div class="entry" *ngIf="editing === update">
-              <div class="date_entry">
-                <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
-                  max="2025-01-01">
+            <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="type_num">Server Type</label>
+              <p class="type_num">{{store.serverType}}</p>
+            </div>
+            <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="model_num">Server Model</label>
+              <p class="model_num">{{store.serverModel}}</p>
+            </div>
+            <div class="comm_Pro"
+              *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="provider">Provider</label>
+              <p class="provider">{{store.provider}}</p>
+            </div>
+            <div class="hard_ware"
+              *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="hardware">Hardware</label>
+              <p class="hardware">{{store.hardware}}</p>
+            </div>
+            <div class="bmc_tick">
+              <label for="bmc_Num">BMC Ticket</label>
+              <p>{{store.bmcTicket}}</p>
+            </div>
+            <div class="vend_tick">
+              <label for="vend_Num">Vendor Ticket</label>
+              <p class="vend_Num">{{store.serviceTicket}}</p>
+            </div>
+          </div>
+          <!-- Editable HTML for Store -->
+          <div class="info_details" *ngIf="editing === store">
+            <div class="type">
+              <label for="issue_type">Issue</label>
+              <select class="issue_type" name="issue_type" [(ngModel)]="store.issue" name="issue_type">
+                <option value="-">-Select-</option>
+                <option value="SERVER">SERVER</option>
+                <option value="WAN">WAN</option>
+                <option value="LAN">LAN</option>
+                <option value="VOICE">VOICE</option>
+              </select>
+            </div>
+            <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="type_num">Server Type</label>
+              <select class="server" [(ngModel)]="store.serverType" name="server">
+                <option value="-">-Select-</option>
+                <option value="iSeries">iSeries</option>
+                <option value="Linux">Linux</option>
+              </select>
+            </div>
+            <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="model_num">Server Model</label>
+              <select class="model_num" [(ngModel)]="store.serverModel" name="model_num">
+                <option value="-">-Select-</option>
+                <option value="P5" *ngIf="store.serverType === 'iSeries'">P5</option>
+                <option value="P6" *ngIf="store.serverType === 'iSeries'">P6</option>
+                <option value="P7" *ngIf="store.serverType === 'iSeries'">P7</option>
+                <option value="P8" *ngIf="store.serverType === 'iSeries'">P8</option>
+                <option value="P9" *ngIf="store.serverType === 'iSeries'">P9</option>
+                <option value="x3100" *ngIf="store.serverType === 'Linux'">X3100</option>
+                <option value="ts460" *ngIf="store.serverType === 'Linux'">TS460</option>
+                <option value="st250" *ngIf="store.serverType === 'Linux'">ST250</option>
+                <option value="st550" *ngIf="store.serverType === 'Linux'">ST550</option>
+              </select>
+            </div>
+            <div class="comm_Pro"
+              *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="provider">Provider</label>
+              <select class="provider" [(ngModel)]="store.provider" name="provider">
+                <option value="-">-Select-</option>
+                <option value="MetTel">MetTel</option>
+                <option value="Vonage">Vonage</option>
+                <option value="Windstream">Windstream</option>
+                <option value="TRCA" *ngIf="store.issue !== 'WAN'">TRCA</option>
+                <option value="Optus" *ngIf="store.issue  !== 'WAN'">Optus</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="hard_ware"
+              *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="hardware">Hardware</label>
+              <select class="hardware" [(ngModel)]="store.hardware" name="hardware">
+                <option value="-">-Select-</option>
+                <option value="Router" *ngIf="store.issue === 'LAN'">Router</option>
+                <option value="Switch" *ngIf="store.issue === 'LAN'">Switch</option>
+                <option value="Cabling" *ngIf="store.issue === 'LAN'">Cabling</option>
+                <option value="Modem"
+                  *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
+                </option>
+                <option value="Adtran"
+                  *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
+                  AdTran</option>
+                <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD</option>
+                <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
+                <option value="Circuit Only"
+                  *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
+                  Circuit Only</option>
+                <option value="PBX"
+                  *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">
+                  PBX</option>
+              </select>
+            </div>
+            <div class="bmc_tick">
+              <label for="bmc_Num">BMC Ticket</label>
+              <input class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="store.bmcTicket" name="bmc_Num">
+            </div>
+            <div class="vend_tick">
+              <label for="vend_Num">Vendor Ticket</label>
+              <input class="vend_Num" placeholder="{{store.serviceTicket}}" [(ngModel)]="store.serviceTicket"
+                name="vend_Num">
+            </div>
+          </div>
+        </section>
+        <section class="updates">
+          <div class="issue_row">
+            <div class="date_row">
+              <p>Date</p>
+            </div>
+            <div class="time_row">
+              <p>Time</p>
+            </div>
+            <div class="comment_row">
+              <p>Updates</p>
+            </div>
+          </div>
+          <div class="entries">
+            <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
+              <div class="entry" *ngIf="editing !== update">
+                <div class="date_entry">
+                  <p>{{ convertDate(update.date) }}</p>
+                </div>
+                <div class="time_entry">
+                  <p>{{update.time}}</p>
+                </div>
+                <div class="entry_text">
+                  <p>{{update.message}}</p>
+                </div>
+                <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
+                  <i *ngIf="editing !== update" class="fas fa-pencil-alt fa-xs" title="Edit Update"
+                    (click)="editing = update"></i>
+                  <i *ngIf="editing !== update" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
+                    title="Delete Update"></i>
+                </div>
               </div>
-              <div class="time_entry">
-                <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
-              </div>
-              <div class="edit_entry_text">
-                <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
-                  name="edit_text"></textarea>
-              </div>
-              <div class="edit_entry">
-                <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
-                  (click)="saveUpdate(update)"></i>
-                <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
+              <div class="entry" *ngIf="editing === update">
+                <div class="date_entry">
+                  <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
+                    max="2025-01-01">
+                </div>
+                <div class="time_entry">
+                  <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
+                </div>
+                <div class="edit_entry_text">
+                  <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
+                    name="edit_text"></textarea>
+                </div>
+                <div class="edit_entry">
+                  <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
+                    (click)="saveUpdate(update)"></i>
+                  <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="add_update">
-        <form class="add" *ngIf="showAddUpdate == store.storeId" (submit)="addUpdateToList(postForm, store)"
-          #postForm="ngForm">
-          <p class="add_header">Add Update</p>
-          <div class="dateTime">
-            <label for="new_date">Date:</label>
-            <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
-              required>
-            <label for="new_time">Time:</label>
-            <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+        </section>
+        <section class="add_update">
+          <form class="add" *ngIf="showAddUpdate == store.storeId" (submit)="addUpdateToList(postForm, store)"
+            #postForm="ngForm">
+            <p class="add_header">Add Update</p>
+            <div class="dateTime">
+              <label for="new_date">Date:</label>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
+                required>
+              <label for="new_time">Time:</label>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+            </div>
+            <div class="new_entry_text">
+              <textarea class="new_text" [(ngModel)]="new_text" name="new_text" placeholder="What's new?"></textarea>
+            </div>
+            <div class="new_entry_btns">
+              <button class="post_up" type="submit">POST</button>
+              <button class="delete_up" type="button" (click)="callCancelUpdate()">X</button>
+            </div>
+          </form>
+          <div class="update">
+            <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
+              *ngIf="showUpdateBtn !== store.storeId">Update</button>
+            <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn"
+              (click)="reopenStore(store)">Reopen</button>
+            <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="resolve_btn"
+              (click)="resolveStore(store)">Resolve</button>
+            <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="remove_btn"
+              (click)="removeStoreFromList(store)">Remove</button>
+            <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="delete_btn"
+              (click)="callDeleteStore(store.storeId)">Delete</button>
           </div>
-          <div class="new_entry_text">
-            <textarea class="new_text" [(ngModel)]="new_text" name="new_text" placeholder="What's new?"></textarea>
+        </section>
+      </div>
+      <form class="form shade" id="add_new_store" *ngIf="showStore" (submit)="saveStore(postForm)" #postForm="ngForm">
+        <section class="new_store_header">
+          <p class="store">Store #</p>
+          <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" required>
+        </section>
+        <section class="new_info">
+          <div class="new_info_details">
+            <div class="type">
+              <label for="issue_type">Issue</label>
+              <select class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">
+                <option value="-">-Select-</option>
+                <option value="SERVER">SERVER</option>
+                <option value="WAN">WAN</option>
+                <option value="LAN">LAN</option>
+                <option value="VOICE">VOICE</option>
+              </select>
+            </div>
+            <div class="serv_type" *ngIf="issue_type === 'SERVER'">
+              <label for="server">Server Type</label>
+              <select class="server" [(ngModel)]="server" name="server">
+                <option value="-">-Select-</option>
+                <option value="iSeries">iSeries</option>
+                <option value="Linux">Linux</option>
+              </select>
+            </div>
+            <div class="serv_model" *ngIf="issue_type === 'SERVER'">
+              <label for="model_num">Server Model</label>
+              <select class="model_num" [(ngModel)]="model_num" name="model_num">
+                <option value="-">-Select-</option>
+                <option value="P5" *ngIf="server === 'iSeries'">P5</option>
+                <option value="P6" *ngIf="server === 'iSeries'">P6</option>
+                <option value="P7" *ngIf="server === 'iSeries'">P7</option>
+                <option value="P8" *ngIf="server === 'iSeries'">P8</option>
+                <option value="P9" *ngIf="server === 'iSeries'">P9</option>
+                <option value="x3100" *ngIf="server === 'Linux'">X3100</option>
+                <option value="ts460" *ngIf="server === 'Linux'">TS460</option>
+                <option value="st250" *ngIf="server === 'Linux'">ST250</option>
+                <option value="st550" *ngIf="server === 'Linux'">ST550</option>
+              </select>
+            </div>
+            <div class="comm_Pro" *ngIf="issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="provider">Provider</label>
+              <select class="provider" [(ngModel)]="provider" name="provider">
+                <option value="-">-Select-</option>
+                <option value="MetTel">MetTel</option>
+                <option value="Vonage">Vonage</option>
+                <option value="Windstream">Windstream</option>
+                <option value="TRCA" *ngIf="issue_type !== 'WAN'">TRCA</option>
+                <option value="Optus" *ngIf="issue_type !== 'WAN'">Optus</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="hard_ware" *ngIf="issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="hardware">Hardware</label>
+              <select class="hardware" [(ngModel)]="hardware" name="hardware">
+                <option value="-">-Select-</option>
+                <option value="Router" *ngIf="issue_type === 'LAN'">Router</option>
+                <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
+                <option value="Cabling" *ngIf="issue_type === 'LAN'">Cabling</option>
+                <option value="Modem" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Modem
+                </option>
+                <option value="Adtran"
+                  *ngIf="issue_type === 'VOICE' && provider !== 'Windstream' && provider !== 'TRCA' && provider !== 'Optus'">
+                  AdTran</option>
+                <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
+                <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
+                <option value="Circuit Only" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">
+                  Circuit Only</option>
+                <option value="PBX"
+                  *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">
+                  PBX</option>
+              </select>
+            </div>
+            <div class="bmc_tick">
+              <label for="bmc_Num">BMC Ticket</label>
+              <input matInput class="bmc_Num" placeholder="-" [(ngModel)]="bmc_Num" name="bmc_Num">
+            </div>
+            <div class="vend_tick">
+              <label for="vend_Num">Vendor Ticket</label>
+              <input class="vend_Num" placeholder="-" [(ngModel)]="vend_Num" name="vend_Num">
+            </div>
           </div>
-          <div class="new_entry_btns">
-            <button class="post_up" type="submit">POST</button>
-            <button class="delete_up" type="button" (click)="callCancelUpdate()">X</button>
+
+        </section>
+        <section class="add_update">
+          <div class="add">
+            <p class="add_header">Issue Details</p>
+            <div class="dateTime">
+              <label for="new_date">Start Date:</label>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
+                required>
+              <label for="new_time">Start Time:</label>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+            </div>
+            <div class="new_entry_text">
+              <textarea class="new_text" placeholder="What happened?" [(ngModel)]="new_text" name="new_text"></textarea>
+            </div>
+            <div class="new_entry_btns">
+              <button class="post_up">POST</button>
+              <button class="delete_up" id="delete_store" type="button" (click)="callCancelStore()">X</button>
+            </div>
           </div>
-        </form>
-        <div class="update">
-          <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
-            *ngIf="showUpdateBtn !== store.storeId">Update</button>
-          <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn" (click)="reopenStore(store)">Reopen</button>
-          <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="resolve_btn" (click)="resolveStore(store)">Resolve</button>
-          <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="remove_btn" (click)="removeStoreFromList(store)">Remove</button>
-          <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
-        </div>
-      </section>
-    </div> 
+        </section>
+      </form>
+    </div>
   </div>
 </div>
-<router-outlet></router-outlet>
+
+<div class="doPrint">
+  <style type="text/css">
+    span.cls_002 {
+      font-family: "Verdana", serif;
+      font-size: 6.0px;
+      color: rgb(0, 0, 0);
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none
+    }
+
+    div.cls_002 {
+      font-family: "Verdana", serif;
+      font-size: 6.0px;
+      color: rgb(0, 0, 0);
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none
+    }
+
+    span.cls_003 {
+      font-family: "Verdana", serif;
+      font-size: 6.0px;
+      color: rgb(14, 14, 14);
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none
+    }
+
+    div.cls_003 {
+      font-family: "Verdana", serif;
+      font-size: 6.0px;
+      color: rgb(14, 14, 14);
+      font-weight: normal;
+      font-style: normal;
+      text-decoration: none
+    }
+  </style>
+
+  <div
+    style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+      <img src="../assets/img/background1.jpg"
+        width=612 height=792></div>
+    <div style="position:absolute;left:69.12px;top:84.48px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:143.78px;top:84.00px" class="cls_002"><span class="cls_002">April 15,
+        2020</span></div>
+    <div style="position:absolute;left:352.87px;top:84.48px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:424.90px;top:84.00px" class="cls_002"><span class="cls_002">16:05</span></div>
+    <div style="position:absolute;left:117.50px;top:106.68px" class="cls_003"><span class="cls_003">0 to 4hrs</span>
+    </div>
+    <div style="position:absolute;left:181.46px;top:106.68px" class="cls_003"><span class="cls_003">4 to 8hrs</span>
+    </div>
+    <div style="position:absolute;left:242.69px;top:106.68px" class="cls_003"><span class="cls_003">8 to 12hrs</span>
+    </div>
+    <div style="position:absolute;left:294.05px;top:106.68px" class="cls_003"><span class="cls_003">12 to 16hrs</span>
+    </div>
+    <div style="position:absolute;left:343.15px;top:106.68px" class="cls_003"><span class="cls_003">16 to 20hrs</span>
+    </div>
+    <div style="position:absolute;left:396.67px;top:106.68px" class="cls_002"><span class="cls_002">24hrs+</span>
+    </div>
+    <div style="position:absolute;left:443.50px;top:106.68px" class="cls_003"><span class="cls_003">Restored</span>
+    </div>
+    <div style="position:absolute;left:66.00px;top:121.20px" class="cls_002"><span class="cls_002">iSeries</span>
+    </div>
+    <div style="position:absolute;left:250.61px;top:136.46px" class="cls_002"><span class="cls_002">1797</span></div>
+    <div style="position:absolute;left:68.40px;top:143.42px" class="cls_002"><span class="cls_002">Linux</span></div>
+    <div style="position:absolute;left:187.46px;top:158.78px" class="cls_002"><span class="cls_002">1032</span></div>
+    <div style="position:absolute;left:303.89px;top:158.78px" class="cls_002"><span class="cls_002">5619</span></div>
+    <div style="position:absolute;left:64.20px;top:165.74px" class="cls_002"><span class="cls_002">Internet</span>
+    </div>
+    <div style="position:absolute;left:303.89px;top:166.22px" class="cls_002"><span class="cls_002">5585</span></div>
+    <div style="position:absolute;left:438.58px;top:181.10px" class="cls_002"><span class="cls_002">2460(Cisco)</span>
+    </div>
+    <div style="position:absolute;left:70.68px;top:188.06px" class="cls_002"><span class="cls_002">LAN</span></div>
+    <div style="position:absolute;left:449.26px;top:188.54px" class="cls_002"><span class="cls_002">1820</span></div>
+    <div style="position:absolute;left:65.76px;top:210.38px" class="cls_002"><span class="cls_002">Phones</span></div>
+    <div style="position:absolute;left:65.64px;top:232.82px" class="cls_002"><span class="cls_002">Outage</span></div>
+    <div style="position:absolute;left:55.08px;top:271.73px" class="cls_002"><span class="cls_002">Store Number</span>
+    </div>
+    <div style="position:absolute;left:119.54px;top:271.73px" class="cls_002"><span class="cls_002">Comms</span></div>
+    <div style="position:absolute;left:184.10px;top:271.73px" class="cls_002"><span class="cls_002">Vendor</span>
+    </div>
+    <div style="position:absolute;left:238.25px;top:271.73px" class="cls_002"><span class="cls_002">Restore
+        Date</span></div>
+    <div style="position:absolute;left:291.17px;top:271.73px" class="cls_002"><span class="cls_002">Restore
+        Time</span></div>
+    <div style="position:absolute;left:343.51px;top:271.73px" class="cls_002"><span class="cls_002">BMC Ticket</span>
+    </div>
+    <div style="position:absolute;left:412.99px;top:271.25px" class="cls_002"><span class="cls_002">Vendor
+        Ticket</span></div>
+    <div style="position:absolute;left:68.52px;top:279.17px" class="cls_002"><span class="cls_002">2460</span></div>
+    <div style="position:absolute;left:124.94px;top:279.17px" class="cls_002"><span class="cls_002">LAN</span></div>
+    <div style="position:absolute;left:173.18px;top:279.17px" class="cls_002"><span class="cls_002">MetTelSDWAN</span>
+    </div>
+    <div style="position:absolute;left:256.61px;top:279.17px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:309.89px;top:279.17px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:346.99px;top:279.17px" class="cls_002"><span class="cls_002">1498769</span>
+    </div>
+    <div style="position:absolute;left:432.94px;top:278.57px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:69.12px;top:294.05px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:123.38px;top:294.05px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:311.09px;top:293.57px" class="cls_002"><span class="cls_002">Details</span>
+    </div>
+    <div style="position:absolute;left:60.36px;top:301.37px" class="cls_002"><span class="cls_002">4/13/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:301.37px" class="cls_002"><span class="cls_002">11:38</span></div>
+    <div style="position:absolute;left:161.54px;top:301.73px" class="cls_002"><span class="cls_002">Store suffered
+        power outage</span></div>
+    <div style="position:absolute;left:161.54px;top:309.17px" class="cls_002"><span class="cls_002">Cisco 800 would
+        not power on at all</span></div>
+    <div style="position:absolute;left:161.54px;top:316.61px" class="cls_002"><span class="cls_002">Used Velocloud to
+        bypass the Cisco and restore comms to the store</span></div>
+    <div style="position:absolute;left:161.54px;top:323.57px" class="cls_002"><span class="cls_002">UPS tracking
+        number 1Z6747860197854336</span></div>
+    <div style="position:absolute;left:122.18px;top:331.13px" class="cls_002"><span class="cls_002">16:00</span></div>
+    <div style="position:absolute;left:161.54px;top:331.01px" class="cls_002"><span class="cls_002">No movement on
+        tracking</span></div>
+    <div style="position:absolute;left:60.36px;top:338.57px" class="cls_002"><span class="cls_002">4/14/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:338.57px" class="cls_002"><span class="cls_002">07:30</span></div>
+    <div style="position:absolute;left:161.54px;top:338.45px" class="cls_002"><span class="cls_002">Cisco expected on
+        site by end of the day</span></div>
+    <div style="position:absolute;left:122.18px;top:346.01px" class="cls_002"><span class="cls_002">11:12</span></div>
+    <div style="position:absolute;left:161.54px;top:345.89px" class="cls_002"><span class="cls_002">Cisco
+        delivered</span></div>
+    <div style="position:absolute;left:122.18px;top:353.45px" class="cls_002"><span class="cls_002">12:00</span></div>
+    <div style="position:absolute;left:161.54px;top:353.33px" class="cls_002"><span class="cls_002">Created callback
+        to schedule Cisco install</span></div>
+    <div style="position:absolute;left:122.18px;top:360.89px" class="cls_002"><span class="cls_002">12:26</span></div>
+    <div style="position:absolute;left:161.54px;top:360.77px" class="cls_002"><span class="cls_002">The store has
+        agreed to call tomorrow (4/15) after hours to have the Cisco installed.</span></div>
+    <div style="position:absolute;left:60.36px;top:368.33px" class="cls_002"><span class="cls_002">4/15/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:368.33px" class="cls_002"><span class="cls_002">06:45</span></div>
+    <div style="position:absolute;left:161.54px;top:368.21px" class="cls_002"><span class="cls_002">Pending
+        installation of cisco</span></div>
+    <div style="position:absolute;left:122.18px;top:375.77px" class="cls_002"><span class="cls_002">10:47</span></div>
+    <div style="position:absolute;left:161.54px;top:375.65px" class="cls_002"><span class="cls_002">Cisco install set
+        for tonight</span></div>
+    <div style="position:absolute;left:55.08px;top:398.57px" class="cls_002"><span class="cls_002">Store Number</span>
+    </div>
+    <div style="position:absolute;left:120.86px;top:398.57px" class="cls_002"><span class="cls_002">Server</span>
+    </div>
+    <div style="position:absolute;left:177.50px;top:398.57px" class="cls_002"><span class="cls_002">ServerType</span>
+    </div>
+    <div style="position:absolute;left:238.25px;top:398.57px" class="cls_002"><span class="cls_002">Restore
+        Date</span></div>
+    <div style="position:absolute;left:291.17px;top:398.57px" class="cls_002"><span class="cls_002">Restore
+        Time</span></div>
+    <div style="position:absolute;left:343.51px;top:398.57px" class="cls_002"><span class="cls_002">BMC Ticket</span>
+    </div>
+    <div style="position:absolute;left:412.99px;top:398.09px" class="cls_002"><span class="cls_002">Vendor
+        Ticket</span></div>
+    <div style="position:absolute;left:68.52px;top:406.27px" class="cls_002"><span class="cls_002">1797</span></div>
+    <div style="position:absolute;left:122.66px;top:406.27px" class="cls_002"><span class="cls_002">Linux</span></div>
+    <div style="position:absolute;left:185.18px;top:406.27px" class="cls_002"><span class="cls_002">TS460</span></div>
+    <div style="position:absolute;left:256.61px;top:406.27px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:309.89px;top:406.27px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:346.99px;top:406.27px" class="cls_002"><span class="cls_002">1500719</span>
+    </div>
+    <div style="position:absolute;left:420.67px;top:405.53px" class="cls_002"><span class="cls_002">CLJSC8D</span>
+    </div>
+    <div style="position:absolute;left:69.12px;top:421.63px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:123.38px;top:421.63px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:311.09px;top:421.15px" class="cls_002"><span class="cls_002">Details</span>
+    </div>
+    <div style="position:absolute;left:60.36px;top:428.95px" class="cls_002"><span class="cls_002">4/15/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:428.95px" class="cls_002"><span class="cls_002">07:03</span></div>
+    <div style="position:absolute;left:161.54px;top:429.31px" class="cls_002"><span class="cls_002">Store called, no
+        workstations booting, but the Linux was pinging. Tech was unable to log into Linux,</span></div>
+    <div style="position:absolute;left:161.54px;top:437.23px" class="cls_002"><span class="cls_002">rebooted server,
+        did not come back up. IBM has been engaged and ticket was also sent to HSRG on</span></div>
+    <div style="position:absolute;left:161.54px;top:445.15px" class="cls_002"><span class="cls_002">possibility of a
+        software issue.</span></div>
+    <div style="position:absolute;left:122.18px;top:451.27px" class="cls_002"><span class="cls_002">08:36</span></div>
+    <div style="position:absolute;left:161.54px;top:451.15px" class="cls_002"><span class="cls_002">IBM technician
+        will be on site at 1200 today to replace system board in the TS460</span></div>
+    <div style="position:absolute;left:122.18px;top:458.71px" class="cls_002"><span class="cls_002">13:43</span></div>
+    <div style="position:absolute;left:161.54px;top:458.59px" class="cls_002"><span class="cls_002">IBM called in to
+        let us know he has ordered parts after troubleshooting the server with his backline</span></div>
+    <div style="position:absolute;left:161.54px;top:466.03px" class="cls_002"><span class="cls_002">Parts will not
+        arrive until 0900 tomorrow with the tech arriving at 1030</span></div>
+    <div style="position:absolute;left:161.54px;top:473.47px" class="cls_002"><span class="cls_002">Traci is imaging a
+        replacement server for the store right now</span></div>
+    <div style="position:absolute;left:55.08px;top:496.03px" class="cls_002"><span class="cls_002">Store Number</span>
+    </div>
+    <div style="position:absolute;left:119.54px;top:496.03px" class="cls_002"><span class="cls_002">Comms</span></div>
+    <div style="position:absolute;left:184.10px;top:496.03px" class="cls_002"><span class="cls_002">Vendor</span>
+    </div>
+    <div style="position:absolute;left:238.25px;top:496.03px" class="cls_002"><span class="cls_002">Restore
+        Date</span></div>
+    <div style="position:absolute;left:291.17px;top:496.03px" class="cls_002"><span class="cls_002">Restore
+        Time</span></div>
+    <div style="position:absolute;left:343.51px;top:496.03px" class="cls_002"><span class="cls_002">BMC Ticket</span>
+    </div>
+    <div style="position:absolute;left:412.99px;top:495.55px" class="cls_002"><span class="cls_002">Vendor
+        Ticket</span></div>
+    <div style="position:absolute;left:68.52px;top:503.47px" class="cls_002"><span class="cls_002">5619</span></div>
+    <div style="position:absolute;left:118.46px;top:503.47px" class="cls_002"><span class="cls_002">Internet</span>
+    </div>
+    <div style="position:absolute;left:171.98px;top:503.47px" class="cls_002"><span class="cls_002">VonageSDWAN</span>
+    </div>
+    <div style="position:absolute;left:256.61px;top:503.47px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:309.89px;top:503.47px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:346.99px;top:503.47px" class="cls_002"><span class="cls_002">1500678</span>
+    </div>
+    <div style="position:absolute;left:420.79px;top:502.87px" class="cls_002"><span class="cls_002">1213495</span>
+    </div>
+    <div style="position:absolute;left:69.12px;top:518.35px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:123.38px;top:518.35px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:311.09px;top:517.87px" class="cls_002"><span class="cls_002">Details</span>
+    </div>
+    <div style="position:absolute;left:60.36px;top:525.67px" class="cls_002"><span class="cls_002">4/15/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:525.67px" class="cls_002"><span class="cls_002">07:22</span></div>
+    <div style="position:absolute;left:161.54px;top:526.03px" class="cls_002"><span class="cls_002">Store called in
+        about phones not working</span></div>
+    <div style="position:absolute;left:161.54px;top:533.47px" class="cls_002"><span class="cls_002">Pinged the store,
+        all communications are down</span></div>
+    <div style="position:absolute;left:161.54px;top:540.91px" class="cls_002"><span class="cls_002">Found Velocloud
+        did not have any power</span></div>
+    <div style="position:absolute;left:161.54px;top:548.26px" class="cls_002"><span class="cls_002">Reseated power
+        cable on the Velocloud and power restored to it but there is no cloud light on it</span></div>
+    <div style="position:absolute;left:161.54px;top:555.70px" class="cls_002"><span class="cls_002">Velocloud only has
+        link lights on the back of it</span></div>
+    <div style="position:absolute;left:161.54px;top:563.14px" class="cls_002"><span class="cls_002">Opened ticket with
+        Vonage, ticket # 1213495</span></div>
+    <div style="position:absolute;left:122.18px;top:571.06px" class="cls_002"><span class="cls_002">07:48</span></div>
+    <div style="position:absolute;left:161.54px;top:570.94px" class="cls_002"><span class="cls_002">Unable to move
+        store to T1 connection</span></div>
+    <div style="position:absolute;left:161.54px;top:578.74px" class="cls_002"><span class="cls_002">Do not have
+        tracking info/ETA for replacement Velo to arrive at the store</span></div>
+    <div style="position:absolute;left:161.54px;top:586.54px" class="cls_002"><span class="cls_002">Sent update email
+        to SM, DM, and RM.</span></div>
+    <div style="position:absolute;left:122.18px;top:594.46px" class="cls_002"><span class="cls_002">13:24</span></div>
+    <div style="position:absolute;left:161.54px;top:594.46px" class="cls_002"><span class="cls_002">Replacement
+        Velocloud will arrive tomorrow 4/16 in the morning at the store</span></div>
+  </div>
+  <div
+    style="position:absolute;left:50%;margin-left:-306px;top:802px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+      <img src="../assets/img/background1.jpg" width=612 height=792></div>
+    <div style="position:absolute;left:55.08px;top:85.44px" class="cls_002"><span class="cls_002">Store Number</span>
+    </div>
+    <div style="position:absolute;left:119.54px;top:85.44px" class="cls_002"><span class="cls_002">Comms</span></div>
+    <div style="position:absolute;left:184.10px;top:85.44px" class="cls_002"><span class="cls_002">Vendor</span></div>
+    <div style="position:absolute;left:238.25px;top:85.44px" class="cls_002"><span class="cls_002">Restore Date</span>
+    </div>
+    <div style="position:absolute;left:291.17px;top:85.44px" class="cls_002"><span class="cls_002">Restore Time</span>
+    </div>
+    <div style="position:absolute;left:343.51px;top:85.44px" class="cls_002"><span class="cls_002">BMC Ticket</span>
+    </div>
+    <div style="position:absolute;left:412.99px;top:84.96px" class="cls_002"><span class="cls_002">Vendor
+        Ticket</span></div>
+    <div style="position:absolute;left:68.52px;top:93.00px" class="cls_002"><span class="cls_002">5585</span></div>
+    <div style="position:absolute;left:118.46px;top:93.00px" class="cls_002"><span class="cls_002">Internet</span>
+    </div>
+    <div style="position:absolute;left:171.98px;top:93.00px" class="cls_002"><span class="cls_002">VonageSDWAN</span>
+    </div>
+    <div style="position:absolute;left:256.61px;top:93.00px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:309.89px;top:93.00px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:346.99px;top:93.00px" class="cls_002"><span class="cls_002">1500661</span>
+    </div>
+    <div style="position:absolute;left:420.79px;top:92.40px" class="cls_002"><span class="cls_002">1213473</span>
+    </div>
+    <div style="position:absolute;left:69.12px;top:108.24px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:123.38px;top:108.24px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:311.09px;top:107.76px" class="cls_002"><span class="cls_002">Details</span>
+    </div>
+    <div style="position:absolute;left:60.36px;top:115.56px" class="cls_002"><span class="cls_002">4/15/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:115.56px" class="cls_002"><span class="cls_002">07:32</span></div>
+    <div style="position:absolute;left:161.54px;top:115.92px" class="cls_002"><span class="cls_002">Called store with
+        all communications down</span></div>
+    <div style="position:absolute;left:161.54px;top:123.36px" class="cls_002"><span class="cls_002">SM cell #:
+        773.573.2042</span></div>
+    <div style="position:absolute;left:161.54px;top:130.82px" class="cls_002"><span class="cls_002">Power cycled the
+        Velocloud</span></div>
+    <div style="position:absolute;left:161.54px;top:138.14px" class="cls_002"><span class="cls_002">No cloud light on
+        the front of the Velocloud only link lights</span></div>
+    <div style="position:absolute;left:161.54px;top:145.58px" class="cls_002"><span class="cls_002">Opened ticket with
+        Vonage</span></div>
+    <div style="position:absolute;left:122.18px;top:153.14px" class="cls_002"><span class="cls_002">07:48</span></div>
+    <div style="position:absolute;left:161.54px;top:153.02px" class="cls_002"><span class="cls_002">Vonage ticket #
+        1213473</span></div>
+    <div style="position:absolute;left:161.54px;top:160.46px" class="cls_002"><span class="cls_002">No tracking
+        information on replacement Velocloud</span></div>
+    <div style="position:absolute;left:161.54px;top:167.90px" class="cls_002"><span class="cls_002">Update sent to SM,
+        DM, and RM.</span></div>
+    <div style="position:absolute;left:122.18px;top:175.46px" class="cls_002"><span class="cls_002">12:05</span></div>
+    <div style="position:absolute;left:161.54px;top:175.34px" class="cls_002"><span class="cls_002">Requested update
+        from Vonage for tracking info</span></div>
+    <div style="position:absolute;left:122.18px;top:182.90px" class="cls_002"><span class="cls_002">14:56</span></div>
+    <div style="position:absolute;left:161.54px;top:182.78px" class="cls_002"><span class="cls_002">Velocloud to
+        arrive tomorrow 4/16 by 1200 CST</span></div>
+    <div style="position:absolute;left:161.54px;top:190.22px" class="cls_002"><span class="cls_002">FedEx Tracking
+        number 391911060570</span></div>
+    <div style="position:absolute;left:55.08px;top:212.78px" class="cls_002"><span class="cls_002">Store Number</span>
+    </div>
+    <div style="position:absolute;left:119.54px;top:212.78px" class="cls_002"><span class="cls_002">Comms</span></div>
+    <div style="position:absolute;left:184.10px;top:212.78px" class="cls_002"><span class="cls_002">Vendor</span>
+    </div>
+    <div style="position:absolute;left:238.25px;top:212.78px" class="cls_002"><span class="cls_002">Restore
+        Date</span></div>
+    <div style="position:absolute;left:291.17px;top:212.78px" class="cls_002"><span class="cls_002">Restore
+        Time</span></div>
+    <div style="position:absolute;left:343.51px;top:212.78px" class="cls_002"><span class="cls_002">BMC Ticket</span>
+    </div>
+    <div style="position:absolute;left:412.99px;top:212.30px" class="cls_002"><span class="cls_002">Vendor
+        Ticket</span></div>
+    <div style="position:absolute;left:68.52px;top:220.22px" class="cls_002"><span class="cls_002">1820</span></div>
+    <div style="position:absolute;left:124.94px;top:220.22px" class="cls_002"><span class="cls_002">LAN</span></div>
+    <div style="position:absolute;left:171.98px;top:220.22px" class="cls_002"><span class="cls_002">VonageSDWAN</span>
+    </div>
+    <div style="position:absolute;left:245.57px;top:220.22px" class="cls_002"><span class="cls_002">4/15/20</span>
+    </div>
+    <div style="position:absolute;left:302.21px;top:220.22px" class="cls_002"><span class="cls_002">13:09</span></div>
+    <div style="position:absolute;left:346.99px;top:220.22px" class="cls_002"><span class="cls_002">1498762</span>
+    </div>
+    <div style="position:absolute;left:69.12px;top:235.10px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:123.38px;top:235.10px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:311.09px;top:234.62px" class="cls_002"><span class="cls_002">Details</span>
+    </div>
+    <div style="position:absolute;left:60.36px;top:242.42px" class="cls_002"><span class="cls_002">4/15/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:242.42px" class="cls_002"><span class="cls_002">08:30</span></div>
+    <div style="position:absolute;left:161.54px;top:242.78px" class="cls_002"><span class="cls_002">Store called in
+        need to get everything back online, only .4 is pinging at the store</span></div>
+    <div style="position:absolute;left:161.54px;top:250.22px" class="cls_002"><span class="cls_002">Cisco has flashing
+        OK light, power cycled Cisco</span></div>
+    <div style="position:absolute;left:161.54px;top:257.66px" class="cls_002"><span class="cls_002">Ok light still
+        flashing</span></div>
+    <div style="position:absolute;left:161.54px;top:264.62px" class="cls_002"><span class="cls_002">let Cisco 800 sit
+        for 15 minutes before plugging power back into it</span></div>
+    <div style="position:absolute;left:161.54px;top:272.09px" class="cls_002"><span class="cls_002">Once power was
+        plugged back in, Cisco 800 still did not come back up</span></div>
+    <div style="position:absolute;left:122.18px;top:279.65px" class="cls_002"><span class="cls_002">09:17</span></div>
+    <div style="position:absolute;left:161.54px;top:279.53px" class="cls_002"><span class="cls_002">New cisco has been
+        configured for the store, Serial FJC2349L0Y4</span></div>
+    <div style="position:absolute;left:122.18px;top:287.09px" class="cls_002"><span class="cls_002">09:39</span></div>
+    <div style="position:absolute;left:161.54px;top:286.97px" class="cls_002"><span class="cls_002">Tracking #:
+        1Z6747860391969989</span></div>
+    <div style="position:absolute;left:122.18px;top:294.53px" class="cls_002"><span class="cls_002">11:45</span></div>
+    <div style="position:absolute;left:161.54px;top:294.41px" class="cls_002"><span class="cls_002">Store comms are up
+        on Velocloud. Store also needs a sequence 1 restore, in progress.</span></div>
+    <div style="position:absolute;left:161.54px;top:301.85px" class="cls_002"><span class="cls_002">Store is back up
+        on the Cisco router, had to console into the Cisco and get it out of ROMMON</span></div>
+    <div style="position:absolute;left:161.54px;top:309.29px" class="cls_002"><span class="cls_002">Cancelled the
+        Cisco shipment, Jarrod pulled the Cisco from shipping area</span></div>
+    <div style="position:absolute;left:122.18px;top:316.85px" class="cls_002"><span class="cls_002">13:09</span></div>
+    <div style="position:absolute;left:161.54px;top:316.73px" class="cls_002"><span class="cls_002">Restore to
+        sequence 1 is complete</span></div>
+    <div style="position:absolute;left:161.54px;top:324.17px" class="cls_002"><span class="cls_002">Verified the store
+        is back up and operational</span></div>
+    <div style="position:absolute;left:161.54px;top:331.61px" class="cls_002"><span class="cls_002">Wiped the
+        configuration from the Cisco that was configured earlier today</span></div>
+    <div style="position:absolute;left:161.54px;top:339.05px" class="cls_002"><span class="cls_002">Wiped Cisco has
+        been put back into our stack of Ciscos in the lab</span></div>
+    <div style="position:absolute;left:55.08px;top:361.61px" class="cls_002"><span class="cls_002">Store Number</span>
+    </div>
+    <div style="position:absolute;left:119.54px;top:361.61px" class="cls_002"><span class="cls_002">Comms</span></div>
+    <div style="position:absolute;left:184.10px;top:361.61px" class="cls_002"><span class="cls_002">Vendor</span>
+    </div>
+    <div style="position:absolute;left:238.25px;top:361.61px" class="cls_002"><span class="cls_002">Restore
+        Date</span></div>
+    <div style="position:absolute;left:291.17px;top:361.61px" class="cls_002"><span class="cls_002">Restore
+        Time</span></div>
+    <div style="position:absolute;left:343.51px;top:361.61px" class="cls_002"><span class="cls_002">BMC Ticket</span>
+    </div>
+    <div style="position:absolute;left:412.99px;top:361.13px" class="cls_002"><span class="cls_002">Vendor
+        Ticket</span></div>
+    <div style="position:absolute;left:68.52px;top:369.05px" class="cls_002"><span class="cls_002">1032</span></div>
+    <div style="position:absolute;left:118.46px;top:369.05px" class="cls_002"><span class="cls_002">Internet</span>
+    </div>
+    <div style="position:absolute;left:171.98px;top:369.05px" class="cls_002"><span class="cls_002">VonageSDWAN</span>
+    </div>
+    <div style="position:absolute;left:256.61px;top:369.05px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:309.89px;top:369.05px" class="cls_002"><span class="cls_002">-</span></div>
+    <div style="position:absolute;left:346.99px;top:369.05px" class="cls_002"><span class="cls_002">1500907</span>
+    </div>
+    <div style="position:absolute;left:420.79px;top:368.45px" class="cls_002"><span class="cls_002">1212462</span>
+    </div>
+    <div style="position:absolute;left:69.12px;top:384.17px" class="cls_002"><span class="cls_002">Date</span></div>
+    <div style="position:absolute;left:123.38px;top:384.17px" class="cls_002"><span class="cls_002">Time</span></div>
+    <div style="position:absolute;left:311.09px;top:383.69px" class="cls_002"><span class="cls_002">Details</span>
+    </div>
+    <div style="position:absolute;left:60.36px;top:391.61px" class="cls_002"><span class="cls_002">4/15/2020</span>
+    </div>
+    <div style="position:absolute;left:122.18px;top:391.61px" class="cls_002"><span class="cls_002">09:57</span></div>
+    <div style="position:absolute;left:161.54px;top:391.97px" class="cls_002"><span class="cls_002">Store called in
+        about all communications down</span></div>
+    <div style="position:absolute;left:161.54px;top:399.41px" class="cls_002"><span class="cls_002">Power cycled
+        Velocloud but cloud status light remained red</span></div>
+    <div style="position:absolute;left:161.54px;top:406.87px" class="cls_002"><span class="cls_002">Called Vonage,
+        there are outages in the area causing this issue</span></div>
+    <div style="position:absolute;left:161.54px;top:413.83px" class="cls_002"><span class="cls_002">Vonage ticket #:
+        1212462</span></div>
+    <div style="position:absolute;left:122.18px;top:421.39px" class="cls_002"><span class="cls_002">10:54</span></div>
+    <div style="position:absolute;left:161.54px;top:421.27px" class="cls_002"><span class="cls_002">Sent email update
+        to SM, DM, and RM</span></div>
+    <div style="position:absolute;left:122.18px;top:428.83px" class="cls_002"><span class="cls_002">14:54</span></div>
+    <div style="position:absolute;left:161.54px;top:428.71px" class="cls_002"><span class="cls_002">Requested update
+        on ticket status from Vonage</span></div>
+    <div style="position:absolute;left:161.54px;top:436.15px" class="cls_002"><span class="cls_002">Vonage portal
+        shows work is still being done</span></div>
+    <div style="position:absolute;left:161.54px;top:443.59px" class="cls_002"><span class="cls_002">Email sent to SM,
+        DM, and RM</span></div>
+    <div style="position:absolute;left:122.18px;top:451.51px" class="cls_002"><span class="cls_002">16:04</span></div>
+    <div style="position:absolute;left:161.54px;top:451.39px" class="cls_002"><span class="cls_002">Called Vonage,
+        they have no new updates from the LEC</span></div>
+    <div style="position:absolute;left:161.54px;top:458.83px" class="cls_002"><span class="cls_002">Brian at Vonage is
+        reaching out to escalate the ticket and get a status update from the LEC</span></div>
+  </div>
+  <router-outlet></router-outlet>

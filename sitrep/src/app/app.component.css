@@ -463,13 +463,23 @@ label{
     display: grid; 
 }
 
-/* .add{
-    display: grid;
-    padding: 0 5px 5px 5px;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr auto auto;
+.doPrint {
+    visibility: hidden;
+}
+
+/* .doNotPrint {
+    visibility: visible;
 } */
 
+@media print {
+    .doPrint {
+        visibility: visible;
+    }
+
+    .doNotPrint {
+        visibility: hidden;
+    }
+}
 
 @media (max-width: 920px){
     #oLogo{
