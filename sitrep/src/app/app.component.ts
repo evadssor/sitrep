@@ -49,7 +49,8 @@ export class AppComponent {
   }
 
   callPrintRep() {
-    alert("Printing Today's Report...");
+    window.print();
+    // alert("Printing Today's Report...");
   };
 
 
