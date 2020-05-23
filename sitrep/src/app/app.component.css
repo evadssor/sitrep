@@ -485,6 +485,10 @@ label{
     .doNotPrint {
         visibility: hidden;
     }
+
+    th {
+        font-weight: normal;
+    }
 }
 
 @media (max-width: 920px){

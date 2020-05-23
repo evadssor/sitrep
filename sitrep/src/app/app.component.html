@@ -38,7 +38,8 @@
           <div class="edit_info">
             <i *ngIf="editing !== store" class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"
               (click)="editing = store"></i>
-            <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit" (click)="saveStoreEdit(store)"></i>
+            <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit"
+              (click)="saveStoreEdit(store)"></i>
             <i *ngIf="editing === store" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
           </div>
           <div class="info_details" *ngIf="editing !== store">
@@ -135,7 +136,8 @@
                 <option value="Adtran"
                   *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
                   AdTran</option>
-                <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD</option>
+                <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD
+                </option>
                 <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
                 <option value="Circuit Only"
                   *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
@@ -193,7 +195,8 @@
                     max="2025-01-01">
                 </div>
                 <div class="time_entry">
-                  <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
+                  <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00"
+                    max="24:00">
                 </div>
                 <div class="edit_entry_text">
                   <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
@@ -214,10 +217,11 @@
             <p class="add_header">Add Update</p>
             <div class="dateTime">
               <label for="new_date">Date:</label>
-              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
-                required>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01"
+                max="2025-01-01" required>
               <label for="new_time">Time:</label>
-              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00"
+                required>
             </div>
             <div class="new_entry_text">
               <textarea class="new_text" [(ngModel)]="new_text" name="new_text" placeholder="What's new?"></textarea>
@@ -307,7 +311,8 @@
                   AdTran</option>
                 <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
                 <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
-                <option value="Circuit Only" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">
+                <option value="Circuit Only"
+                  *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">
                   Circuit Only</option>
                 <option value="PBX"
                   *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">
@@ -330,10 +335,11 @@
             <p class="add_header">Issue Details</p>
             <div class="dateTime">
               <label for="new_date">Start Date:</label>
-              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
-                required>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01"
+                max="2025-01-01" required>
               <label for="new_time">Start Time:</label>
-              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00"
+                required>
             </div>
             <div class="new_entry_text">
               <textarea class="new_text" placeholder="What happened?" [(ngModel)]="new_text" name="new_text"></textarea>
@@ -388,57 +394,73 @@
     }
   </style>
 
-  <!-- <div style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden"> -->
-    <div >
-      <img src="../assets/img/background1.jpg"
-        width=700>
-    </div>
-    <!-- Table  -->
-    <div class="statusTable">
-      <table>
-        <tr>
-          <th>0 to 4hrs</th>
-          <th>4 to 8hrs</th>
-          <th>8 to 12hrs</th>
-          <th>12 to 16hrs</th>
-          <th>16 to 20hrs</th>
-          <th>20 to 24hrs</th>
-          <th>24hrs+</th>
-          <th>Restored</th>
-        </tr>
-      </table>
-    </div>
+  <div>
+    <img src="../assets/img/background1.jpg" width=700>
+  </div>
+  <!-- Table  -->
+  <div class="statusTable">
+    <table>
+      <tr>
+        <th id="blankColumn"></th>
+        <th>0 to 4hrs</th>
+        <th>4 to 8hrs</th>
+        <th>8 to 12hrs</th>
+        <th>12 to 16hrs</th>
+        <th>16 to 20hrs</th>
+        <th>20 to 24hrs</th>
+        <th>24hrs+</th>
+        <th>Restored</th>
+      </tr>
+      <tr>
+        <td>iSeries</td>
+      </tr>
+      <tr>
+      <td>Linux</td>
+      </tr>
+      <tr>
+        <td>WAN</td>
+      </tr>
+      <tr>
+        <td>LAN</td>
+      </tr>
+      <tr>
+        <td>Phones</td>
+      </tr>
+    </table>
+  </div>
 
-    <!-- Individual store data -->
-    <div *ngFor="let store of stores">
-      <table style="width: 100%;">
-        <tr class="storeHeader">
-          <th>Store Number</th>
-          <th>Comms</th>
-          <th>Vendor</th>
-          <th>Restore Date</th>
-          <th>Restore Time</th>
-          <th>BMC Ticket</th>
-          <th>Vendor Ticket</th>
-        </tr>
-        <tr class="storeDetail">
-          <td>{{store.storeNumber}}</td>
-          <td>{{store.commType}}</td>
-          <td>{{store.provider}}</td>
-          <td>{{store.bmcTicket}}</td>
-          <td>{{store.serviceTicket}}</td>
-          <td>{{store.endDate}}</td>
-          <td>{{store.endTime}}</td>
-        </tr>
-        <tr class="updateHeader">
-          <th>Date</th>
-          <th>Time</th>
-          <th>Details</th>
-        </tr>
-        <tr *ngFor="let update of store.updates">
-
-        </tr>
-      </table>
+  <!-- Individual store data -->
+  <div *ngFor="let store of stores">
+    <table style="width: 100%;">
+      <tr class="storeHeader">
+        <th>Store Number</th>
+        <th>Comms</th>
+        <th>Vendor</th>
+        <th>Restore Date</th>
+        <th>Restore Time</th>
+        <th>BMC Ticket</th>
+        <th>Vendor Ticket</th>
+      </tr>
+      <tr class="storeDetail">
+        <td>{{store.storeNumber}}</td>
+        <td>{{store.commType}}</td>
+        <td>{{store.provider}}</td>
+        <td>{{store.bmcTicket}}</td>
+        <td>{{store.serviceTicket}}</td>
+        <td>{{store.endDate}}</td>
+        <td>{{store.endTime}}</td>
+      </tr>
+      <tr class="updateHeader">
+        <th>Date</th>
+        <th>Time</th>
+        <th>Details</th>
+      </tr>
+      <tr *ngFor="let update of store.updates">
+        <td>{{update.date}}</td>
+        <td>{{update.time}}</td>
+        <td>{{update.message}}</td>
+      </tr>
+    </table>
     <!-- </div> -->
   </div>
   <router-outlet></router-outlet>
