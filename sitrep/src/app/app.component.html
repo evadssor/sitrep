@@ -434,8 +434,11 @@
     <table style="width: 100%;">
       <tr class="storeHeader">
         <th>Store Number</th>
-        <th>Comms</th>
-        <th>Vendor</th>
+        <th>Issue</th>
+        <th *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">Provider</th>
+        <th *ngIf="store.issue === 'SERVER'">Server Type</th>
+        <th *ngIf="store.issue === 'SERVER'">Server Model</th>
+        <th *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">Hardware</th>
         <th>Restore Date</th>
         <th>Restore Time</th>
         <th>BMC Ticket</th>
@@ -443,12 +446,15 @@
       </tr>
       <tr class="storeDetail">
         <td>{{store.storeNumber}}</td>
-        <td>{{store.commType}}</td>
-        <td>{{store.provider}}</td>
-        <td>{{store.bmcTicket}}</td>
-        <td>{{store.serviceTicket}}</td>
+        <td>{{store.issue}}</td>
+        <td *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">{{store.provider}}</td>
+        <td *ngIf="store.issue === 'SERVER'">{{store.serverType}}</td>
+        <td *ngIf="store.issue === 'SERVER'">{{store.serverModel}}</td>
+        <td *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">{{store.hardware}}</td>
         <td>{{store.endDate}}</td>
         <td>{{store.endTime}}</td>
+        <td>{{store.bmcTicket}}</td>
+        <td>{{store.serviceTicket}}</td>
       </tr>
       <tr class="updateHeader">
         <th>Date</th>
@@ -461,6 +467,6 @@
         <td>{{update.message}}</td>
       </tr>
     </table>
-    <!-- </div> -->
+  <!-- </div> -->
   </div>
   <router-outlet></router-outlet>
