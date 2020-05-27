@@ -356,77 +356,127 @@
 </div>
 
 <div class="doPrint">
-  <style type="text/css">
-    span.cls_002 {
-      font-family: "Verdana", serif;
-      font-size: 6.0px;
-      color: rgb(0, 0, 0);
-      font-weight: normal;
-      font-style: normal;
-      text-decoration: none
-    }
-
-    div.cls_002 {
-      font-family: "Verdana", serif;
-      font-size: 6.0px;
-      color: rgb(0, 0, 0);
-      font-weight: normal;
-      font-style: normal;
-      text-decoration: none
-    }
-
-    span.cls_003 {
-      font-family: "Verdana", serif;
-      font-size: 6.0px;
-      color: rgb(14, 14, 14);
-      font-weight: normal;
-      font-style: normal;
-      text-decoration: none
-    }
-
-    div.cls_003 {
-      font-family: "Verdana", serif;
-      font-size: 6.0px;
-      color: rgb(14, 14, 14);
-      font-weight: normal;
-      font-style: normal;
-      text-decoration: none
-    }
-  </style>
-
   <div>
     <img src="../assets/img/background1.jpg" width=700>
   </div>
   <!-- Table  -->
-  <div class="statusTable">
-    <table>
-      <tr>
+  <div id="statusTable" style="background-color: white;">
+    <!-- <table>
+      <tr id="downTimes">
         <th id="blankColumn"></th>
-        <th>0 to 4hrs</th>
-        <th>4 to 8hrs</th>
-        <th>8 to 12hrs</th>
-        <th>12 to 16hrs</th>
-        <th>16 to 20hrs</th>
-        <th>20 to 24hrs</th>
+        <th>0-4hrs</th>
+        <th>4-8hrs</th>
+        <th>8-12hrs</th>
+        <th>12-16hrs</th>
+        <th>16-20hrs</th>
+        <th>20-24hrs</th>
         <th>24hrs+</th>
         <th>Restored</th>
       </tr>
-      <tr>
+      <tr class="issue-row">
         <td>iSeries</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{insertStoreNum(stores)}}</td>
+        <td>1224</td>
       </tr>
-      <tr>
-      <td>Linux</td>
+      <tr class="grid-linux issue-row">
+        <td style="background-color: grey;">Linux</td>
+        <td>
+          <p>1234</p>
+          <p>4321</p>
+          <p>1234</p>
+          <p>4321</p>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1234</td>
+        <td></td>
       </tr>
-      <tr>
+      <tr class="grid-lan issue-row">
         <td>WAN</td>
+        <td>1234</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
-      <tr>
+      <tr class="grid-lan issue-row">
         <td>LAN</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
       </tr>
-      <tr>
+      <tr class="grid-phones issue-row">
         <td>Phones</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1234</td>
+        <td></td>
       </tr>
-    </table>
+    </table> -->
+    <div class="downTimes">
+      <div>
+        <p>0-4hrs</p>
+      </div>
+      <div>
+        <p>4-8hrs</p>
+      </div>
+      <div>
+        <p>8-12hrs</p>
+      </div>
+      <div>
+        <p>12-16hrs</p>
+      </div>
+      <div>
+        <p>16-20hrs</p>
+      </div>
+      <div>
+        <p>20-24hrs</p>
+      </div>
+      <div>
+        <p>24hrs+</p>
+      </div>
+      <div >
+        <p>Restored</p>
+      </div>
+    </div>
+    <div class="issueGrid">
+      <div>
+        <p>iSeries</p>
+      </div>
+      <div>
+        <p>Linux</p>
+      </div>
+      <div>
+        <p>WAN</p>
+      </div>
+      <div>
+        <p>LAN</p>
+      </div>
+      <div>
+        <p>Phones</p>
+      </div>
+    </div>
   </div>
 
   <!-- Individual store data -->
@@ -462,7 +512,7 @@
         <th>Details</th>
       </tr>
       <tr *ngFor="let update of store.updates">
-        <td>{{update.date}}</td>
+        <td>{{convertDate(update.date)}}</td>
         <td>{{update.time}}</td>
         <td>{{update.message}}</td>
       </tr>

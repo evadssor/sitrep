@@ -249,4 +249,30 @@ export class AppComponent {
       return 'OPEN';
     }
   }
+
+  insertStoreNum(stores: Store[]){
+    for(let i = 0; i < stores.length; i++){
+      var date_time = (stores[i].startDate.toString() + " " + stores[i].startTime.toString());
+      var start_milli = Date.parse(date_time);
+      var current_milli = new Date().getTime();
+      var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;
+      if(stores[i].issue === 'WAN'){
+        if(down_hours >= 24){
+          return stores[i].storeNumber;
+        }
+      }else if(stores[i].issue === 'LAN'){
+        if(down_hours >= 24){
+          return stores[i].storeNumber;
+        }
+      }else if(stores[i].issue === 'SERVER'){
+        if(down_hours >= 24){
+          return stores[i].storeNumber;
+        }
+      }else if(stores[i].issue === 'PHONES'){
+        if(down_hours >= 24){
+          return stores[i].storeNumber;
+        }
+      }
+    }
+  }
 }

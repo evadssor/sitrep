@@ -471,6 +471,8 @@ label{
     width: 100%;
     z-index: 5;
     visibility: hidden;
+    background-color: white;
+    -webkit-print-color-adjust: exact;
 }
 
 /* .doNotPrint {
@@ -527,167 +529,42 @@ label{
     }
 }
 
-
-/*new store compononet stuff*/
-
-#add_new_store{
-    display: grid; 
-}
-
-.form{
+/*table styling*/
+#statusTable{
     display: grid;
-    width: 725px;
-    margin: 20px 0 20px 0;
-    /* justify-content: center;
-    align-content: center; */
-    background-color: var(--greyer);
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(4, auto);
-    /* border-radius: 10px;*/
+    margin-bottom: 50px;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, auto);
 }
 
-.shade{
-    box-shadow: 5px 5px 15px var(--black);
-}
-
-.new_store_header{
-    display: inline-flex;
-    grid-column: 1 / -1;
+.downTimes{
+    display: grid;
+    grid-column: 2 / -1;
     grid-row: 1 / 2;
-    background-color: var(--black);
-    padding: 5px;
-    align-items: center;
-}
-
-.new_storeNum{
-    width: 90px;
-    height: 32px;
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--black);
-    text-align: center;
-    margin-left: 3px;
-}
-
-.store{
-    display: grid;
-    grid-column: 1 / 2;
-    margin-left: 5px;
-    justify-content: start;
-    align-content: center;
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--whiter);
-}
-
-.new_info{
-    display: grid;
-    /* grid-gap: 10px; */
-    grid-column: 1 / -1;
-    grid-row: 2 / -4;
-    grid-template-columns: 1fr 10px;
-}
-
-.new_info_details{
-    display: grid;
-    /* grid-gap: 10px; */
-    grid-column: 1 / 2;
-    margin: 5px;
-    margin-left: 15px;
+    grid-template-columns: repeat(8, 1fr);
+    border: 1px solid black;
     padding: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-template-rows: auto auto;
-    justify-content: center;
 }
 
-.new_info_details>div{
+.downTimes>div>p{
+    font-size: 14px;
+    text-align: center;
+}
+
+.issueGrid{
     display: grid;
-    align-content: start;
-    justify-content: center;
+    grid-column: 1 / 2;
+    grid-row: 2 / -1;
+    grid-template-rows: repeat(5, 1fr);
+    border: 1px solid black;
+    background-color: var(--white);
+}
+
+.issueGrid>div>p{
+    padding: 10px;
     text-align: center;
 }
 
-.new_info_details>div>p{
-    margin: 5px;
-    padding: 5px;
-    color: var(--black);
-    width: 95px;
-    height: 20px;
-    background-color: var(--whiter);
-}
-
-.new_info_details>div>input, select{
-    width: 100px;
-    height: 30px;
-    margin: 5px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.new_issue_header{
-    display: grid;
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
-    background-color: var(--black);
-    padding: 5px;
-    grid-template-columns: 1fr 1fr auto;
-    /* border-radius: 10px 10px 0 0; */
-}
-
-.new_date, .new_time{
-    margin: 5px;
-    border: 1px solid var(--dark_grey);
-    height: 25px;
-    padding:5px;
-    font-family: 'Ubuntu';
-    text-align: center;
-    font-size: 14px;
-}
-
-.new_entry_btns{
-    display: inline-flex;
-    grid-column: 2 / 3;
-    grid-row: 4 / 5;
-    justify-content: flex-end;
-    align-content: flex-end;
-}
-
-.new_entry_text{
-    display: flex;
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    justify-content: start;
-    align-content: start;
-}
-
-.new_text{
-    display: flex;
-    flex: 1;
-    font-size: 16px;
-    margin: 5px;
-    padding: 5px;
-    padding-left: 10px;
-    border: 1px solid var(--dark_grey);
-    text-align: left;
-    /* border-radius: 5px; */
-}
-
-.post_up, .delete_up{
-    align-self: center;
-    padding: 5px;
-    /* border-radius: 5px; */
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.post_up{
-    background-color: var(--blue);
-    color: var(--whiter);
-    border: .5px solid var(--dark_grey);
-}
-
-.delete_up{
-    color: var(--black);
-    margin-left: 5px;
-    background-color: transparent;
+#blankColumn{
+    border: 0;
 }
