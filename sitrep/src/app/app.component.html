@@ -44,6 +44,9 @@
             <label for="issue_type">Issue</label>
             <p>{{store.issue}}</p>
           </div>
+          <div class="down">
+            <p *ngIf="store.resolved">Down Time: <span class="down_time">{{finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime)}}</span> </p>
+            <p *ngIf="!store.resolved">Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
           <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
             <label for="type_num">Server Type</label>
             <p class="type_num">{{store.serverType}}</p>
