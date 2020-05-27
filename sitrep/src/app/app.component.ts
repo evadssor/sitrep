@@ -63,23 +63,23 @@ export class AppComponent {
       if (result.resolved) {
         console.log("Result: ", result);
         const resolvedStore: Store = {
-            storeId: store.storeId,
-            storeNumber: store.storeNumber,
-            issue: store.issue,
-            bmcTicket: store.bmcTicket,
-            serviceTicket: store.serviceTicket,
-            serverType: store.serverType,
-            serverModel: store.serverModel,
-            commType: store.commType,
-            provider: store.provider,
-            hardware: store.hardware,
-            startDate: store.startDate,
-            startTime: store.startTime,
-            downTime: this.finalDownTime(store.startDate, store.startTime, result.endDate, result.endTime),
-            endDate: result.endDate,
-            endTime: result.endTime,
-            resolved: true,
-            show: store.show
+          storeId: store.storeId,
+          storeNumber: store.storeNumber,
+          issue: store.issue,
+          bmcTicket: store.bmcTicket,
+          serviceTicket: store.serviceTicket,
+          serverType: store.serverType,
+          serverModel: store.serverModel,
+          commType: store.commType,
+          provider: store.provider,
+          hardware: store.hardware,
+          startDate: store.startDate,
+          startTime: store.startTime,
+          downTime: this.downTime(store.startDate, store.startTime),
+          endDate: result.endDate,
+          endTime: result.endTime,
+          resolved: true,
+          show: store.show
         }
         this.saveStoreEdit(resolvedStore)
       }
@@ -214,7 +214,7 @@ export class AppComponent {
     return (setHours + "hrs " + m + "min");
   }
 
-  finalDownTime(d1, t1, d2, t2){
+  finalDownTime(d1, t1, d2, t2) {
     var date_time1 = (d1.toString() + " " + t1.toString());
     var date_time2 = (d2.toString() + " " + t2.toString());
 
@@ -242,37 +242,53 @@ export class AppComponent {
     }
   }
 
-  checkResolved(status){
-    if(status === true){
+  checkResolved(status) {
+    if (status === true) {
       return 'CLOSED';
-    }else{
+    } else {
       return 'OPEN';
     }
   }
 
-  insertStoreNum(stores: Store[]){
-    for(let i = 0; i < stores.length; i++){
+  insertStoreNum(stores: Store[]) {
+    for (let i = 0; i < stores.length; i++) {
       var date_time = (stores[i].startDate.toString() + " " + stores[i].startTime.toString());
       var start_milli = Date.parse(date_time);
       var current_milli = new Date().getTime();
       var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;
-      if(stores[i].issue === 'WAN'){
-        if(down_hours >= 24){
+      if (stores[i].issue === 'WAN') {
+        if (down_hours >= 24) {
           return stores[i].storeNumber;
         }
-      }else if(stores[i].issue === 'LAN'){
-        if(down_hours >= 24){
+      } else if (stores[i].issue === 'LAN') {
+        if (down_hours >= 24) {
           return stores[i].storeNumber;
         }
-      }else if(stores[i].issue === 'SERVER'){
-        if(down_hours >= 24){
+      } else if (stores[i].issue === 'SERVER') {
+        if (down_hours >= 24) {
           return stores[i].storeNumber;
         }
-      }else if(stores[i].issue === 'PHONES'){
-        if(down_hours >= 24){
+      } else if (stores[i].issue === 'PHONES') {
+        if (down_hours >= 24) {
           return stores[i].storeNumber;
         }
       }
     }
+  }
+
+  currentDate() {
+    var date = new Date();
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+
+    var today = mm + '/' + dd + '/' + yyyy;
+    return(today);
+  }
+
+  currentTime() {
+    var date = new Date();
+    var time = String(date.getHours() + ":" + String(date.getMinutes()));
+    return(time);
   }
 }

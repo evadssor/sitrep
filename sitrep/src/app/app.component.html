@@ -359,8 +359,18 @@
   <div>
     <img src="../assets/img/background1.jpg" width=700>
   </div>
+  <div id="currentDateTime">
+    <div id="pdfDate">
+      <p id="dateTitle">Date:</p>
+      <p>{{currentDate()}}</p>
+    </div>
+    <div id="pdfTime">
+      <p id="timeTitle">Time:</p>
+      <p>{{currentTime()}}</p>
+    </div>
+  </div>
   <!-- Table  -->
-  <div id="statusTable" style="background-color: white;">
+  <div id="statusTable">
     <!-- <table>
       <tr id="downTimes">
         <th id="blankColumn"></th>
@@ -435,46 +445,96 @@
       </tr>
     </table> -->
     <div class="downTimes">
-      <div>
+      <div class="zeroFour">
         <p>0-4hrs</p>
       </div>
-      <div>
+      <div class="fourEight">
         <p>4-8hrs</p>
       </div>
-      <div>
+      <div class="eightTwelve">
         <p>8-12hrs</p>
       </div>
-      <div>
+      <div class="twelveSixteen">
         <p>12-16hrs</p>
       </div>
-      <div>
+      <div class="sixteenTwenty">
         <p>16-20hrs</p>
       </div>
-      <div>
+      <div class="twentyTwentyFour">
         <p>20-24hrs</p>
       </div>
-      <div>
+      <div class="twentyFourPlus">
         <p>24hrs+</p>
       </div>
-      <div >
+      <div class="issueRestored">
         <p>Restored</p>
       </div>
     </div>
-    <div class="issueGrid">
-      <div>
-        <p>iSeries</p>
+    <div id="issueGrid">
+      <div id="issue-iseries">
+        <div id="iseries">
+          <p>iSeries</p>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-      <div>
-        <p>Linux</p>
+      <div id="issue-linux">
+        <div id="linux">
+          <p>Linux</p>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-      <div>
-        <p>WAN</p>
+      <div id="issue-wan">
+        <div id="wan">
+          <p>WAN</p>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-      <div>
-        <p>LAN</p>
+      <div id="issue-lan">
+        <div id="lan">
+          <p>LAN</p>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-      <div>
-        <p>Phones</p>
+      <div id="issue-phones">
+        <div id="phones">
+          <p>Phones</p>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
     </div>
   </div>
