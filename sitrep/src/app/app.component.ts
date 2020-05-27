@@ -60,6 +60,7 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.resolved) {
+        console.log("Result: ", result);
         const resolvedStore: Store = {
             storeId: store.storeId,
             storeNumber: store.storeNumber,
@@ -73,7 +74,7 @@ export class AppComponent {
             hardware: store.hardware,
             startDate: store.startDate,
             startTime: store.startTime,
-            downTime: this.downTime(store.startDate, store.startTime),
+            downTime: this.finalDownTime(store.startDate, store.startTime, result.endDate, result.endTime),
             endDate: result.endDate,
             endTime: result.endTime,
             resolved: true,
