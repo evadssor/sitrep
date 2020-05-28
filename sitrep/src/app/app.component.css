@@ -634,13 +634,14 @@ label{
 
 #issueGrid>div{
     display: grid;
-    text-align: center;
     align-content: center;
     border-bottom: 1px solid black;
 }
 
 #issueGrid>div>div{
     border-right: 1px solid black;
+    align-content: center;
+    text-align: center;
 }
 
 #issue-iseries{
@@ -681,4 +682,68 @@ label{
     align-content: auto;
     padding: 10px;
     text-align: center;
+}
+
+.pdfStores{
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 30px;
+}
+
+.pdfIssueHeader{
+    display: grid;
+    grid-row: 1 / 2;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.pdfIssueHeader>div>p{
+    font-size: 12px;
+    text-align: center;
+    padding: 2px;
+}
+
+.pdfIssueHeader>div>p.label{
+    border-bottom: 1px solid black;
+}
+
+.label{
+    background-color: #d9d9d9;
+}
+
+.pdfEntries{
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
+.pdfEntries>div>div>p{
+    font-size: 12px;
+    text-align: center;
+    padding: 2px;
+}
+
+.pdfEntryDate{
+    grid-column: 1 / 2;
+}
+
+.pdfEntryTime{
+    grid-column: 2 / 3;
+}
+
+.pdfEntryMessage{
+    grid-column: 3 / 4;
+}
+
+.pdfEntryLabels{
+    display: grid;
+    grid-row: 1 / 2;
+    grid-template-columns: 125px 100px auto;
+    border: 1px solid black;
+}
+
+.pdfEntryDetails{
+    display: grid;
+    grid-row: 2 / 3;
+    grid-template-columns: 125px 100px auto;
 }

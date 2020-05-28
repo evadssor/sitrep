@@ -540,43 +540,74 @@
   </div>
 
   <!-- Individual store data -->
-  <div *ngFor="let store of stores">
-    <table style="width: 100%;">
-      <tr class="storeHeader">
-        <th>Store Number</th>
-        <th>Issue</th>
-        <th *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">Provider</th>
-        <th *ngIf="store.issue === 'SERVER'">Server Type</th>
-        <th *ngIf="store.issue === 'SERVER'">Server Model</th>
-        <th *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">Hardware</th>
-        <th>Restore Date</th>
-        <th>Restore Time</th>
-        <th>BMC Ticket</th>
-        <th>Vendor Ticket</th>
-      </tr>
-      <tr class="storeDetail">
-        <td>{{store.storeNumber}}</td>
-        <td>{{store.issue}}</td>
-        <td *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">{{store.provider}}</td>
-        <td *ngIf="store.issue === 'SERVER'">{{store.serverType}}</td>
-        <td *ngIf="store.issue === 'SERVER'">{{store.serverModel}}</td>
-        <td *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">{{store.hardware}}</td>
-        <td>{{store.endDate}}</td>
-        <td>{{store.endTime}}</td>
-        <td>{{store.bmcTicket}}</td>
-        <td>{{store.serviceTicket}}</td>
-      </tr>
-      <tr class="updateHeader">
-        <th>Date</th>
-        <th>Time</th>
-        <th>Details</th>
-      </tr>
-      <tr *ngFor="let update of store.updates">
-        <td>{{convertDate(update.date)}}</td>
-        <td>{{update.time}}</td>
-        <td>{{update.message}}</td>
-      </tr>
-    </table>
-  <!-- </div> -->
+  <div class="pdfStores" *ngFor="let store of stores">
+    <div class="pdfIssueHeader">
+      <div>
+        <p class="label">Store Number</p>
+        <p>{{store.storeNumber}}</p>
+      </div>
+      <div>
+        <p class="label">Issue</p>
+        <p>{{store.issue}}</p>
+      </div>
+      <div *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">
+        <p class="label">Provider</p>
+        <p>{{store.provider}}</p>
+      </div>
+      <div *ngIf="store.issue === 'SERVER'">
+        <p class="label">Server Type</p>
+        <p>{{store.serverType}}</p>
+      </div>
+      <div *ngIf="store.issue === 'SERVER'">
+        <p class="label">Server Model</p>
+        <p>{{store.serverModel}}</p>
+      </div>
+      <div *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">
+        <p class="label">Hardware</p>
+        <p>{{store.hardware}}</p>
+      </div>
+      <div>
+        <p class="label">Restore Date</p>
+        <p>{{convertDate(store.endDate)}}</p>
+      </div>
+      <div>
+        <p class="label">Restore Time</p>
+        <p>{{store.endTime}}</p>
+      </div>
+      <div>
+        <p class="label">BMC Ticket</p>
+        <p>{{store.bmcTicket}}</p>
+      </div>
+      <div>
+        <p class="label">Vendor Ticket</p>
+        <p>{{store.serviceTicket}}</p>
+      </div>
+    </div>
+    <div class="pdfEntries" *ngFor="let update of store.updates">
+      <div class="pdfEntryLabels">
+        <div class="pdfEntryDate">
+          <p class="label">Date</p>
+        </div>
+        <div class="pdfEntryTime">
+          <p class="label">Time</p>
+        </div>
+        <div class="pdfEntryMessage">
+          <p class="label">Details</p>
+        </div>
+      </div>
+      <div class="pdfEntryDetails">
+        <div class="pdfEntryDate">
+          <p>{{convertDate(update.date)}}</p>
+        </div>
+        <div class="pdfEntryTime">
+          <p>{{update.time}}</p>
+        </div>
+        <div class="pdfEntryMessage">
+          <p style="text-align: left;">{{update.message}}</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <router-outlet></router-outlet>
+</div>
+<!-- </div> -->
+<router-outlet></router-outlet>
