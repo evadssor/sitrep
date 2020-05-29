@@ -533,6 +533,17 @@ label{
 }
 
 /*table styling*/
+
+.pdfHeader{
+    margin: 0 0 40px 0;
+}
+
+.pdfHeader>img{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
 #statusTable{
     display: grid;
     margin-bottom: 50px;
@@ -721,6 +732,7 @@ label{
     font-size: 12px;
     text-align: center;
     padding: 2px;
+    white-space: pre-wrap;
 }
 
 .pdfEntryDate{

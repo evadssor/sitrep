@@ -356,8 +356,8 @@
 </div>
 
 <div class="doPrint">
-  <div>
-    <img src="../assets/img/background1.jpg" width=700>
+  <div class="pdfHeader" >
+    <img src="../assets/img/oreillyHeader.png">
   </div>
   <div id="currentDateTime">
     <div id="pdfDate">
@@ -371,79 +371,6 @@
   </div>
   <!-- Table  -->
   <div id="statusTable">
-    <!-- <table>
-      <tr id="downTimes">
-        <th id="blankColumn"></th>
-        <th>0-4hrs</th>
-        <th>4-8hrs</th>
-        <th>8-12hrs</th>
-        <th>12-16hrs</th>
-        <th>16-20hrs</th>
-        <th>20-24hrs</th>
-        <th>24hrs+</th>
-        <th>Restored</th>
-      </tr>
-      <tr class="issue-row">
-        <td>iSeries</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>{{insertStoreNum(stores)}}</td>
-        <td>1224</td>
-      </tr>
-      <tr class="grid-linux issue-row">
-        <td style="background-color: grey;">Linux</td>
-        <td>
-          <p>1234</p>
-          <p>4321</p>
-          <p>1234</p>
-          <p>4321</p>
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>1234</td>
-        <td></td>
-      </tr>
-      <tr class="grid-lan issue-row">
-        <td>WAN</td>
-        <td>1234</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="grid-lan issue-row">
-        <td>LAN</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr class="grid-phones issue-row">
-        <td>Phones</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>1234</td>
-        <td></td>
-      </tr>
-    </table> -->
     <div class="downTimes">
       <div class="zeroFour">
         <p>0-4hrs</p>
@@ -538,7 +465,6 @@
       </div>
     </div>
   </div>
-
   <!-- Individual store data -->
   <div class="pdfStores" *ngFor="let store of stores">
     <div class="pdfIssueHeader">

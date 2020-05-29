@@ -288,7 +288,17 @@ export class AppComponent {
 
   currentTime() {
     var date = new Date();
-    var time = String(date.getHours() + ":" + String(date.getMinutes()));
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var setMinutes = '';
+
+    if(minutes < 10){
+      setMinutes = "0" + String(minutes);
+    }else{
+      setMinutes = String(minutes);
+    }
+
+    var time = hours + ":" + setMinutes;
     return(time);
   }
 }
