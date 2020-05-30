@@ -7,7 +7,7 @@ import { StoreService } from './stores/store.service';
 import { Store } from './stores/store.model';
 import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NewStoreComponent } from './new-store/new-store.component';
+import { Categories } from './stores/categories.model';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,7 @@ import { NewStoreComponent } from './new-store/new-store.component';
 export class AppComponent {
   updates: Update[] = [];
   stores: Store[] = [];
+  categories: Categories;
   private updateSub: Subscription;
   private storeSub: Subscription;
   showAddUpdate = '';
@@ -48,9 +49,9 @@ export class AppComponent {
     this.storeSub.unsubscribe();
   }
 
-  callPrintRep() {
+ async callPrintRep() {
+    await this.catergorize();
     window.print();
-    // alert("Printing Today's Report...");
   };
 
 
@@ -102,7 +103,7 @@ export class AppComponent {
       storeId: store.storeId,
       storeNumber: store.storeNumber,
       date: form.value.new_date,
-      time: form.value.new_time,
+      time: form.value.new_time, 
       message: form.value.new_text
     }
     this.updateService.addUpdate(newUpdate);
@@ -247,6 +248,43 @@ export class AppComponent {
       return 'CLOSED';
     } else {
       return 'OPEN';
+    }
+  }
+
+  catergorize() {
+    this.categories = {
+      iSeries: [],
+      Linux: [],
+      LAN: [],
+      WAN: [],
+      Phones: []
+    }
+    for(let store of this.stores) {
+      switch(store.issue) {
+        case "iSeries":
+          console.log('iSeries');
+          this.categories.iSeries.push(store);
+          break;
+        case "Linux":
+          console.log('Linux');
+          this.categories.Linux.push(store);
+          break;
+        case "WAN":
+          console.log('WAN', store);
+          this.categories.WAN.push(store);
+          break;
+        case "LAN":
+          console.log('LAN', store);
+          this.categories.LAN.push(store);
+          break;
+        case "Phones":
+          console.log('Phones');
+          this.categories.Phones.push(store);
+          break;
+        default:
+          console.log('Nothing');
+          break;
+      }
     }
   }
 
