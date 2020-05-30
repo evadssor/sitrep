@@ -356,7 +356,7 @@
 </div>
 
 <div class="doPrint">
-  <div class="pdfHeader" >
+  <div class="pdfHeader">
     <img src="../assets/img/oreillyHeader.png">
   </div>
   <div id="currentDateTime">
@@ -403,82 +403,229 @@
           <p>iSeries</p>
         </div>
         <div>
-          <div *ngFor="let store of iSeries">
-            <p *ngIf="store.downTime >= 4">{{store.storeNumber}}</p>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
-          <div *ngFor="let store of iSeries">
-            <p *ngIf="store.downTime >= 8">{{store.storeNumber}}</p>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
           </div>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
       </div>
       <div id="issue-linux">
         <div id="linux">
           <p>Linux</p>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
       </div>
       <div id="issue-wan">
         <div id="wan">
           <p>WAN</p>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
       </div>
       <div id="issue-lan">
         <div id="lan">
           <p>LAN</p>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
         <div>
-          <div *ngFor="let store of LAN">
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
             <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
           </div>
         </div>
-        <div></div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
       </div>
       <div id="issue-phones">
         <div id="phones">
           <p>Phones</p>
         </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <!-- Individual store data -->
-<<<<<<< Updated upstream
   <div class="pdfStores" *ngFor="let store of stores">
     <div class="pdfIssueHeader">
       <div>
@@ -546,46 +693,6 @@
         </div>
       </div>
     </div>
-=======
-  <div *ngFor="let store of stores">
-    <table style="width: 100%;">
-      <tr class="storeHeader">
-        <th>Store Number</th>
-        <th>Issue</th>
-        <th *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">Provider</th>
-        <th *ngIf="store.issue === 'SERVER'">Server Type</th>
-        <th *ngIf="store.issue === 'SERVER'">Server Model</th>
-        <th *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">Hardware</th>
-        <th>Restore Date</th>
-        <th>Restore Time</th>
-        <th>BMC Ticket</th>
-        <th>Vendor Ticket</th>
-      </tr>
-      <tr class="storeDetail">
-        <td>{{store.storeNumber}}</td>
-        <td>{{store.issue}}</td>
-        <td *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">{{store.provider}}</td>
-        <td *ngIf="store.issue === 'SERVER'">{{store.serverType}}</td>
-        <td *ngIf="store.issue === 'SERVER'">{{store.serverModel}}</td>
-        <td *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">{{store.hardware}}</td>
-        <td>{{store.endDate}}</td>
-        <td>{{store.endTime}}</td>
-        <td>{{store.bmcTicket}}</td>
-        <td>{{store.serviceTicket}}</td>
-      </tr>
-      <tr class="updateHeader">
-        <th>Date</th>
-        <th>Time</th>
-        <th>Details</th>
-      </tr>
-      <tr *ngFor="let update of store.updates">
-        <td>{{convertDate(update.date)}}</td>
-        <td>{{update.time}}</td>
-        <td>{{update.message}}</td>
-      </tr>
-    </table>
-    <!-- </div> -->
->>>>>>> Stashed changes
   </div>
 </div>
 <!-- </div> -->

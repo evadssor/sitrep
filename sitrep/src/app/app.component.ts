@@ -17,7 +17,13 @@ import { Categories } from './stores/categories.model';
 export class AppComponent {
   updates: Update[] = [];
   stores: Store[] = [];
-  categories: Categories;
+  categories: Categories = {
+    iSeries: [],
+    Linux: [],
+    LAN: [],
+    WAN: [],
+    Phones: []
+  };
   private updateSub: Subscription;
   private storeSub: Subscription;
   showAddUpdate = '';
@@ -52,6 +58,7 @@ export class AppComponent {
  async callPrintRep() {
     await this.catergorize();
     window.print();
+    console.log('After Print call');
   };
 
 
@@ -251,7 +258,7 @@ export class AppComponent {
     }
   }
 
-  catergorize() {
+  async catergorize(): Promise<Boolean> {
     this.categories = {
       iSeries: [],
       Linux: [],
@@ -286,6 +293,8 @@ export class AppComponent {
           break;
       }
     }
+    console.log('Done? ', this.categories);
+    return true;
   }
 
   insertStoreNum(stores: Store[]) {
