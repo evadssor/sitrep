@@ -472,6 +472,7 @@ label{
     z-index: 5;
     visibility: hidden;
     background-color: white;
+    color-adjust: exact;
     -webkit-print-color-adjust: exact;
 }
 
@@ -480,7 +481,8 @@ label{
 } */
 
 @media print {
-    @page { margin: 0; 
+    @page { 
+        margin: 0;
     }
     
     .doPrint {
@@ -489,10 +491,6 @@ label{
 
     .doNotPrint {
         visibility: hidden;
-    }
-
-    th {
-        font-weight: normal;
     }
 }
 
@@ -725,6 +723,7 @@ label{
 
 .pdfEntries{
     display: grid;
+    grid-row: 2 / 3;
     grid-template-rows: 1fr auto;
 }
 
@@ -733,6 +732,18 @@ label{
     text-align: center;
     padding: 2px;
     white-space: pre-wrap;
+}
+
+.pdfEntryLabels{
+    display: grid;
+    grid-row: 1 / 2;
+    grid-template-columns: 125px 80px 1fr;
+    border: 1px solid black;
+}
+
+.pdfEntryDetails{
+    display: grid;
+    grid-template-columns: 125px 80px 1fr;
 }
 
 .pdfEntryDate{
@@ -745,17 +756,4 @@ label{
 
 .pdfEntryMessage{
     grid-column: 3 / 4;
-}
-
-.pdfEntryLabels{
-    display: grid;
-    grid-row: 1 / 2;
-    grid-template-columns: 125px 100px auto;
-    border: 1px solid black;
-}
-
-.pdfEntryDetails{
-    display: grid;
-    grid-row: 2 / 3;
-    grid-template-columns: 125px 100px auto;
 }

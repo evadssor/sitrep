@@ -669,7 +669,7 @@
         <p>{{store.serviceTicket}}</p>
       </div>
     </div>
-    <div class="pdfEntries" *ngFor="let update of store.updates">
+    <div class="pdfEntries">
       <div class="pdfEntryLabels">
         <div class="pdfEntryDate">
           <p class="label">Date</p>
@@ -681,7 +681,7 @@
           <p class="label">Details</p>
         </div>
       </div>
-      <div class="pdfEntryDetails">
+      <div class="pdfEntryDetails" *ngFor="let update of store.updates">
         <div class="pdfEntryDate">
           <p>{{convertDate(update.date)}}</p>
         </div>
