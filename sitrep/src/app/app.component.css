@@ -464,12 +464,14 @@ label{
 }
 
 .doPrint {
-    position: fixed;
+    /* position: fixed;
     top: 0;
-    left: 0;
-    height: 100%;
+    left: 0; */
+    /* height: 100%;
     width: 100%;
-    z-index: 5;
+    z-index: 5; */
+    position: absolute;
+    top: 0;
     visibility: hidden;
     background-color: white;
     color-adjust: exact;
@@ -534,6 +536,7 @@ label{
 
 .pdfHeader{
     margin: 0 0 40px 0;
+    position: fixed;
 }
 
 .pdfHeader>img{
