@@ -404,37 +404,37 @@
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.iSeries">
-            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
@@ -449,37 +449,37 @@
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Linux">
-            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
@@ -494,37 +494,37 @@
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.WAN">
-            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
@@ -539,37 +539,37 @@
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.LAN">
-            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
@@ -589,32 +589,32 @@
         </div>
         <div>
           <div *ngFor="let store of categories.Phones">
-            <p *ngIf="store.downTime >= 4  && store.downtime <= 8">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Phones">
-            <p *ngIf="store.downTime >= 8  && store.downtime <= 12">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Phones">
-            <p *ngIf="store.downTime >= 12  && store.downtime <= 16">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Phones">
-            <p *ngIf="store.downTime >= 16  && store.downtime <= 20">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Phones">
-            <p *ngIf="store.downTime >= 20  && store.downtime <= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>
           <div *ngFor="let store of categories.Phones">
-            <p *ngIf="store.downTime >= 24">{{store.storeNumber}}</p>
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
           </div>
         </div>
         <div>

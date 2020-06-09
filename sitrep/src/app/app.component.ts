@@ -57,8 +57,9 @@ export class AppComponent {
 
  async callPrintRep() {
     await this.catergorize();
-    window.print();
-    console.log('After Print call');
+    setTimeout(function() { 
+      window.print();
+   }, 250);
   };
 
 
@@ -288,7 +289,6 @@ export class AppComponent {
           break;
       }
     }
-    console.log('Done? ', this.categories);
     return true;
   }
 
