@@ -700,6 +700,9 @@ label{
     display: grid;
     grid-template-rows: 1fr auto;
     margin-bottom: 30px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    -webkit-break-inside: avoid;
 }
 
 .pdfIssueHeader{
