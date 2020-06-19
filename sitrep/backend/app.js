@@ -133,13 +133,22 @@ app.post('/api/stores', (req, res, next) => {
 
 // Get stores
 app.get('/api/stores', (req, res, next) => {
+    var dbUpdates = [];
+    var updatesAdded = 0;
     Store.find({ show: true }).then(dbStores => {
-        console.log('dbStores: ', dbStores);
-        Update.find().then(dbUpdates => {
-            res.status(200).json({
-                message: 'stores fetched successfully',
-                stores: dbStores,
-                updates: dbUpdates
+        dbStores.forEach(store => {
+            Update.find({ storeId: store._id.toString() }).then(updates => {
+                updates.forEach(update => {
+                    dbUpdates.push(update);
+                });
+                updatesAdded++;
+                if(updatesAdded === dbStores.length) {
+                    res.status(200).json({
+                        message: 'stores fetched successfully',
+                        stores: dbStores,
+                        updates: dbUpdates
+                    });
+                }
             });
         });
     }).catch();
