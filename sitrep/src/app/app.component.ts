@@ -8,6 +8,7 @@ import { Store } from './stores/store.model';
 import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Categories } from './stores/categories.model';
+import { NewStoreComponent } from './new-store/new-store.component';
 
 @Component({
   selector: 'app-root',
@@ -84,7 +85,7 @@ export class AppComponent {
           hardware: store.hardware,
           startDate: store.startDate,
           startTime: store.startTime,
-          downTime: this.downTime(store.startDate, store.startTime),
+          downTime: this.finalDownTime(store.startDate, store.startTime, result.endDate, result.endTime),
           endDate: result.endDate,
           endTime: result.endTime,
           resolved: true,
