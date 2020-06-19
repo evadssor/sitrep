@@ -7,7 +7,7 @@ import { StoreService } from './stores/store.service';
 import { Store } from './stores/store.model';
 import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NewStoreComponent } from './new-store/new-store.component';
+import { Categories } from './stores/categories.model';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,13 @@ import { NewStoreComponent } from './new-store/new-store.component';
 export class AppComponent {
   updates: Update[] = [];
   stores: Store[] = [];
+  categories: Categories = {
+    iSeries: [],
+    Linux: [],
+    LAN: [],
+    WAN: [],
+    Phones: []
+  };
   private updateSub: Subscription;
   private storeSub: Subscription;
   showAddUpdate = '';
@@ -48,8 +55,11 @@ export class AppComponent {
     this.storeSub.unsubscribe();
   }
 
-  callPrintRep() {
-    alert("Printing Today's Report...");
+ async callPrintRep() {
+    await this.catergorize();
+    setTimeout(function() { 
+      window.print();
+   }, 250);
   };
 
 
@@ -62,23 +72,23 @@ export class AppComponent {
       if (result.resolved) {
         console.log("Result: ", result);
         const resolvedStore: Store = {
-            storeId: store.storeId,
-            storeNumber: store.storeNumber,
-            issue: store.issue,
-            bmcTicket: store.bmcTicket,
-            serviceTicket: store.serviceTicket,
-            serverType: store.serverType,
-            serverModel: store.serverModel,
-            commType: store.commType,
-            provider: store.provider,
-            hardware: store.hardware,
-            startDate: store.startDate,
-            startTime: store.startTime,
-            downTime: this.finalDownTime(store.startDate, store.startTime, result.endDate, result.endTime),
-            endDate: result.endDate,
-            endTime: result.endTime,
-            resolved: true,
-            show: store.show
+          storeId: store.storeId,
+          storeNumber: store.storeNumber,
+          issue: store.issue,
+          bmcTicket: store.bmcTicket,
+          serviceTicket: store.serviceTicket,
+          serverType: store.serverType,
+          serverModel: store.serverModel,
+          commType: store.commType,
+          provider: store.provider,
+          hardware: store.hardware,
+          startDate: store.startDate,
+          startTime: store.startTime,
+          downTime: this.downTime(store.startDate, store.startTime),
+          endDate: result.endDate,
+          endTime: result.endTime,
+          resolved: true,
+          show: store.show
         }
         this.saveStoreEdit(resolvedStore)
       }
@@ -101,7 +111,7 @@ export class AppComponent {
       storeId: store.storeId,
       storeNumber: store.storeNumber,
       date: form.value.new_date,
-      time: form.value.new_time,
+      time: form.value.new_time, 
       message: form.value.new_text
     }
     this.updateService.addUpdate(newUpdate);
@@ -213,7 +223,7 @@ export class AppComponent {
     return (setHours + "hrs " + m + "min");
   }
 
-  finalDownTime(d1, t1, d2, t2){
+  finalDownTime(d1, t1, d2, t2) {
     var date_time1 = (d1.toString() + " " + t1.toString());
     var date_time2 = (d2.toString() + " " + t2.toString());
 
@@ -241,11 +251,70 @@ export class AppComponent {
     }
   }
 
-  checkResolved(status){
-    if(status === true){
+  checkResolved(status) {
+    if (status === true) {
       return 'CLOSED';
-    }else{
+    } else {
       return 'OPEN';
     }
+  }
+
+  async catergorize(): Promise<Boolean> {
+    this.categories = {
+      iSeries: [],
+      Linux: [],
+      LAN: [],
+      WAN: [],
+      Phones: []
+    }
+    for(let store of this.stores) {
+      switch(store.issue) {
+        case "iSeries":
+          this.categories.iSeries.push(store);
+          break;
+        case "Linux":
+          this.categories.Linux.push(store);
+          break;
+        case "WAN":
+          this.categories.WAN.push(store);
+          break;
+        case "LAN":
+          this.categories.LAN.push(store);
+          break;
+        case "Phones":
+          this.categories.Phones.push(store);
+          break;
+        default:
+          console.log('Nothing');
+          break;
+      }
+    }
+    return true;
+  }
+
+  currentDate() {
+    var date = new Date();
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = date.getFullYear();
+
+    var today = mm + '/' + dd + '/' + yyyy;
+    return(today);
+  }
+
+  currentTime() {
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var setMinutes = '';
+
+    if(minutes < 10){
+      setMinutes = "0" + String(minutes);
+    }else{
+      setMinutes = String(minutes);
+    }
+
+    var time = hours + ":" + setMinutes;
+    return(time);
   }
 }

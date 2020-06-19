@@ -1,241 +1,699 @@
-<!-- <app-resolve-store *ngIf="showRestore === true"></app-resolve-store> -->
-<div class="container">
-  <header class="header">
-    <img id="oLogo" src="../assets/img/oLogo.png">
-    <div class="h1">
-      <h1>SITREP</h1>
+<div class="doNotPrint">
+  <div class="container">
+    <header class="header">
+      <img id="oLogo" src="../assets/img/oLogo.png">
+      <div class="h1">
+        <h1>SITREP</h1>
+      </div>
+      <nav id="nav">
+        <ul>
+          <!-- <li><a href="#">Today's report</a></li> -->
+          <li><a href="#">Previous Reports</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="line">
+      <button class="addStore" (click)="newStore()">Add Store</button>
+      <button class="printRep" (click)="callPrintRep()">Print Report</button>
     </div>
-    <nav id="nav">
-      <ul>
-        <!-- <li><a href="#">Today's report</a></li> -->
-        <li><a href="#">Previous Reports</a></li>
-      </ul>
-    </nav>
-  </header>
-  <div class="line">
-    <button class="addStore" (click)="newStore()">Add Store</button>
-    <button class="printRep" (click)="callPrintRep()">Print Report</button>
-  </div>
-  <div class="content">
-    <div class="form shade" *ngFor="let store of stores">
-      <section class="issue_header">
-        <div class="store">
-          <p>Store #
-            <span class="storeNum" *ngIf="editing !== store">{{store.storeNumber}}</span>
-            <input *ngIf="editing === store" class="new_storeNum" [(ngModel)]="store.storeNumber" name="new_storeNum" maxlength="4" required>
-          </p>
-        </div>
-        <div class="down">
-          <p *ngIf="store.resolved">Down Time: <span class="down_time">{{finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime)}}</span> </p>
-          <p *ngIf="!store.resolved">Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
-        </div>
-        <div class="status">
-          <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}" class="status_text">{{checkResolved(store.resolved)}}</p>
-        </div>
-      </section>
-      <section class="info">
-        <div class="edit_info">
-          <i *ngIf="editing !== store" class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"
-            (click)="editing = store"></i>
-          <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit" (click)="saveStoreEdit(store)"></i>
-          <i *ngIf="editing === store" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
-        </div>
-        <div class="info_details" *ngIf="editing !== store">
-          <div class="type">
-            <label for="issue_type">Issue</label>
-            <p>{{store.issue}}</p>
+    <div class="content">
+      <div class="form shade" *ngFor="let store of stores">
+        <section class="issue_header">
+          <div class="store">
+            <p>Store #
+              <span class="storeNum" *ngIf="editing !== store">{{store.storeNumber}}</span>
+              <input *ngIf="editing === store" class="new_storeNum" [(ngModel)]="store.storeNumber" name="new_storeNum"
+                maxlength="4" required>
+            </p>
           </div>
-          <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="type_num">Server Type</label>
-            <p class="type_num">{{store.serverType}}</p>
+          <div class="down">
+            <p>Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
           </div>
-          <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="model_num">Server Model</label>
-            <p class="model_num">{{store.serverModel}}</p>
+          <div class="status">
+            <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}"
+              class="status_text">{{checkResolved(store.resolved)}}</p>
           </div>
-          <div class="comm_Pro"
-            *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="provider">Provider</label>
-            <p class="provider">{{store.provider}}</p>
+        </section>
+        <section class="info">
+          <div class="edit_info">
+            <i *ngIf="editing !== store" class="fas fa-pencil-alt fa-xs" title="Edit Issue Info"
+              (click)="editing = store"></i>
+            <i *ngIf="editing === store" class="fas fa-check fa-xs" title="Save Edit"
+              (click)="saveStoreEdit(store)"></i>
+            <i *ngIf="editing === store" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
           </div>
-          <div class="hard_ware"
-            *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="hardware">Hardware</label>
-            <p class="hardware">{{store.hardware}}</p>
-          </div>
-          <div class="bmc_tick">
-            <label for="bmc_Num">BMC Ticket</label>
-            <p>{{store.bmcTicket}}</p>
-          </div>
-          <div class="vend_tick">
-            <label for="vend_Num">Vendor Ticket</label>
-            <p class="vend_Num">{{store.serviceTicket}}</p>
-          </div>
-        </div>
-        <!-- Editable HTML for Store -->
-        <div class="info_details" *ngIf="editing === store">
-          <div class="type">
-            <label for="issue_type">Issue</label>
-            <select class="issue_type" name="issue_type" [(ngModel)]="store.issue" name="issue_type">
-              <option value="-">-Select-</option>
-              <option value="SERVER">SERVER</option>
-              <option value="WAN">WAN</option>
-              <option value="LAN">LAN</option>
-              <option value="VOICE">VOICE</option>
-            </select>
-          </div>
-          <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="type_num">Server Type</label>
-            <select class="server" [(ngModel)]="store.serverType" name="server">
-              <option value="-">-Select-</option>
-              <option value="iSeries">iSeries</option>
-              <option value="Linux">Linux</option>
-            </select>
-          </div>
-          <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
-            <label for="model_num">Server Model</label>
-            <select class="model_num" [(ngModel)]="store.serverModel" name="model_num">
-              <option value="-">-Select-</option>
-              <option value="P5" *ngIf="store.serverType === 'iSeries'">P5</option>
-              <option value="P6" *ngIf="store.serverType === 'iSeries'">P6</option>
-              <option value="P7" *ngIf="store.serverType === 'iSeries'">P7</option>
-              <option value="P8" *ngIf="store.serverType === 'iSeries'">P8</option>
-              <option value="P9" *ngIf="store.serverType === 'iSeries'">P9</option>
-              <option value="x3100" *ngIf="store.serverType === 'Linux'">X3100</option>
-              <option value="ts460" *ngIf="store.serverType === 'Linux'">TS460</option>
-              <option value="st250" *ngIf="store.serverType === 'Linux'">ST250</option>
-              <option value="st550" *ngIf="store.serverType === 'Linux'">ST550</option>
-            </select>
-          </div>
-          <div class="comm_Pro"
-            *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="provider">Provider</label>
-            <select class="provider" [(ngModel)]="store.provider" name="provider">
-              <option value="-">-Select-</option>
-              <option value="MetTel">MetTel</option>
-              <option value="Vonage">Vonage</option>
-              <option value="Windstream">Windstream</option>
-              <option value="TRCA" *ngIf="store.issue !== 'WAN'">TRCA</option>
-              <option value="Optus" *ngIf="store.issue  !== 'WAN'">Optus</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-          <div class="hard_ware"
-            *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
-            <label for="hardware">Hardware</label>
-            <select class="hardware" [(ngModel)]="store.hardware" name="hardware">
-              <option value="-">-Select-</option>
-              <option value="Router" *ngIf="store.issue === 'LAN'">Router</option>
-              <option value="Switch" *ngIf="store.issue === 'LAN'">Switch</option>
-              <option value="Cabling" *ngIf="store.issue === 'LAN'">Cabling</option>
-              <option value="Modem"
-                *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
-              </option>
-              <option value="Adtran"
-                *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
-                AdTran</option>
-              <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD</option>
-              <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
-              <option value="Circuit Only"
-                *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
-                Circuit Only</option>
-              <option value="PBX"
-                *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">
-                PBX</option>
-            </select>
-          </div>
-          <div class="bmc_tick">
-            <label for="bmc_Num">BMC Ticket</label>
-            <input class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="store.bmcTicket" name="bmc_Num">
-          </div>
-          <div class="vend_tick">
-            <label for="vend_Num">Vendor Ticket</label>
-            <input class="vend_Num" placeholder="{{store.serviceTicket}}" [(ngModel)]="store.serviceTicket"
-              name="vend_Num">
-          </div>
-        </div>
-      </section>
-      <section class="updates">
-        <div class="issue_row">
-          <div class="date_row">
-            <p>Date</p>
-          </div>
-          <div class="time_row">
-            <p>Time</p>
-          </div>
-          <div class="comment_row">
-            <p>Updates</p>
-          </div>
-        </div>
-        <div class="entries">
-          <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
-            <div class="entry" *ngIf="editing !== update">
-              <div class="date_entry">
-                <p>{{ convertDate(update.date) }}</p>
-              </div>
-              <div class="time_entry">
-                <p>{{update.time}}</p>
-              </div>
-              <div class="entry_text">
-                <p>{{update.message}}</p>
-              </div>
-              <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
-                <i *ngIf="editing !== update" class="fas fa-pencil-alt fa-xs" title="Edit Update"
-                  (click)="editing = update"></i>
-                <i *ngIf="editing !== update" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
-                  title="Delete Update"></i>
-              </div>
+          <div class="info_details" *ngIf="editing !== store">
+            <div class="type">
+              <label for="issue_type">Issue</label>
+              <p>{{store.issue}}</p>
             </div>
-            <div class="entry" *ngIf="editing === update">
-              <div class="date_entry">
-                <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
-                  max="2025-01-01">
+            <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="type_num">Server Type</label>
+              <p class="type_num">{{store.serverType}}</p>
+            </div>
+            <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="model_num">Server Model</label>
+              <p class="model_num">{{store.serverModel}}</p>
+            </div>
+            <div class="comm_Pro"
+              *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="provider">Provider</label>
+              <p class="provider">{{store.provider}}</p>
+            </div>
+            <div class="hard_ware"
+              *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="hardware">Hardware</label>
+              <p class="hardware">{{store.hardware}}</p>
+            </div>
+            <div class="bmc_tick">
+              <label for="bmc_Num">BMC Ticket</label>
+              <p>{{store.bmcTicket}}</p>
+            </div>
+            <div class="vend_tick">
+              <label for="vend_Num">Vendor Ticket</label>
+              <p class="vend_Num">{{store.serviceTicket}}</p>
+            </div>
+          </div>
+          <!-- Editable HTML for Store -->
+          <div class="info_details" *ngIf="editing === store">
+            <div class="type">
+              <label for="issue_type">Issue</label>
+              <select class="issue_type" name="issue_type" [(ngModel)]="store.issue" name="issue_type">
+                <option value="-">-Select-</option>
+                <option value="SERVER">SERVER</option>
+                <option value="WAN">WAN</option>
+                <option value="LAN">LAN</option>
+                <option value="VOICE">VOICE</option>
+              </select>
+            </div>
+            <div class="serv_type" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="type_num">Server Type</label>
+              <select class="server" [(ngModel)]="store.serverType" name="server">
+                <option value="-">-Select-</option>
+                <option value="iSeries">iSeries</option>
+                <option value="Linux">Linux</option>
+              </select>
+            </div>
+            <div class="serv_model" *ngIf="store.issue === 'SERVER' || issue_type === 'SERVER'">
+              <label for="model_num">Server Model</label>
+              <select class="model_num" [(ngModel)]="store.serverModel" name="model_num">
+                <option value="-">-Select-</option>
+                <option value="P5" *ngIf="store.serverType === 'iSeries'">P5</option>
+                <option value="P6" *ngIf="store.serverType === 'iSeries'">P6</option>
+                <option value="P7" *ngIf="store.serverType === 'iSeries'">P7</option>
+                <option value="P8" *ngIf="store.serverType === 'iSeries'">P8</option>
+                <option value="P9" *ngIf="store.serverType === 'iSeries'">P9</option>
+                <option value="x3100" *ngIf="store.serverType === 'Linux'">X3100</option>
+                <option value="ts460" *ngIf="store.serverType === 'Linux'">TS460</option>
+                <option value="st250" *ngIf="store.serverType === 'Linux'">ST250</option>
+                <option value="st550" *ngIf="store.serverType === 'Linux'">ST550</option>
+              </select>
+            </div>
+            <div class="comm_Pro"
+              *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="provider">Provider</label>
+              <select class="provider" [(ngModel)]="store.provider" name="provider">
+                <option value="-">-Select-</option>
+                <option value="MetTel">MetTel</option>
+                <option value="Vonage">Vonage</option>
+                <option value="Windstream">Windstream</option>
+                <option value="TRCA" *ngIf="store.issue !== 'WAN'">TRCA</option>
+                <option value="Optus" *ngIf="store.issue  !== 'WAN'">Optus</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="hard_ware"
+              *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE' || issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="hardware">Hardware</label>
+              <select class="hardware" [(ngModel)]="store.hardware" name="hardware">
+                <option value="-">-Select-</option>
+                <option value="Router" *ngIf="store.issue === 'LAN'">Router</option>
+                <option value="Switch" *ngIf="store.issue === 'LAN'">Switch</option>
+                <option value="Cabling" *ngIf="store.issue === 'LAN'">Cabling</option>
+                <option value="Modem"
+                  *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">Modem
+                </option>
+                <option value="Adtran"
+                  *ngIf="store.issue === 'VOICE' && store.provider !== 'Windstream' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
+                  AdTran</option>
+                <option value="IAD" *ngIf="store.issue === 'VOICE' && store.provider === 'Windstream'">Cisco IAD
+                </option>
+                <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
+                <option value="Circuit Only"
+                  *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
+                  Circuit Only</option>
+                <option value="PBX"
+                  *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">
+                  PBX</option>
+              </select>
+            </div>
+            <div class="bmc_tick">
+              <label for="bmc_Num">BMC Ticket</label>
+              <input class="bmc_Num" placeholder="{{store.bmcTicket}}" [(ngModel)]="store.bmcTicket" name="bmc_Num">
+            </div>
+            <div class="vend_tick">
+              <label for="vend_Num">Vendor Ticket</label>
+              <input class="vend_Num" placeholder="{{store.serviceTicket}}" [(ngModel)]="store.serviceTicket"
+                name="vend_Num">
+            </div>
+          </div>
+        </section>
+        <section class="updates">
+          <div class="issue_row">
+            <div class="date_row">
+              <p>Date</p>
+            </div>
+            <div class="time_row">
+              <p>Time</p>
+            </div>
+            <div class="comment_row">
+              <p>Updates</p>
+            </div>
+          </div>
+          <div class="entries">
+            <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
+              <div class="entry" *ngIf="editing !== update">
+                <div class="date_entry">
+                  <p>{{ convertDate(update.date) }}</p>
+                </div>
+                <div class="time_entry">
+                  <p>{{update.time}}</p>
+                </div>
+                <div class="entry_text">
+                  <p>{{update.message}}</p>
+                </div>
+                <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
+                  <i *ngIf="editing !== update" class="fas fa-pencil-alt fa-xs" title="Edit Update"
+                    (click)="editing = update"></i>
+                  <i *ngIf="editing !== update" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
+                    title="Delete Update"></i>
+                </div>
               </div>
-              <div class="time_entry">
-                <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00" max="24:00">
-              </div>
-              <div class="edit_entry_text">
-                <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
-                  name="edit_text"></textarea>
-              </div>
-              <div class="edit_entry">
-                <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
-                  (click)="saveUpdate(update)"></i>
-                <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
+              <div class="entry" *ngIf="editing === update">
+                <div class="date_entry">
+                  <input class="new_date" type="date" [(ngModel)]="update.date" name="edit_date" min="2020-01-01"
+                    max="2025-01-01">
+                </div>
+                <div class="time_entry">
+                  <input class="new_time" type="time" [(ngModel)]="update.time" name="edit_time" min="00:00"
+                    max="24:00">
+                </div>
+                <div class="edit_entry_text">
+                  <textarea class="new_text" placeholder="What happened?" [(ngModel)]="update.message"
+                    name="edit_text"></textarea>
+                </div>
+                <div class="edit_entry">
+                  <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
+                    (click)="saveUpdate(update)"></i>
+                  <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="add_update">
-        <form class="add" *ngIf="showAddUpdate == store.storeId" (submit)="addUpdateToList(postForm, store)"
-          #postForm="ngForm">
-          <p class="add_header">Add Update</p>
-          <div class="dateTime">
-            <label for="new_date">Date:</label>
-            <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01" max="2025-01-01"
-              required>
-            <label for="new_time">Time:</label>
-            <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00" required>
+        </section>
+        <section class="add_update">
+          <form class="add" *ngIf="showAddUpdate == store.storeId" (submit)="addUpdateToList(postForm, store)"
+            #postForm="ngForm">
+            <p class="add_header">Add Update</p>
+            <div class="dateTime">
+              <label for="new_date">Date:</label>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01"
+                max="2025-01-01" required>
+              <label for="new_time">Time:</label>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00"
+                required>
+            </div>
+            <div class="new_entry_text">
+              <textarea class="new_text" [(ngModel)]="new_text" name="new_text" placeholder="What's new?"></textarea>
+            </div>
+            <div class="new_entry_btns">
+              <button class="post_up" type="submit">POST</button>
+              <button class="delete_up" type="button" (click)="callCancelUpdate()">X</button>
+            </div>
+          </form>
+          <div class="update">
+            <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
+              *ngIf="showUpdateBtn !== store.storeId">Update</button>
+            <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn"
+              (click)="reopenStore(store)">Reopen</button>
+            <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="resolve_btn"
+              (click)="resolveStore(store)">Resolve</button>
+            <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="remove_btn"
+              (click)="removeStoreFromList(store)">Remove</button>
+            <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="delete_btn"
+              (click)="callDeleteStore(store.storeId)">Delete</button>
           </div>
-          <div class="new_entry_text">
-            <textarea class="new_text" [(ngModel)]="new_text" name="new_text" placeholder="What's new?"></textarea>
+        </section>
+      </div>
+      <form class="form shade" id="add_new_store" *ngIf="showStore" (submit)="saveStore(postForm)" #postForm="ngForm">
+        <section class="new_store_header">
+          <p class="store">Store #</p>
+          <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" required>
+        </section>
+        <section class="new_info">
+          <div class="new_info_details">
+            <div class="type">
+              <label for="issue_type">Issue</label>
+              <select class="issue_type" name="issue_type" [(ngModel)]="issue_type" name="issue_type">
+                <option value="-">-Select-</option>
+                <option value="SERVER">SERVER</option>
+                <option value="WAN">WAN</option>
+                <option value="LAN">LAN</option>
+                <option value="VOICE">VOICE</option>
+              </select>
+            </div>
+            <div class="serv_type" *ngIf="issue_type === 'SERVER'">
+              <label for="server">Server Type</label>
+              <select class="server" [(ngModel)]="server" name="server">
+                <option value="-">-Select-</option>
+                <option value="iSeries">iSeries</option>
+                <option value="Linux">Linux</option>
+              </select>
+            </div>
+            <div class="serv_model" *ngIf="issue_type === 'SERVER'">
+              <label for="model_num">Server Model</label>
+              <select class="model_num" [(ngModel)]="model_num" name="model_num">
+                <option value="-">-Select-</option>
+                <option value="P5" *ngIf="server === 'iSeries'">P5</option>
+                <option value="P6" *ngIf="server === 'iSeries'">P6</option>
+                <option value="P7" *ngIf="server === 'iSeries'">P7</option>
+                <option value="P8" *ngIf="server === 'iSeries'">P8</option>
+                <option value="P9" *ngIf="server === 'iSeries'">P9</option>
+                <option value="x3100" *ngIf="server === 'Linux'">X3100</option>
+                <option value="ts460" *ngIf="server === 'Linux'">TS460</option>
+                <option value="st250" *ngIf="server === 'Linux'">ST250</option>
+                <option value="st550" *ngIf="server === 'Linux'">ST550</option>
+              </select>
+            </div>
+            <div class="comm_Pro" *ngIf="issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="provider">Provider</label>
+              <select class="provider" [(ngModel)]="provider" name="provider">
+                <option value="-">-Select-</option>
+                <option value="MetTel">MetTel</option>
+                <option value="Vonage">Vonage</option>
+                <option value="Windstream">Windstream</option>
+                <option value="TRCA" *ngIf="issue_type !== 'WAN'">TRCA</option>
+                <option value="Optus" *ngIf="issue_type !== 'WAN'">Optus</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="hard_ware" *ngIf="issue_type === 'LAN' || issue_type === 'WAN' || issue_type === 'VOICE'">
+              <label for="hardware">Hardware</label>
+              <select class="hardware" [(ngModel)]="hardware" name="hardware">
+                <option value="-">-Select-</option>
+                <option value="Router" *ngIf="issue_type === 'LAN'">Router</option>
+                <option value="Switch" *ngIf="issue_type === 'LAN'">Switch</option>
+                <option value="Cabling" *ngIf="issue_type === 'LAN'">Cabling</option>
+                <option value="Modem" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">Modem
+                </option>
+                <option value="Adtran"
+                  *ngIf="issue_type === 'VOICE' && provider !== 'Windstream' && provider !== 'TRCA' && provider !== 'Optus'">
+                  AdTran</option>
+                <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
+                <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
+                <option value="Circuit Only"
+                  *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">
+                  Circuit Only</option>
+                <option value="PBX"
+                  *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">
+                  PBX</option>
+              </select>
+            </div>
+            <div class="bmc_tick">
+              <label for="bmc_Num">BMC Ticket</label>
+              <input matInput class="bmc_Num" placeholder="-" [(ngModel)]="bmc_Num" name="bmc_Num">
+            </div>
+            <div class="vend_tick">
+              <label for="vend_Num">Vendor Ticket</label>
+              <input class="vend_Num" placeholder="-" [(ngModel)]="vend_Num" name="vend_Num">
+            </div>
           </div>
-          <div class="new_entry_btns">
-            <button class="post_up" type="submit">POST</button>
-            <button class="delete_up" type="button" (click)="callCancelUpdate()">X</button>
+
+        </section>
+        <section class="add_update">
+          <div class="add">
+            <p class="add_header">Issue Details</p>
+            <div class="dateTime">
+              <label for="new_date">Start Date:</label>
+              <input class="new_date" type="date" [(ngModel)]="new_date" name="new_date" min="2020-01-01"
+                max="2025-01-01" required>
+              <label for="new_time">Start Time:</label>
+              <input class="new_time" type="time" [(ngModel)]="new_time" name="new_time" min="00:00" max="24:00"
+                required>
+            </div>
+            <div class="new_entry_text">
+              <textarea class="new_text" placeholder="What happened?" [(ngModel)]="new_text" name="new_text"></textarea>
+            </div>
+            <div class="new_entry_btns">
+              <button class="post_up">POST</button>
+              <button class="delete_up" id="delete_store" type="button" (click)="callCancelStore()">X</button>
+            </div>
           </div>
-        </form>
-        <div class="update">
-          <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
-            *ngIf="showUpdateBtn !== store.storeId">Update</button>
-          <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn" (click)="reopenStore(store)">Reopen</button>
-          <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="resolve_btn" (click)="resolveStore(store)">Resolve</button>
-          <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="remove_btn" (click)="removeStoreFromList(store)">Remove</button>
-          <button *ngIf="!store.resolved && showUpdateBtn !== store.storeId" class="delete_btn" (click)="callDeleteStore(store.storeId)">Delete</button>
-        </div>
-      </section>
-    </div> 
+        </section>
+      </form>
+    </div>
   </div>
 </div>
+
+<div class="doPrint">
+  <div class="pdfHeader">
+    <img src="../assets/img/oreillyHeader.png">
+  </div>
+  <div id="currentDateTime">
+    <div id="pdfDate">
+      <p id="dateTitle">Date:</p>
+      <p>{{currentDate()}}</p>
+    </div>
+    <div id="pdfTime">
+      <p id="timeTitle">Time:</p>
+      <p>{{currentTime()}}</p>
+    </div>
+  </div>
+  <!-- Table  -->
+  <div id="statusTable">
+    <div class="downTimes">
+      <div class="zeroFour">
+        <p>0-4hrs</p>
+      </div>
+      <div class="fourEight">
+        <p>4-8hrs</p>
+      </div>
+      <div class="eightTwelve">
+        <p>8-12hrs</p>
+      </div>
+      <div class="twelveSixteen">
+        <p>12-16hrs</p>
+      </div>
+      <div class="sixteenTwenty">
+        <p>16-20hrs</p>
+      </div>
+      <div class="twentyTwentyFour">
+        <p>20-24hrs</p>
+      </div>
+      <div class="twentyFourPlus">
+        <p>24hrs+</p>
+      </div>
+      <div class="issueRestored">
+        <p>Restored</p>
+      </div>
+    </div>
+    <div id="issueGrid">
+      <div id="issue-iseries">
+        <div id="iseries">
+          <p>iSeries</p>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.iSeries">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+      </div>
+      <div id="issue-linux">
+        <div id="linux">
+          <p>Linux</p>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Linux">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+      </div>
+      <div id="issue-wan">
+        <div id="wan">
+          <p>WAN</p>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.WAN">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+      </div>
+      <div id="issue-lan">
+        <div id="lan">
+          <p>LAN</p>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.LAN">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+      </div>
+      <div id="issue-phones">
+        <div id="phones">
+          <p>Phones</p>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 0 && store.downtime <= 4">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 4  && store.downtime <= 8 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 8  && store.downtime <= 12 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 12  && store.downtime <= 16 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 16  && store.downtime <= 20 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 20  && store.downtime <= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.downTime >= 24 && !store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+        <div>
+          <div *ngFor="let store of categories.Phones">
+            <p *ngIf="store.resolved">{{store.storeNumber}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Individual store data -->
+  <div class="pdfStores" *ngFor="let store of stores">
+    <div class="pdfIssueHeader">
+      <div>
+        <p class="label">Store Number</p>
+        <p>{{store.storeNumber}}</p>
+      </div>
+      <div>
+        <p class="label">Issue</p>
+        <p>{{store.issue}}</p>
+      </div>
+      <div *ngIf="store.issue === 'WAN' || store.issue === 'VOICE'">
+        <p class="label">Provider</p>
+        <p>{{store.provider}}</p>
+      </div>
+      <div *ngIf="store.issue === 'SERVER'">
+        <p class="label">Server Type</p>
+        <p>{{store.serverType}}</p>
+      </div>
+      <div *ngIf="store.issue === 'SERVER'">
+        <p class="label">Server Model</p>
+        <p>{{store.serverModel}}</p>
+      </div>
+      <div *ngIf="store.issue === 'LAN' || store.issue === 'WAN' || store.issue === 'VOICE'">
+        <p class="label">Hardware</p>
+        <p>{{store.hardware}}</p>
+      </div>
+      <div>
+        <p class="label">Restore Date</p>
+        <p>{{convertDate(store.endDate)}}</p>
+      </div>
+      <div>
+        <p class="label">Restore Time</p>
+        <p>{{store.endTime}}</p>
+      </div>
+      <div>
+        <p class="label">BMC Ticket</p>
+        <p>{{store.bmcTicket}}</p>
+      </div>
+      <div>
+        <p class="label">Vendor Ticket</p>
+        <p>{{store.serviceTicket}}</p>
+      </div>
+    </div>
+    <div class="pdfEntries">
+      <div class="pdfEntryLabels">
+        <div class="pdfEntryDate">
+          <p class="label">Date</p>
+        </div>
+        <div class="pdfEntryTime">
+          <p class="label">Time</p>
+        </div>
+        <div class="pdfEntryMessage">
+          <p class="label">Details</p>
+        </div>
+      </div>
+      <div class="pdfEntryDetails" *ngFor="let update of store.updates">
+        <div class="pdfEntryDate">
+          <p>{{convertDate(update.date)}}</p>
+        </div>
+        <div class="pdfEntryTime">
+          <p>{{update.time}}</p>
+        </div>
+        <div class="pdfEntryMessage">
+          <p style="text-align: left;">{{update.message}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
 <router-outlet></router-outlet>

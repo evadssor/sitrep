@@ -463,13 +463,38 @@ label{
     display: grid; 
 }
 
-/* .add{
-    display: grid;
-    padding: 0 5px 5px 5px;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr auto auto;
+.doPrint {
+    /* position: fixed;
+    top: 0;
+    left: 0; */
+    /* height: 100%;
+    width: 100%;
+    z-index: 5; */
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    background-color: white;
+    color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+/* .doNotPrint {
+    visibility: visible;
 } */
 
+@media print {
+    @page { 
+        margin: 0;
+    }
+    
+    .doPrint {
+        visibility: visible;
+    }
+
+    .doNotPrint {
+        visibility: hidden;
+    }
+}
 
 @media (max-width: 920px){
     #oLogo{
@@ -507,167 +532,233 @@ label{
     }
 }
 
+/*table styling*/
 
-/*new store compononet stuff*/
-
-#add_new_store{
-    display: grid; 
+.pdfHeader{
+    margin: 0 0 25px 0;
 }
 
-.form{
+.pdfHeader>img{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#statusTable{
     display: grid;
-    width: 725px;
-    margin: 20px 0 20px 0;
-    /* justify-content: center;
-    align-content: center; */
-    background-color: var(--greyer);
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(4, auto);
-    /* border-radius: 10px;*/
+    margin-bottom: 40px;
+    font-size: 12px;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: 1fr auto;
 }
 
-.shade{
-    box-shadow: 5px 5px 15px var(--black);
+#currentDateTime{
+    display: flex;
+    flex: auto;
+    margin: 25px 0 40px 0;
+    justify-content: space-between;
 }
 
-.new_store_header{
+#pdfDate>p, #pdfTime>p{
+    font-size: 12px;
+    padding: 5px;
+}
+
+#pdfDate{
     display: inline-flex;
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
-    background-color: var(--black);
-    padding: 5px;
-    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid black;
 }
 
-.new_storeNum{
-    width: 90px;
-    height: 32px;
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--black);
-    text-align: center;
-    margin-left: 3px;
+#dateTitle, #timeTitle{
+    background-color: #d9d9d9;
+    border-right: 1px solid black;
 }
 
-.store{
-    display: grid;
-    grid-column: 1 / 2;
-    margin-left: 5px;
-    justify-content: start;
-    align-content: center;
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--whiter);
-}
-
-.new_info{
-    display: grid;
-    /* grid-gap: 10px; */
-    grid-column: 1 / -1;
-    grid-row: 2 / -4;
-    grid-template-columns: 1fr 10px;
-}
-
-.new_info_details{
-    display: grid;
-    /* grid-gap: 10px; */
-    grid-column: 1 / 2;
-    margin: 5px;
-    margin-left: 15px;
-    padding: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-template-rows: auto auto;
-    justify-content: center;
-}
-
-.new_info_details>div{
-    display: grid;
-    align-content: start;
-    justify-content: center;
-    text-align: center;
-}
-
-.new_info_details>div>p{
-    margin: 5px;
-    padding: 5px;
-    color: var(--black);
-    width: 95px;
-    height: 20px;
-    background-color: var(--whiter);
-}
-
-.new_info_details>div>input, select{
-    width: 100px;
-    height: 30px;
-    margin: 5px;
-    text-align: center;
-    font-size: 14px;
-}
-
-.new_issue_header{
-    display: grid;
-    grid-column: 1 / -1;
-    grid-row: 1 / 2;
-    background-color: var(--black);
-    padding: 5px;
-    grid-template-columns: 1fr 1fr auto;
-    /* border-radius: 10px 10px 0 0; */
-}
-
-.new_date, .new_time{
-    margin: 5px;
-    border: 1px solid var(--dark_grey);
-    height: 25px;
-    padding:5px;
-    font-family: 'Ubuntu';
-    text-align: center;
-    font-size: 14px;
-}
-
-.new_entry_btns{
+#pdfTime{
     display: inline-flex;
-    grid-column: 2 / 3;
-    grid-row: 4 / 5;
     justify-content: flex-end;
-    align-content: flex-end;
+    border: 1px solid black;
 }
 
-.new_entry_text{
-    display: flex;
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    justify-content: start;
-    align-content: start;
+.downTimes{
+    display: grid;
+    grid-column: 2 / -1;
+    grid-row: 1 / 2;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    border: 1px solid black;
+    border-bottom: none;
 }
 
-.new_text{
-    display: flex;
-    flex: 1;
-    font-size: 16px;
-    margin: 5px;
-    padding: 5px;
-    padding-left: 10px;
-    border: 1px solid var(--dark_grey);
-    text-align: left;
-    /* border-radius: 5px; */
+.downTimes>div{
+    border-right: 1px solid black;
 }
 
-.post_up, .delete_up{
-    align-self: center;
-    padding: 5px;
-    /* border-radius: 5px; */
-    font-weight: bold;
+.downTimes>div>p{
     font-size: 14px;
+    text-align: center;
 }
 
-.post_up{
-    background-color: var(--blue);
-    color: var(--whiter);
-    border: .5px solid var(--dark_grey);
+.zeroFour{
+    background-color: #fff2cc;
 }
 
-.delete_up{
-    color: var(--black);
-    margin-left: 5px;
-    background-color: transparent;
+.fourEight{
+    background-color: #ffe699;
+}
+
+.eightTwelve{
+    background-color: #ffd966;
+}
+
+.twelveSixteen{
+    background-color: #f7ad82;
+}
+
+.sixteenTwenty{
+    background-color: #f59d9d;
+}
+
+.twentyTwentyFour{
+    background-color: #fe7a7a;
+}
+
+.twentyFourPlus{
+    background-color: #f34a4a;
+}
+
+.issueRestored{
+    background-color: #e2efda;
+    border-right: none !important;
+}
+
+#issueGrid{
+    display: grid;
+    grid-column: 1 / -1;
+    grid-row: 2 / -1;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, auto);
+    border: 1px solid black;
+    border-right: none;
+    border-bottom: none;
+}
+
+#issueGrid>div{
+    display: grid;
+    align-content: center;
+    border-bottom: 1px solid black;
+}
+
+#issueGrid>div>div{
+    border-right: 1px solid black;
+    align-content: center;
+    text-align: center;
+}
+
+#issue-iseries{
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#issue-linux{
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#issue-wan{
+    grid-row: 3 / 4;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#issue-lan{
+    grid-row: 4 / 5;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#issue-phones{
+    grid-row: 5 / 6;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(9, 1fr);
+}
+
+#iseries, #linux, #wan, #lan, #phones{
+    display: grid;
+    background-color: #d9d9d9;
+    justify-self: auto;
+    justify-content: center;
+    align-content: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.pdfStores{
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 30px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    -webkit-break-inside: avoid;
+}
+
+.pdfIssueHeader{
+    display: grid;
+    grid-row: 1 / 2;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.pdfIssueHeader>div>p{
+    font-size: 12px;
+    text-align: center;
+    padding: 2px;
+}
+
+.pdfIssueHeader>div>p.label{
+    border-bottom: 1px solid black;
+}
+
+.label{
+    background-color: #d9d9d9;
+}
+
+.pdfEntries{
+    display: grid;
+    grid-row: 2 / 3;
+    grid-template-rows: 1fr auto;
+}
+
+.pdfEntries>div>div>p{
+    font-size: 12px;
+    text-align: center;
+    padding: 2px;
+    white-space: pre-wrap;
+}
+
+.pdfEntryLabels{
+    display: grid;
+    grid-row: 1 / 2;
+    grid-template-columns: 125px 80px 1fr;
+    border: 1px solid black;
+}
+
+.pdfEntryDetails{
+    display: grid;
+    grid-template-columns: 125px 80px 1fr;
+}
+
+.pdfEntryDate{
+    grid-column: 1 / 2;
+}
+
+.pdfEntryTime{
+    grid-column: 2 / 3;
+}
+
+.pdfEntryMessage{
+    grid-column: 3 / 4;
 }
