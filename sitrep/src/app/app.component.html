@@ -141,7 +141,7 @@
                 </option>
                 <option value="Velo" *ngIf="store.issue === 'WAN'">VeloCloud</option>
                 <option value="Circuit Only"
-                  *ngIf="store.issue === 'WAN' || store.issue === 'VOICE' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
+                  *ngIf="store.issue === 'WAN' && store.provider !== 'TRCA' && store.provider !== 'Optus'">
                   Circuit Only</option>
                 <option value="PBX"
                   *ngIf="store.issue === 'VOICE' && store.provider === 'TRCA' || store.issue === 'VOICE' && store.provider === 'Optus'">

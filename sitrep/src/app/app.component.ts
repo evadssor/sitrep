@@ -197,6 +197,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   saveStoreEdit(store: Store) {
     this.editing = '';
+    console.log('store in app.comonpent.ts: ', store);
     this.storeService.editStore(store);
   }
 

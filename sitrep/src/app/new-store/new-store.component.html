@@ -1,7 +1,7 @@
 <form class="form shade" id="add_new_store" (submit)="onConfirmClick(postForm)" #postForm="ngForm">
   <section class="new_store_header">
     <p class="store">Store #</p>
-    <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" required>
+    <input class="new_storeNum" [(ngModel)]="new_storeNum" name="new_storeNum" maxlength="4" type="number" required>
   </section>
   <section class="new_info">
     <!-- <div class="add_storeNum">
@@ -67,7 +67,7 @@
             AdTran</option>
           <option value="IAD" *ngIf="issue_type === 'VOICE' && provider === 'Windstream'">Cisco IAD</option>
           <option value="Velo" *ngIf="issue_type === 'WAN'">VeloCloud</option>
-          <option value="Circuit Only" *ngIf="issue_type === 'WAN' || issue_type === 'VOICE' && provider !== 'TRCA' && provider !== 'Optus'">
+          <option value="Circuit Only" *ngIf="issue_type === 'WAN' && provider !== 'TRCA' && provider !== 'Optus'">
             Circuit Only</option>
           <option value="PBX"
             *ngIf="issue_type === 'VOICE' && provider === 'TRCA' || issue_type === 'VOICE' && provider === 'Optus'">
