@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Update } from './updates/update.model';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { NewStoreComponent } from './new-store/new-store.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy, OnInit {
   updates: Update[] = [];
   stores: Store[] = [];
   categories: Categories = {
@@ -58,10 +58,10 @@ export class AppComponent {
 
  async callPrintRep() {
     await this.catergorize();
-    setTimeout(function() { 
+    setTimeout(function() {
       window.print();
    }, 250);
-  };
+  }
 
 
   resolveStore(store: Store) {
@@ -70,8 +70,8 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.resolved) {
-        console.log("Result: ", result);
+      if (result.resolved || result !== undefined) {
+        console.log('Result: ', result);
         const resolvedStore: Store = {
           storeId: store.storeId,
           storeNumber: store.storeNumber,
@@ -90,8 +90,8 @@ export class AppComponent {
           endTime: result.endTime,
           resolved: true,
           show: store.show
-        }
-        this.saveStoreEdit(resolvedStore)
+        };
+        this.saveStoreEdit(resolvedStore);
       }
     });
     return;
@@ -112,9 +112,9 @@ export class AppComponent {
       storeId: store.storeId,
       storeNumber: store.storeNumber,
       date: form.value.new_date,
-      time: form.value.new_time, 
+      time: form.value.new_time,
       message: form.value.new_text
-    }
+    };
     this.updateService.addUpdate(newUpdate);
     this.showAddUpdate = '';
     this.showUpdateBtn = '';
@@ -124,15 +124,15 @@ export class AppComponent {
   callUpdateBtn(storeId: string) {
     this.showAddUpdate = storeId;
     this.showUpdateBtn = storeId;
-  };
+  }
 
   callCancelUpdate() {
-    let cancel = confirm('Are you sure you want to cancel this update?');
+    const cancel = confirm('Are you sure you want to cancel this update?');
     if (cancel) {
       this.showAddUpdate = '';
       this.showUpdateBtn = '';
     }
-  };
+  }
 
   triggerEdit(updateId: string) {
     this.updateEditable = updateId;
@@ -144,21 +144,20 @@ export class AppComponent {
   }
 
   callDeleteUpdate(updateId: string) {
-    let deleteUpdate = confirm('Are you sure you want to delete this update?');
+    const deleteUpdate = confirm('Are you sure you want to delete this update?');
     if (deleteUpdate) {
-      this.updateService.deleteUpdate(updateId)
+      this.updateService.deleteUpdate(updateId);
     }
   }
 
   newStore() {
     const dialogRef = this.dialog.open(NewStoreComponent, {
-      
     });
 
     dialogRef.afterClosed().subscribe( result => {
       console.log('result: ', result);
       this.saveStore(result);
-    })
+    });
   }
 
   saveStore(newStore: Store) {
@@ -190,11 +189,11 @@ export class AppComponent {
   }
 
   callCancelStore() {
-    let cancel = confirm('Are you sure you want to cancel?');
+    const cancel = confirm('Are you sure you want to cancel?');
     if (cancel) {
       this.showStore = false;
     }
-  };
+  }
 
   saveStoreEdit(store: Store) {
     this.editing = '';
@@ -203,50 +202,51 @@ export class AppComponent {
   }
 
   callDeleteStore(storeId: string) {
-    let cancel = confirm('Are you sure you want to DELETE this Store?');
+    const cancel = confirm('Are you sure you want to DELETE this Store?');
     if (cancel) {
       this.storeService.deleteStore(storeId);
     }
-  };
+  }
 
-  downTime(d, t) {//take in date and time from inputs
-    var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
-    var start_milli = Date.parse(date_time); //parse date_time string to milliseconds
-    var current_milli = new Date().getTime(); //get current time in milliseconds
+  downTime(d, t) {
+    // take in date and time from inputs
+    const date_time = (d.toString() + ' ' + t.toString()); // Combine incoming date and time strings
+    const start_milli = Date.parse(date_time); // parse date_time string to milliseconds
+    const current_milli = new Date().getTime(); // get current time in milliseconds
 
-    var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;//divide milliseconds into hours 
-    var setHours = Math.floor(down_hours);//Cut off decimal after hour
+    const  down_hours = (current_milli - start_milli) / 1000 / 60 / 60; // divide milliseconds into hours
+    const setHours = Math.floor(down_hours); // Cut off decimal after hour
 
-    var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
-    var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
-    var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
+    const down_minutes = (down_hours - setHours) * 60; // Calculate Minutes
+    const setMinutes = Math.floor(down_minutes); // Cut off decimal after minute
+    const m = setMinutes > 9 ? setMinutes : '0' + setMinutes; // Add a leading 0 if minutes are less than 10
 
-    return (setHours + "hrs " + m + "min");
+    return (setHours + 'hrs ' + m + 'min');
   }
 
   finalDownTime(d1, t1, d2, t2) {
-    var date_time1 = (d1.toString() + " " + t1.toString());
-    var date_time2 = (d2.toString() + " " + t2.toString());
+    const date_time1 = (d1.toString() + ' ' + t1.toString());
+    const date_time2 = (d2.toString() + ' ' + t2.toString());
 
-    var start_milli = Date.parse(date_time1);
-    var end_milli = Date.parse(date_time2);
+    const start_milli = Date.parse(date_time1);
+    const end_milli = Date.parse(date_time2);
 
-    var down_hours = (end_milli - start_milli) / 1000 / 60 / 60;
-    var setHours = Math.floor(down_hours);
+    const down_hours = (end_milli - start_milli) / 1000 / 60 / 60;
+    const setHours = Math.floor(down_hours);
 
-    var down_minutes = (down_hours - setHours) * 60;
-    var setMinutes = Math.floor(down_minutes);
-    var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;
+    const down_minutes = (down_hours - setHours) * 60;
+    const setMinutes = Math.floor(down_minutes);
+    const m = setMinutes > 9 ? setMinutes : '0' + setMinutes;
 
-    return (setHours + "hrs " + m + "min");
+    return (setHours + 'hrs ' + m + 'min');
   }
 
   convertDate(date) {
-    var d = date;
-    var newDate = '';
+    let d = date;
+    let newDate = '';
     if (d) {
-      d = d.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, function (match, y, m, d) {
-        newDate = m + '/' + d + '/' + y;
+      d = d.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, function (match, y, m, d2) {
+        newDate = m + '/' + d2 + '/' + y;
       });
       return newDate;
     }
@@ -267,22 +267,23 @@ export class AppComponent {
       LAN: [],
       WAN: [],
       Phones: []
-    }
-    for(let store of this.stores) {
-      switch(store.issue) {
-        case "iSeries":
+    };
+
+    for (const store of this.stores) {
+      switch (store.issue) {
+        case 'iSeries':
           this.categories.iSeries.push(store);
           break;
-        case "Linux":
+        case 'Linux':
           this.categories.Linux.push(store);
           break;
-        case "WAN":
+        case 'WAN':
           this.categories.WAN.push(store);
           break;
-        case "LAN":
+        case 'LAN':
           this.categories.LAN.push(store);
           break;
-        case "Phones":
+        case 'Phones':
           this.categories.Phones.push(store);
           break;
         default:
@@ -294,28 +295,28 @@ export class AppComponent {
   }
 
   currentDate() {
-    var date = new Date();
-    var dd = String(date.getDate()).padStart(2, '0');
-    var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = date.getFullYear();
+    const date = new Date();
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); // January is 0!
+    const yyyy = date.getFullYear();
 
-    var today = mm + '/' + dd + '/' + yyyy;
+    const today = mm + '/' + dd + '/' + yyyy;
     return(today);
   }
 
   currentTime() {
-    var date = new Date();
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var setMinutes = '';
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    let setMinutes = '';
 
-    if(minutes < 10){
-      setMinutes = "0" + String(minutes);
-    }else{
+    if (minutes < 10) {
+      setMinutes = '0' + String(minutes);
+    } else {
       setMinutes = String(minutes);
     }
 
-    var time = hours + ":" + setMinutes;
+    const time = hours + ':' + setMinutes;
     return(time);
   }
 }
