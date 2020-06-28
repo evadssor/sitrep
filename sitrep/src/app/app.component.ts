@@ -67,13 +67,21 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   exportAsPDF() {
-    let data = document.getElementById('doPrint');
+    const data = document.getElementById('doPrint');
+    console.log('data', data);
     html2canvas(data).then(canvas => {
       const contentDataURL = canvas.toDataURL('image/png')
-      let pdf = new JSPdf('l', 'cm', 'a4'); //Generates PDF in landscape mode
-      // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
+      const pdf = new JSPdf('p', 'cm', 'a4'); //Generates PDF in portrait mode
+      // let pdf = new jspdf('l', 'cm', 'a4'); Generates PDF in landscape mode
       pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);
-      pdf.save('Filename.pdf');
+
+
+      const today = new Date();
+      const date =  (today.getMonth()+1)  + '_' + today.getDate() + '_' + today.getFullYear();
+      const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      const dateTime = date + '_' + time;
+      const fileName = 'Sitrep_' + dateTime + '.pdf';
+      pdf.save(fileName);
     });
   }
 
