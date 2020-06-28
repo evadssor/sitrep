@@ -9,6 +9,8 @@ import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Categories } from './stores/categories.model';
 import { NewStoreComponent } from './new-store/new-store.component';
+import * as JSPdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-root',
@@ -319,4 +321,16 @@ export class AppComponent implements OnDestroy, OnInit {
     const time = hours + ':' + setMinutes;
     return(time);
   }
+
+  exportAsPDF()
+      {
+        let data = document.getElementById('doPrint');  
+        html2canvas(data).then(canvas => {
+          const contentDataURL = canvas.toDataURL('image/png')  
+          let pdf = new JSPdf('l', 'cm', 'a4'); //Generates PDF in landscape mode
+          // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
+          pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);  
+          pdf.save('Filename.pdf');   
+        }); 
+      }
 }
