@@ -205,7 +205,7 @@
                 </div>
                 <div class="edit_entry">
                   <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
-                    (click)="saveUpdate(update)"></i>
+                    (click)="saveUpdate(update, store)"></i>
                   <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
                 </div>
               </div>

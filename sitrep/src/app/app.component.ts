@@ -138,9 +138,18 @@ export class AppComponent implements OnDestroy, OnInit {
     this.updateEditable = updateId;
   }
 
-  saveUpdate(update: Update) {
+  saveUpdate(update: Update, store: Store) :void {
+    console.log('store', store);
     this.editing = '';
+    if(!store.resolved) {
+      store.startTime = update.time;
+      store.startDate = update.date;
+      this.updateService.editUpdate(update);
+      this.storeService.editStore(store);
+      return;
+    }
     this.updateService.editUpdate(update);
+    return;
   }
 
   callDeleteUpdate(updateId: string) {
