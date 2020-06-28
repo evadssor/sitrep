@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Update } from './updates/update.model';
 import { Subscription } from 'rxjs';
@@ -18,6 +18,8 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy, OnInit {
+@ViewChild('doPrint') doPrint;
+
   updates: Update[] = [];
   stores: Store[] = [];
   categories: Categories = {
@@ -67,23 +69,47 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   exportAsPDF() {
-    const data = document.getElementById('doPrint');
-    console.log('data', data);
-    html2canvas(data).then(canvas => {
-      const contentDataURL = canvas.toDataURL('image/png')
-      const pdf = new JSPdf('p', 'cm', 'a4'); //Generates PDF in portrait mode
-      // let pdf = new jspdf('l', 'cm', 'a4'); Generates PDF in landscape mode
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);
+    const doc = new JSPdf();
 
+    const specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+
+    const pdfTable = this.doPrint.nativeElement;
+
+    doc.fromHTML(pdfTable.innerHTML, 15, 15, {
+      width: 190,
+      'elementHandlers': specialElementHandlers
+    });
 
       const today = new Date();
       const date =  (today.getMonth()+1)  + '_' + today.getDate() + '_' + today.getFullYear();
       const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       const dateTime = date + '_' + time;
       const fileName = 'Sitrep_' + dateTime + '.pdf';
-      pdf.save(fileName);
-    });
+      doc.save(fileName);
   }
+
+  // exportAsPDF() {
+  //   const data = document.getElementById('doPrint');
+  //   console.log('data', data);
+  //   html2canvas(data).then(canvas => {
+  //     const contentDataURL = canvas.toDataURL('image/png')
+  //     const pdf = new JSPdf('p', 'cm', 'a4'); //Generates PDF in portrait mode
+  //     // let pdf = new jspdf('l', 'cm', 'a4'); Generates PDF in landscape mode
+  //     pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);
+
+
+  //     const today = new Date();
+  //     const date =  (today.getMonth()+1)  + '_' + today.getDate() + '_' + today.getFullYear();
+  //     const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  //     const dateTime = date + '_' + time;
+  //     const fileName = 'Sitrep_' + dateTime + '.pdf';
+  //     pdf.save(fileName);
+  //   });
+  // }
 
 
   resolveStore(store: Store) {
