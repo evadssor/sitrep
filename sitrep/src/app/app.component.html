@@ -14,7 +14,7 @@
     </header>
     <div class="line">
       <button class="addStore" (click)="newStore()">Add Store</button>
-      <button class="printRep" (click)="exportAsPDF()">Print Report</button>
+      <button class="printRep" (click)="callPrintRep()">Print Report</button>
     </div>
     <div class="content">
       <div class="form shade" *ngFor="let store of stores">
@@ -356,7 +356,7 @@
   </div>
 </div>
 
-<div class="doPrint">
+<div id="doPrint" class="doPrint">
   <div class="pdfHeader">
     <img src="../assets/img/oreillyHeader.png">
   </div>

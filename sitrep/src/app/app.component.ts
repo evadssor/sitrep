@@ -58,11 +58,23 @@ export class AppComponent implements OnDestroy, OnInit {
     this.storeSub.unsubscribe();
   }
 
- async callPrintRep() {
+  async callPrintRep() {
     await this.catergorize();
-    setTimeout(function() {
-      window.print();
-   }, 250);
+    this.exportAsPDF();
+    // setTimeout(function () {
+    //   this.exportAsPDF();
+    // }, 250);
+  }
+
+  exportAsPDF() {
+    let data = document.getElementById('doPrint');
+    html2canvas(data).then(canvas => {
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new JSPdf('l', 'cm', 'a4'); //Generates PDF in landscape mode
+      // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
+      pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);
+      pdf.save('Filename.pdf');
+    });
   }
 
 
@@ -156,38 +168,16 @@ export class AppComponent implements OnDestroy, OnInit {
     const dialogRef = this.dialog.open(NewStoreComponent, {
     });
 
-    dialogRef.afterClosed().subscribe( result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log('result: ', result);
       this.saveStore(result);
     });
   }
 
   saveStore(newStore: Store) {
-    // const newStore = {
-    //   storeNumber: form.value.new_storeNum,
-    //   issue: form.value.issue_type,
-    //   bmcTicket: form.value.bmc_Num,
-    //   serviceTicket: form.value.vend_Num,
-    //   serverType: form.value.server,
-    //   serverModel: form.value.model_num,
-    //   commType: form.value.type_num,
-    //   provider: form.value.provider,
-    //   hardware: form.value.hardware,
-    //   startDate: form.value.new_date,
-    //   startTime: form.value.new_time,
-    //   downTime: this.downTime(form.value.new_date, form.value.new_time),
-    //   resolved: false,
-    //   show: true,
-    //   updates: [{
-    //     storeNumber: form.value.new_storeNum,
-    //     date: form.value.new_date,
-    //     time: form.value.new_time,
-    //     message: form.value.new_text
-    //   }],
-    // }
     this.storeService.addStore(newStore);
     this.showStore = false;
-   // form.reset(); //<-- added to reset form on submit - evad
+    // form.reset(); //<-- added to reset form on submit - evad
   }
 
   callCancelStore() {
@@ -216,7 +206,7 @@ export class AppComponent implements OnDestroy, OnInit {
     const start_milli = Date.parse(date_time); // parse date_time string to milliseconds
     const current_milli = new Date().getTime(); // get current time in milliseconds
 
-    const  down_hours = (current_milli - start_milli) / 1000 / 60 / 60; // divide milliseconds into hours
+    const down_hours = (current_milli - start_milli) / 1000 / 60 / 60; // divide milliseconds into hours
     const setHours = Math.floor(down_hours); // Cut off decimal after hour
 
     const down_minutes = (down_hours - setHours) * 60; // Calculate Minutes
@@ -303,7 +293,7 @@ export class AppComponent implements OnDestroy, OnInit {
     const yyyy = date.getFullYear();
 
     const today = mm + '/' + dd + '/' + yyyy;
-    return(today);
+    return (today);
   }
 
   currentTime() {
@@ -319,18 +309,6 @@ export class AppComponent implements OnDestroy, OnInit {
     }
 
     const time = hours + ':' + setMinutes;
-    return(time);
+    return (time);
   }
-
-  exportAsPDF()
-      {
-        let data = document.getElementById('doPrint');  
-        html2canvas(data).then(canvas => {
-          const contentDataURL = canvas.toDataURL('image/png')  
-          let pdf = new JSPdf('l', 'cm', 'a4'); //Generates PDF in landscape mode
-          // let pdf = new jspdf('p', 'cm', 'a4'); Generates PDF in portrait mode
-          pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);  
-          pdf.save('Filename.pdf');   
-        }); 
-      }
 }

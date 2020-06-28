@@ -47,7 +47,6 @@ app.post('/api/updates', (req, res, next) => {
 // Get Updates associated with storeId
 app.get('/api/updates/:storeId', (req, res, next) => {
     Update.find({ storeId: req.params.storeId }).then(documents => {
-        console.log('Documents: ', documents);
         res.status(200).json({
             message: 'updates fetched succesfully',
             updates: documents
@@ -57,7 +56,6 @@ app.get('/api/updates/:storeId', (req, res, next) => {
 
 // Edit Update - Save over existing update via the updateId
 app.put('/api/updates/edit/:id', (req, res, next) => {
-    console.log('From client side; body: ', req.body);
     const updateEdited = new Update({
         _id: req.body.updateId,
         storeId: req.body.storeId,
@@ -87,7 +85,6 @@ app.delete('/api/updates/delete/:updateId', (req, res, next) => {
 // STORE CALLS
 // Save new store
 app.post('/api/stores', (req, res, next) => {
-    console.log('Store: ', req.body);
     const store = new Store({
         storeNumber: req.body.storeNumber,
         issue: req.body.issue,
@@ -115,7 +112,6 @@ app.post('/api/stores', (req, res, next) => {
                 time: req.body.updates[0].time,
                 message: req.body.updates[0].message
             });
-            console.log('Result: ', result);
             update.save().then(updateResult => {
                 res.status(201).json({
                     message: 'Store & Updates add successfully',
