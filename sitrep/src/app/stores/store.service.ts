@@ -30,7 +30,7 @@ export class StoreService {
                         hardware: store.hardware,
                         startDate: store.startDate,
                         startTime: store.startTime,
-                        downTime: this.downTime(store.startDate, store.startTime),
+                        downTime: store.resolved ? this.finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime) : this.downTime(store.startDate, store.startTime),
                         endDate: store.endDate,
                         endTime: store.endTime,
                         resolved: store.resolved,
@@ -76,7 +76,7 @@ export class StoreService {
             hardware: store.hardware,
             startDate: store.startDate,
             startTime: store.startTime,
-            downTime: store.downTime,
+            downTime: this.downTime(store.startDate, store.startTime),
             endDate: store.endDate,
             endTime: store.endTime,
             resolved: store.resolved,
@@ -120,5 +120,22 @@ export class StoreService {
             return (setHours + setMinutes);
         }
         return 0;
+      }
+
+      finalDownTime(d1, t1, d2, t2) {
+        const date_time1 = (d1.toString() + ' ' + t1.toString());
+        const date_time2 = (d2.toString() + ' ' + t2.toString());
+    
+        const start_milli = Date.parse(date_time1);
+        const end_milli = Date.parse(date_time2);
+    
+        const down_hours = (end_milli - start_milli) / 1000 / 60 / 60;
+        const setHours = Math.floor(down_hours);
+    
+        const down_minutes = (down_hours - setHours) * 60;
+        const setMinutes = Math.floor(down_minutes);
+        const m = setMinutes > 9 ? setMinutes : '0' + setMinutes;
+    
+        return (setHours + 'hrs ' + m + 'min');
       }
 }
