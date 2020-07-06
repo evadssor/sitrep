@@ -33,6 +33,7 @@ export class AppComponent implements OnDestroy, OnInit {
   showRestore = false;
   hoverOver = '';
   editing = '';
+  editingStore = '';
   updateEditable = '';
 
 
@@ -141,6 +142,7 @@ export class AppComponent implements OnDestroy, OnInit {
   saveUpdate(update: Update, store: Store) :void {
     console.log('store', store);
     this.editing = '';
+    this.editingStore = '';
     if(!store.resolved) {
       store.startTime = update.time;
       store.startDate = update.date;
