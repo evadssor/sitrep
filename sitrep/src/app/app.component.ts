@@ -67,46 +67,24 @@ export class AppComponent implements OnDestroy, OnInit {
     await this.exportAsPDF();
     document.getElementById('doNotPrint').style.visibility = 'visible';
     document.getElementById('doPrint').style.visibility = 'hidden';
-    // setTimeout(function () {
-    //   this.exportAsPDF();
-    // }, 250);
   }
-
-  // async exportAsPDF() {
-  //   const doc = new JSPdf();
-  //   const specialElementHandlers = {
-  //     '#editor': function (element, renderer) {
-  //       return true;
-  //     }
-  //   };
-
-  //   const pdfTable = this.doPrint.nativeElement;
-
-  //   doc.fromHTML(pdfTable.innerHTML, 15, 15, {
-  //     width: 190,
-  //     'elementHandlers': specialElementHandlers
-  //   });
-  //   const today = new Date();
-  //   const date = (today.getMonth() + 1) + '_' + today.getDate() + '_' + today.getFullYear();
-  //   const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  //   const dateTime = date + '_' + time;
-  //   const fileName = 'Sitrep_' + dateTime + '.pdf';
-  //   doc.save(fileName);
-  //   return true;
-  // }
 
   exportAsPDF() {
     const data = document.getElementById('doPrint');
     console.log('data', data);
     html2canvas(data).then(canvas => {
-      const contentDataURL = canvas.toDataURL('image/png')
-      const pdf = new JSPdf('p', 'cm', 'a4'); //Generates PDF in portrait mode
-      // let pdf = new jspdf('l', 'cm', 'a4'); Generates PDF in landscape mode
-      pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);
+      const contentDataURL = canvas.toDataURL('image/jpeg', 1.0)
+      const pdf = new JSPdf('p', 'mm', 'a4'); //Generates PDF in portrait mode (p)
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      let widthRatio = pageWidth / canvas.width
+      let heightRatio = pageHeight / canvas.height
+      const ratio = widthRatio > heightRatio ? heightRatio : widthRatio
 
+      pdf.addImage(contentDataURL,'JPEG', 0, 0, canvas.width * ratio, canvas.height * ratio);
 
       const today = new Date();
-      const date =  (today.getMonth()+1)  + '_' + today.getDate() + '_' + today.getFullYear();
+      const date = (today.getMonth() + 1) + '_' + today.getDate() + '_' + today.getFullYear();
       const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       const dateTime = date + '_' + time;
       const fileName = 'Sitrep_' + dateTime + '.pdf';
