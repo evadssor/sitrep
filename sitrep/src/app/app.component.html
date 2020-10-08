@@ -185,7 +185,7 @@
                 </div>
                 <div class="edit_entry" id="edit_btns" [ngStyle]="{opacity: hoverOver === update ? '1' : '0'}">
                   <i *ngIf="editing !== update" class="fas fa-pencil-alt fa-xs" title="Edit Update"
-                    (click)="editing = update"></i>
+                    (click)="editing = update; editingStore = store.storeNumber"></i>
                   <i *ngIf="editing !== update" class="fas fa-trash-alt fa-xs" (click)="callDeleteUpdate(update._id)"
                     title="Delete Update"></i>
                 </div>
@@ -206,7 +206,7 @@
                 <div class="edit_entry">
                   <i *ngIf="editing === update" class="fas fa-check fa-xs" title="Save Edit"
                     (click)="saveUpdate(update, store)"></i>
-                  <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''"></i>
+                  <i *ngIf="editing === update" class="fas fa-times" title="Cancel Edit" (click)="editing = ''; editingStore = ''"></i>
                 </div>
               </div>
             </div>
@@ -232,7 +232,7 @@
               <button class="delete_up" type="button" (click)="callCancelUpdate()">X</button>
             </div>
           </form>
-          <div class="update">
+          <div class="update" *ngIf="editingStore !== store.storeNumber">
             <button class="update_btn" (click)="callUpdateBtn(store.storeId)"
               *ngIf="showUpdateBtn !== store.storeId">Update</button>
             <button *ngIf="store.resolved && showUpdateBtn !== store.storeId" class="reopen_btn"
