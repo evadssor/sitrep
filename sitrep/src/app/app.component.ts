@@ -34,6 +34,7 @@ export class AppComponent implements OnDestroy, OnInit {
   hoverOver = '';
   editing = '';
   updateEditable = '';
+  search = '';
 
 
   constructor(
@@ -62,7 +63,7 @@ export class AppComponent implements OnDestroy, OnInit {
       window.print();
    }, 250);
   }
-
+  
 
   resolveStore(store: Store) {
     const dialogRef = this.dialog.open(ResolveStoreComponent, {
@@ -327,5 +328,10 @@ export class AppComponent implements OnDestroy, OnInit {
 
     const time = hours + ':' + setMinutes;
     return(time);
+  }
+
+  fillSearch(search) { 
+    this.search = document.getElementById('search').value;
+    console.log(document.getElementById('search'));
   }
 }

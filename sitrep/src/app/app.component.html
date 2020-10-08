@@ -6,12 +6,12 @@
         <h1>SITREP</h1>
       </div>
       <nav id="nav">
-        <ul>
-          <!-- <li><a href="#">Today's report</a></li> -->
-          <li><a href="#">Previous Reports</a></li>
-        </ul>
+        <input id="search" name="search" placeholder="Search... " (keyup)="fillSearch()">
       </nav>
     </header>
+    <div id="resultBox" *ngIf="search !== ''">
+      <p id="searchingFor">Searching for '{{search}}'</p>
+    </div>
     <div class="line">
       <button class="addStore" (click)="newStore()">Add Store</button>
       <button class="printRep" (click)="callPrintRep()">Print Report</button>
