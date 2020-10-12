@@ -330,8 +330,12 @@ export class AppComponent implements OnDestroy, OnInit {
     return(time);
   }
 
-  fillSearch(search) { 
-    this.search = document.getElementById('search').value;
-    console.log(document.getElementById('search'));
+  fillSearch() { 
+    this.search = (<HTMLInputElement>document.getElementById('search')).value;
+  }
+
+  clearSearch(){
+    this.search = '';
+    (<HTMLInputElement>document.getElementById('search')).value = '';
   }
 }

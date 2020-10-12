@@ -6,15 +6,19 @@
         <h1>SITREP</h1>
       </div>
       <nav id="nav">
-        <input id="search" name="search" placeholder="Search... " (keyup)="fillSearch()">
+        <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch()">
+        <button id="advanced">Advanced Search</button>
       </nav>
     </header>
     <div id="resultBox" *ngIf="search !== ''">
-      <p id="searchingFor">Searching for '{{search}}'</p>
+      <div id="searchHead">
+        <p id="searchingFor">Searching for '{{search}}'</p>
+        <button id="clearButton" type="reset" (click)="clearSearch()">Clear Search</button>
+      </div>
     </div>
     <div class="line">
       <button class="addStore" (click)="newStore()">Add Store</button>
-      <button class="printRep" (click)="callPrintRep()">Print Report</button>
+      <button class="printRep" (click)="callPrintRep()">Save Report</button>
     </div>
     <div class="content">
       <div class="form shade" *ngFor="let store of stores">
