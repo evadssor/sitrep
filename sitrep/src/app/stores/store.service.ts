@@ -51,6 +51,10 @@ export class StoreService {
         return this.storesUpdated.asObservable();
     }
 
+    getStoresQuickSearch(q) {
+       // this.http.post<{}>('http://localhost:3000/api/stores')
+    }
+
     addStore(store: Store) {
         this.http.post<{ message: string, storeId: string }>('http://localhost:3000/api/stores', store)
             .subscribe((responseData) => {

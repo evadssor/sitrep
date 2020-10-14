@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Update = require('./models/update');
 const Store = require('./models/store');
+const { db } = require('./models/update');
 const app = express();
 
 mongoose.connect('mongodb+srv://DJAdmin:UzlXjjD8OacEuTOV@cluster0-6udlx.mongodb.net/sitrep?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -164,8 +165,17 @@ app.get('/api/stores/:id', (req, res, next) => {
     }).catch();
 });
 
+// Quick Search
+app.get('/api/stores/:query', (req, res, next) => {
+    const store = new Store();
+    const queryString = req.params.query;
+    store.createIndex({'$**': 'text'});
+    var foundStores = store.find( { $text: { $search: queryString}});
+    console.log('foundStores: ', foundStores);
+})
+
 // Save Store Edit
-app.put('/api/stores/edit/:id', (req, res, next) => {
+app.put('/api/stores/edit/:id', (req, res, next) => { 
     const store = new Store({
         _id: req.body.storeId,
         storeNumber: req.body.storeNumber,
