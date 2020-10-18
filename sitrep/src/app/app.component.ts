@@ -35,6 +35,7 @@ export class AppComponent implements OnDestroy, OnInit {
   editing = '';
   updateEditable = '';
   search = '';
+  advancedSrch = false;
 
 
   constructor(

@@ -7,20 +7,130 @@
       </div>
       <nav id="nav">
         <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch()">
-        <button id="advanced">Advanced Search</button>
+        <button id="advanced" (click)="advancedSrch = true">Advanced Search</button>
       </nav>
     </header>
-    <div id="resultBox" *ngIf="search !== ''">
+    <!-- <div class="resultBox" *ngIf="search !== ''">
       <div id="searchHead">
         <p id="searchingFor">Searching for '{{search}}'</p>
         <button id="clearButton" type="reset" (click)="clearSearch()">Clear Search</button>
       </div>
+      <div class="results">
+        <div class="resultHead">
+          <div>Store Number</div>
+          <div>Issue</div>
+          <div>Server Type</div>
+          <div>Server Model</div>
+          <div>Provider</div>
+          <div>Hardware</div>
+          <div>BMC Ticket</div>
+          <div>Vendor Ticket</div>
+          <div>Status</div>
+        </div>
+        <div class="resultBody">
+          <div>4787</div>
+          <div>Server</div>
+          <div>iSeries</div>
+          <div>P5</div>
+          <div>-</div>
+          <div>-</div>
+          <div>1654841</div>
+          <div>SV0158756</div>
+          <div>Closed</div>
+        </div>
+      </div>
     </div>
+    <div class="resultBox" *ngIf="advancedSrch">
+      <div id="searchHead">
+        <p>Advanced Search</p>
+        <button id="clearButton" type="reset" (click)="advancedSrch = false">Close</button>
+      </div>
+      <div class="results">
+        <div class="resultHead">
+          <div>Store Number</div>
+          <div>Issue</div>
+          <div>Server Type</div>
+          <div>Server Model</div>
+          <div>Provider</div>
+          <div>Hardware</div>
+          <div>BMC Ticket</div>
+          <div>Vendor Ticket</div>
+        </div>
+        <div class="resultBody">
+          <div>4787</div>
+          <div>Server</div>
+          <div>iSeries</div>
+          <div>P5</div>
+          <div>-</div>
+          <div>-</div>
+          <div>1654841</div>
+          <div>SV0158756</div>
+        </div>
+      </div>
+    </div> -->
     <div class="line">
       <button class="addStore" (click)="newStore()">Add Store</button>
       <button class="printRep" (click)="callPrintRep()">Save Report</button>
     </div>
     <div class="content">
+      <div class="resultBox" *ngIf="search !== ''">
+        <div id="searchHead">
+          <p id="searchingFor">Searching for '{{search}}'</p>
+          <button id="clearButton" type="reset" (click)="clearSearch()">Clear Search</button>
+        </div>
+        <div class="results">
+          <div class="resultHead">
+            <div>Store Number</div>
+            <div>Issue</div>
+            <div>Server Type</div>
+            <div>Server Model</div>
+            <div>Provider</div>
+            <div>Hardware</div>
+            <div>BMC Ticket</div>
+            <div>Vendor Ticket</div>
+            <div>Status</div>
+          </div>
+          <div class="resultBody">
+            <div>4787</div>
+            <div>Server</div>
+            <div>iSeries</div>
+            <div>P5</div>
+            <div>-</div>
+            <div>-</div>
+            <div>1654841</div>
+            <div>SV0158756</div>
+            <div>Closed</div>
+          </div>
+        </div>
+      </div>
+      <div class="resultBox" *ngIf="advancedSrch">
+        <div id="searchHead">
+          <p>Advanced Search</p>
+          <button id="clearButton" type="reset" (click)="advancedSrch = false">Close</button>
+        </div>
+        <div class="results">
+          <div class="resultHead">
+            <div>Store Number</div>
+            <div>Issue</div>
+            <div>Server Type</div>
+            <div>Server Model</div>
+            <div>Provider</div>
+            <div>Hardware</div>
+            <div>BMC Ticket</div>
+            <div>Vendor Ticket</div>
+          </div>
+          <div class="resultBody">
+            <div>4787</div>
+            <div>Server</div>
+            <div>iSeries</div>
+            <div>P5</div>
+            <div>-</div>
+            <div>-</div>
+            <div>1654841</div>
+            <div>SV0158756</div>
+          </div>
+        </div>
+      </div>
       <div class="form shade" *ngFor="let store of stores">
         <section class="issue_header">
           <div class="store">

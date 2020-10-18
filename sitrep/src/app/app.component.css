@@ -111,9 +111,11 @@ a:hover{
     color: var(--green) !important;
 }
 
-#resultBox{
+.resultBox{
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    position: absolute;
+    top: 76px;
+    grid-template-columns: auto 1fr auto;
     grid-template-rows: 1fr auto;
     justify-self: center;
     margin-left: 5px;
@@ -121,16 +123,47 @@ a:hover{
     margin-top: 0;
     padding: 10px;
     min-height: 20px;
-    width: 95%;
+    width: 96%;
     max-width: 1500px;
     grid-column: 1 / -1;
     grid-row: 2 / -1;
-    background-color: var(--white);
+    background-color: var(--whiter);
     z-index: 99;
 }
 
-#resultBox>h1{
+.resultBox>h1{
     grid-row: 2/3;
+}
+
+.results{
+    display: grid;
+    grid-column: 2/3;
+    grid-row: 2/-1;
+    width: 75%;
+    margin-top: 20px;
+    justify-self: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(autofill, min-max(100, 1fr));
+    font-size: 14px;
+}
+
+.resultHead{
+    display: grid;
+    grid-column: 1/-1;
+    justify-items: center;
+    padding: 5px 0 5px 0;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    background-color: var(--grey);
+    font-weight: bold;
+}
+
+.resultBody{
+    display: grid;
+    grid-column: 1/-1;
+    justify-items: center;
+    padding: 5px 0 5px 0;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    background-color:var(--whiter);
 }
 
 #searchHead{
