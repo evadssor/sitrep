@@ -6,7 +6,7 @@
         <h1>SITREP</h1>
       </div>
       <nav id="nav">
-        <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch($event)">
+        <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch($event); advancedSrch = false">
         <button id="advanced" (click)="advancedSrch = true; clearSearch()">Advanced Search</button>
       </nav>
     </header>
@@ -15,32 +15,41 @@
       <button class="printRep" (click)="callPrintRep()">Save Report</button>
     </div>
     <div class="content">
-      <div class="resultBox" *ngIf="search !== ''">
+      <div class="resultBox shade" *ngIf="search !== ''">
         <div id="searchHead">
           <p id="searchingFor">Searching for '{{search}}'</p>
           <button id="clearButton" type="reset" (click)="clearSearch()">Clear Search</button>
         </div>
+        <div class="filters">
+        </div>
         <div class="results">
           <div class="resultHead">
             <div>Store Number</div>
+            <div>Date</div>
             <div>Issue</div>
+            <!-- <div>Server Type</div>
+            <div>Server Model</div>
+            <div>Provider</div>
+            <div>Hardware</div> -->
             <div>BMC Ticket</div>
             <div>Vendor Ticket</div>
             <div>Status</div>
           </div>
           <div class="resultBody" *ngFor="let storeFound of storesFound">
             <div>{{storeFound.storeNumber}}</div>
+            <div>{{convertDate(storeFound.startDate)}}</div>
             <div>{{storeFound.issue}}</div>
-            <div>{{storeFound.serverType}}</div>
+            <!-- <div>{{storeFound.serverType}}</div>
             <div>{{storeFound.serverModel}}</div>
             <div>{{storeFound.provider}}</div>
-            <div>{{storeFound.hardware}}</div>
+            <div>{{storeFound.hardware}}</div> -->
             <div>{{storeFound.bmcTicket}}</div>
             <div>{{storeFound.serviceTicket}}</div>
+            <div>{{checkResolved(storeFound.resolved)}}</div>
           </div>
         </div>
       </div>
-      <div class="resultBox" *ngIf="advancedSrch">
+      <div class="resultBox shade" *ngIf="advancedSrch">
         <div id="searchHead">
           <p>Advanced Search</p>
           <button id="clearButton" type="reset" (click)="advancedSrch = false">Close</button>
@@ -131,12 +140,17 @@
             <div>Store Number</div>
             <div>Date</div>
             <div>Issue</div>
+            <!-- <div>Server Type</div>
+            <div>Server Model</div>
+            <div>Provider</div>
+            <div>Hardware</div> -->
             <div>BMC Ticket</div>
             <div>Vendor Ticket</div>
             <div>Status</div>
           </div>
-          <div class="resultBody" *ngFor="let storeFound of storesFound">
+          <!-- <div class="resultBody" *ngFor="let storeFound of storesFound">
             <div>{{storeFound.storeNumber}}</div>
+            <div>{{convertDate(storeFound.startDate)}}</div>
             <div>{{storeFound.issue}}</div>
             <div>{{storeFound.serverType}}</div>
             <div>{{storeFound.serverModel}}</div>
@@ -144,7 +158,8 @@
             <div>{{storeFound.hardware}}</div>
             <div>{{storeFound.bmcTicket}}</div>
             <div>{{storeFound.serviceTicket}}</div>
-          </div>
+            <div>{{checkResolved(storeFound.resolved)}}</div>
+          </div> -->
         </div>
       </div>
       <div class="form shade" *ngFor="let store of stores">
@@ -305,7 +320,7 @@
             <div *ngFor="let update of store.updates" (mouseenter)="hoverOver = update" (mouseleave)="hoverOver = ''">
               <div class="entry" *ngIf="editing !== update">
                 <div class="date_entry">
-                  <p>{{ convertDate(update.date) }}</p>
+                  <p>{{convertDate(update.date)}}</p>
                 </div>
                 <div class="time_entry">
                   <p>{{update.time}}</p>
