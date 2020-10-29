@@ -114,9 +114,9 @@ a:hover{
 .resultBox{
     display: grid;
     position: absolute;
-    top: 76px;
+    top: 75px;
     grid-template-columns: auto 1fr auto;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto 1fr auto;
     justify-self: center;
     margin-left: 5px;
     margin-right: 5px;
@@ -135,41 +135,71 @@ a:hover{
     grid-row: 2/3;
 }
 
+.filters{
+    display: grid;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    width: 75%;
+    justify-self: center;
+    padding: 5px 0 5px 0;
+    font-weight: bold;
+}
+
+.filterHead{
+    display: grid;
+    grid-column: 1/-1;
+    grid-row: 1/2;
+    padding: 5px 0 5px 15px;
+    background-color: var(--grey);
+}
+
+.filterOptions{
+    display: grid;
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 10px;
+    background-color: var(--white);
+}
+
 .results{
     display: grid;
     grid-column: 2/3;
-    grid-row: 2/-1;
+    grid-row: 3/-1;
     width: 75%;
     margin-top: 20px;
     justify-self: center;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(autofill, min-max(100, 1fr));
+    grid-template-rows: repeat(autofill, minmax(100px, 1fr));
     font-size: 14px;
 }
 
 .resultHead{
     display: grid;
     grid-column: 1/-1;
-    justify-items: center;
     padding: 5px 0 5px 0;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     background-color: var(--grey);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     font-weight: bold;
+    text-align: center;
 }
 
 .resultBody{
     display: grid;
     grid-column: 1/-1;
-    justify-items: center;
     padding: 5px 0 5px 0;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     background-color:var(--whiter);
+    text-align: center;
 }
 
 #searchHead{
     display: grid;
     grid-column: 1/-1;
-    grid-row: 1/1;
+    grid-row: 1/2;
     grid-template-columns: 1fr 1fr;
 }
 

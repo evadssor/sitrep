@@ -7,67 +7,9 @@
       </div>
       <nav id="nav">
         <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch($event)">
-        <button id="advanced" (click)="advancedSrch = true">Advanced Search</button>
+        <button id="advanced" (click)="advancedSrch = true; clearSearch()">Advanced Search</button>
       </nav>
     </header>
-    <!-- <div class="resultBox" *ngIf="search !== ''">
-      <div id="searchHead">
-        <p id="searchingFor">Searching for '{{search}}'</p>
-        <button id="clearButton" type="reset" (click)="clearSearch()">Clear Search</button>
-      </div>
-      <div class="results">
-        <div class="resultHead">
-          <div>Store Number</div>
-          <div>Issue</div>
-          <div>Server Type</div>
-          <div>Server Model</div>
-          <div>Provider</div>
-          <div>Hardware</div>
-          <div>BMC Ticket</div>
-          <div>Vendor Ticket</div>
-          <div>Status</div>
-        </div>
-        <div class="resultBody">
-          <div>4787</div>
-          <div>Server</div>
-          <div>iSeries</div>
-          <div>P5</div>
-          <div>-</div>
-          <div>-</div>
-          <div>1654841</div>
-          <div>SV0158756</div>
-          <div>Closed</div>
-        </div>
-      </div>
-    </div>
-    <div class="resultBox" *ngIf="advancedSrch">
-      <div id="searchHead">
-        <p>Advanced Search</p>
-        <button id="clearButton" type="reset" (click)="advancedSrch = false">Close</button>
-      </div>
-      <div class="results">
-        <div class="resultHead">
-          <div>Store Number</div>
-          <div>Issue</div>
-          <div>Server Type</div>
-          <div>Server Model</div>
-          <div>Provider</div>
-          <div>Hardware</div>
-          <div>BMC Ticket</div>
-          <div>Vendor Ticket</div>
-        </div>
-        <div class="resultBody">
-          <div>4787</div>
-          <div>Server</div>
-          <div>iSeries</div>
-          <div>P5</div>
-          <div>-</div>
-          <div>-</div>
-          <div>1654841</div>
-          <div>SV0158756</div>
-        </div>
-      </div>
-    </div> -->
     <div class="line">
       <button class="addStore" (click)="newStore()">Add Store</button>
       <button class="printRep" (click)="callPrintRep()">Save Report</button>
@@ -82,10 +24,6 @@
           <div class="resultHead">
             <div>Store Number</div>
             <div>Issue</div>
-            <div>Server Type</div>
-            <div>Server Model</div>
-            <div>Provider</div>
-            <div>Hardware</div>
             <div>BMC Ticket</div>
             <div>Vendor Ticket</div>
             <div>Status</div>
@@ -107,16 +45,95 @@
           <p>Advanced Search</p>
           <button id="clearButton" type="reset" (click)="advancedSrch = false">Close</button>
         </div>
+        <div class="filters">
+          <div class="filterHead">Filters</div>
+          <div class="filterOptions">
+            <div id="store_filter">
+              <label for="strNum_filter">Store Number</label>
+              <input name="strNum_filter" type="number">
+            </div>
+            <div id="date_filter">
+              <p>Date Range</p>
+              <input type="date" name="endDate_filter" id="startDate_filter">
+              <input type="date" name="startDate_filter" id="startDate_filter">
+            </div>
+            <div id="issue_filter">
+              <p>Issue</p>
+              <div>
+                <input type="checkbox" name="wan_filter">
+                <label for="cisco_filter">WAN</label>
+              </div>
+              <div>
+                <input type="checkbox" name="lan_filter">
+                <label for="lan_filter">LAN</label>
+              </div>
+              <div>
+                <input type="checkbox" name="voice_filter">
+                <label for="voice_filter">Voice</label>
+              </div>
+              <div>
+                <input type="checkbox" name="server_filter">
+                <label for="server_filter">Server</label>
+              </div>
+            </div>
+            <div id="hardware_filter">
+              <p>Hardware</p>
+              <div>
+                <div>
+                  <input type="checkbox" name="cisco_filter">
+                  <label for="cisco_filter">Cisco</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="switch_filter">
+                  <label for="switch_filter">Switch</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="velo_filter">
+                  <label for="velo_filter">Velo</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="adtran_filter">
+                  <label for="adtran_filter">AdTran</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="iad_filter">
+                  <label for="iad_filter">Cisco IAD</label>
+                </div>
+                <div>
+                  <input type="checkbox" name="pbx_filter">
+                  <label for="pbx_filter">PBX</label>
+                </div>
+              </div>
+            </div>
+            <div id="provider_filter">
+              <p>Provider</p>
+              <div>
+                <input type="checkbox" name="mettel_filter" id="mettel_filter">
+                <label for="mettel_filter">MetTel</label>
+              </div>
+              <div>
+                <input type="checkbox" name="vonage_filter" id="vonage_filter">
+                <label for="vonage_filter">Voange</label>
+              </div>
+              <div>
+                <input type="checkbox" name="windstream_filter" id="windstream_filter">
+                <label for="windstream_filter">Windstream</label>
+              </div>
+              <div>
+                <input type="checkbox" name="other_filter" id="other_filter">
+                <label for="other_filter">Other</label>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="results">
           <div class="resultHead">
             <div>Store Number</div>
+            <div>Date</div>
             <div>Issue</div>
-            <div>Server Type</div>
-            <div>Server Model</div>
-            <div>Provider</div>
-            <div>Hardware</div>
             <div>BMC Ticket</div>
             <div>Vendor Ticket</div>
+            <div>Status</div>
           </div>
           <div class="resultBody" *ngFor="let storeFound of storesFound">
             <div>{{storeFound.storeNumber}}</div>
