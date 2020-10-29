@@ -132,6 +132,7 @@ app.post('/api/stores', (req, res, next) => {
 
 // Get stores
 app.get('/api/stores', (req, res, next) => {
+    console.log('GetStores');
     var dbUpdates = [];
     var updatesAdded = 0;
     Store.find({ show: true }).then(dbStores => {
@@ -153,7 +154,7 @@ app.get('/api/stores', (req, res, next) => {
     }).catch();
 });
 
-// TODO on frontend (Find Specific Store)
+// TODO on frontend (Get Specific Store)
 app.get('/api/stores/:id', (req, res, next) => {
     Store.findById(req.params.id).then(documents => {
         res.status(200).json({

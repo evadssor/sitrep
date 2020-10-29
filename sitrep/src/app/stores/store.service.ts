@@ -9,12 +9,15 @@ import { Update } from 'app/updates/update.model';
 export class StoreService {
     private stores: Store[] = [];
     private storesUpdated = new Subject<Store[]>();
+    private storesFound: Store[] = [];
+    private storesFoundUpdated = new Subject<Store[]>();
 
     constructor(private http: HttpClient) { }
 
     getStores() {
         this.http.get<{ message: string, stores: any, updates: any }>('http://localhost:3000/api/stores')
             .pipe(map((storeData) => {
+                console.log('getstores');
                 return storeData.stores.map(store => {
                     var updates = storeData.updates.filter(update => update.storeId === store._id);
                     return {
@@ -43,6 +46,7 @@ export class StoreService {
                 transformedStores.sort((a, b) => parseFloat(a.downTime) - parseFloat(b.downTime));
                 transformedStores.reverse();
                 this.stores = transformedStores;
+                console.log('this.stores: ', this.stores);
                 this.storesUpdated.next([...this.stores]);
             });
     }
@@ -51,12 +55,42 @@ export class StoreService {
         return this.storesUpdated.asObservable();
     }
 
+    getStoresFoundListener() {
+        return this.storesFoundUpdated.asObservable();
+    }
+
     getStoresQuickSearch(query: string) {
-        console.log('getStoresQuickSearch');
-        this.http.get<{ message: string, foundStores: string }>('http://localhost:3000/api/stores/search/' + query)
-            .subscribe((responseData) => {
-                console.log('responseData from Quick Search: ', responseData);
+        this.http.get<{ message: string, foundStores: any }>('http://localhost:3000/api/stores/search/' + query)
+        .pipe(map((responseData) => {
+            console.log('ResponseData', responseData);
+            return responseData.foundStores.map(store => {
+                return {
+                    storeId: store._id,
+                    storeNumber: store.storeNumber,
+                    issue: store.issue,
+                    bmcTicket: store.bmcTicket,
+                    serviceTicket: store.serviceTicket,
+                    serverType: store.serverType,
+                    serverModel: store.serverModel,
+                    commType: store.commType,
+                    provider: store.provider,
+                    hardware: store.hardware,
+                    startDate: store.startDate,
+                    startTime: store.startTime,
+                    downTime: store.resolved ? this.finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime) : this.downTime(store.startDate, store.startTime),
+                    endDate: store.endDate,
+                    endTime: store.endTime,
+                    resolved: store.resolved,
+                    show: store.show,
+                }
             });
+        }))
+        .subscribe((transformedStores) => {
+            transformedStores.sort((a, b) => parseFloat(a.downTime) - parseFloat(b.downTime));
+            transformedStores.reverse();
+            this.storesFound = transformedStores;
+            this.storesFoundUpdated.next([...this.storesFound]);
+        });
     }
 
     addStore(store: Store) {

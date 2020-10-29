@@ -18,6 +18,7 @@ import { NewStoreComponent } from './new-store/new-store.component';
 export class AppComponent implements OnDestroy, OnInit {
   updates: Update[] = [];
   stores: Store[] = [];
+  storesFound: Store[] = [];
   categories: Categories = {
     iSeries: [],
     Linux: [],
@@ -27,6 +28,7 @@ export class AppComponent implements OnDestroy, OnInit {
   };
   private updateSub: Subscription;
   private storeSub: Subscription;
+  private storesFoundSub: Subscription;
   showAddUpdate = '';
   showUpdateBtn = '';
   showStore = false;
@@ -50,6 +52,11 @@ export class AppComponent implements OnDestroy, OnInit {
     this.storeSub = await this.storeService.getStoreListener()
       .subscribe((stores: Store[]) => {
         this.stores = stores;
+      });
+
+      this.storesFoundSub = await this.storeService.getStoresFoundListener()
+      .subscribe((foundStores: Store[]) => {
+        this.storesFound = foundStores;
       });
   }
 

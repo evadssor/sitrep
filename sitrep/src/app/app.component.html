@@ -90,16 +90,15 @@
             <div>Vendor Ticket</div>
             <div>Status</div>
           </div>
-          <div class="resultBody">
-            <div>4787</div>
-            <div>Server</div>
-            <div>iSeries</div>
-            <div>P5</div>
-            <div>-</div>
-            <div>-</div>
-            <div>1654841</div>
-            <div>SV0158756</div>
-            <div>Closed</div>
+          <div class="resultBody" *ngFor="let storeFound of storesFound">
+            <div>{{storeFound.storeNumber}}</div>
+            <div>{{storeFound.issue}}</div>
+            <div>{{storeFound.serverType}}</div>
+            <div>{{storeFound.serverModel}}</div>
+            <div>{{storeFound.provider}}</div>
+            <div>{{storeFound.hardware}}</div>
+            <div>{{storeFound.bmcTicket}}</div>
+            <div>{{storeFound.serviceTicket}}</div>
           </div>
         </div>
       </div>
@@ -119,15 +118,15 @@
             <div>BMC Ticket</div>
             <div>Vendor Ticket</div>
           </div>
-          <div class="resultBody">
-            <div>4787</div>
-            <div>Server</div>
-            <div>iSeries</div>
-            <div>P5</div>
-            <div>-</div>
-            <div>-</div>
-            <div>1654841</div>
-            <div>SV0158756</div>
+          <div class="resultBody" *ngFor="let storeFound of storesFound">
+            <div>{{storeFound.storeNumber}}</div>
+            <div>{{storeFound.issue}}</div>
+            <div>{{storeFound.serverType}}</div>
+            <div>{{storeFound.serverModel}}</div>
+            <div>{{storeFound.provider}}</div>
+            <div>{{storeFound.hardware}}</div>
+            <div>{{storeFound.bmcTicket}}</div>
+            <div>{{storeFound.serviceTicket}}</div>
           </div>
         </div>
       </div>
