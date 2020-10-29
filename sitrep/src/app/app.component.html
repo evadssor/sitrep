@@ -6,7 +6,7 @@
         <h1>SITREP</h1>
       </div>
       <nav id="nav">
-        <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch()">
+        <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch($event)">
         <button id="advanced" (click)="advancedSrch = true">Advanced Search</button>
       </nav>
     </header>

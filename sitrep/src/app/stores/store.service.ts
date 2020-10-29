@@ -51,8 +51,12 @@ export class StoreService {
         return this.storesUpdated.asObservable();
     }
 
-    getStoresQuickSearch(q) {
-       // this.http.post<{}>('http://localhost:3000/api/stores')
+    getStoresQuickSearch(query: string) {
+        console.log('getStoresQuickSearch');
+        this.http.get<{ message: string, foundStores: string }>('http://localhost:3000/api/stores/search/' + query)
+            .subscribe((responseData) => {
+                console.log('responseData from Quick Search: ', responseData);
+            });
     }
 
     addStore(store: Store) {
@@ -109,37 +113,37 @@ export class StoreService {
     }
 
     downTime(d, t) {//take in date and time from inputs
-        if(d !== null && d !== undefined && t !== null && t !== undefined ) {
+        if (d !== null && d !== undefined && t !== null && t !== undefined) {
             var date_time = (d.toString() + " " + t.toString());//Combine incoming date and time strings
             var start_milli = Date.parse(date_time); //parse date_time string to milliseconds
             var current_milli = new Date().getTime(); //get current time in milliseconds
-        
+
             var down_hours = (current_milli - start_milli) / 1000 / 60 / 60;//divide milliseconds into hours 
             var setHours = Math.floor(down_hours);//Cut off decimal after hour
-        
+
             var down_minutes = (down_hours - setHours) * 60;//Calculate Minutes
             var setMinutes = Math.floor(down_minutes);//Cut off decimal after minute
             var m = setMinutes > 9 ? setMinutes : '0' + setMinutes;//Add a leading 0 if minutes are less than 10
-        
+
             return (setHours + setMinutes);
         }
         return 0;
-      }
+    }
 
-      finalDownTime(d1, t1, d2, t2) {
+    finalDownTime(d1, t1, d2, t2) {
         const date_time1 = (d1.toString() + ' ' + t1.toString());
         const date_time2 = (d2.toString() + ' ' + t2.toString());
-    
+
         const start_milli = Date.parse(date_time1);
         const end_milli = Date.parse(date_time2);
-    
+
         const down_hours = (end_milli - start_milli) / 1000 / 60 / 60;
         const setHours = Math.floor(down_hours);
-    
+
         const down_minutes = (down_hours - setHours) * 60;
         const setMinutes = Math.floor(down_minutes);
         const m = setMinutes > 9 ? setMinutes : '0' + setMinutes;
-    
+
         return (setHours + 'hrs ' + m + 'min');
-      }
+    }
 }

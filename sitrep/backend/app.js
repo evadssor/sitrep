@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Update = require('./models/update');
 const Store = require('./models/store');
-const { db } = require('./models/update');
 const app = express();
 
 mongoose.connect('mongodb+srv://DJAdmin:UzlXjjD8OacEuTOV@cluster0-6udlx.mongodb.net/sitrep?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -48,7 +47,6 @@ app.post('/api/updates', (req, res, next) => {
 // Get Updates associated with storeId
 app.get('/api/updates/:storeId', (req, res, next) => {
     Update.find({ storeId: req.params.storeId }).then(documents => {
-        console.log('Documents: ', documents);
         res.status(200).json({
             message: 'updates fetched succesfully',
             updates: documents
@@ -166,13 +164,16 @@ app.get('/api/stores/:id', (req, res, next) => {
 });
 
 // Quick Search
-app.get('/api/stores/:query', (req, res, next) => {
-    const store = new Store();
+app.get('/api/stores/search/:query', (req, res, next) => {
     const queryString = req.params.query;
-    store.createIndex({'$**': 'text'});
-    var foundStores = store.find( { $text: { $search: queryString}});
-    console.log('foundStores: ', foundStores);
-})
+    Store.find({ $text: { $search: queryString}}).then(foundStores => {
+        console.log('foundStores: ', foundStores);
+        res.status(200).json({
+            message: 'stores found',
+            foundStores: foundStores
+        });
+    });
+});
 
 // Save Store Edit
 app.put('/api/stores/edit/:id', (req, res, next) => { 
