@@ -115,18 +115,15 @@ a:hover{
     display: grid;
     position: absolute;
     top: 75px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 10px;
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto 1fr auto;
-    justify-self: center;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 0;
-    padding: 10px;
     min-height: 20px;
     width: 96%;
     max-width: 1500px;
-    grid-column: 1 / -1;
-    grid-row: 2 / -1;
     background-color: var(--whiter);
     z-index: 99;
 }
