@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Update = require('./models/update');
 const Store = require('./models/store');
+const { query } = require('express');
 const app = express();
 
 mongoose.connect('mongodb+srv://DJAdmin:UzlXjjD8OacEuTOV@cluster0-6udlx.mongodb.net/sitrep?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -167,8 +168,11 @@ app.get('/api/stores/:id', (req, res, next) => {
 // Quick Search
 app.get('/api/stores/search/:query', (req, res, next) => {
     const queryString = req.params.query;
-    Store.find({ $text: { $search: queryString}}).then(foundStores => {
-        console.log('foundStores: ', foundStores);
+    var regex = new RegExp(queryString);
+    console.log('regex', regex);
+   // Store.find({ issue: { $regex: regex}}).then(foundStores => {
+    Store.find({ $text: { $search: queryString , $caseSensitive: false}}).then(foundStores => {
+        console.log('foundStores: ', foundStores.length);
         res.status(200).json({
             message: 'stores found',
             foundStores: foundStores

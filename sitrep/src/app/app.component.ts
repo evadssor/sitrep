@@ -9,6 +9,7 @@ import { ResolveStoreComponent } from './resolve-store/resolve-store.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Categories } from './stores/categories.model';
 import { NewStoreComponent } from './new-store/new-store.component';
+import { EditStoreComponent } from './edit-store/edit-store.component';
 
 @Component({
   selector: 'app-root',
@@ -72,6 +73,15 @@ export class AppComponent implements OnDestroy, OnInit {
    }, 250);
   }
   
+  foundStoreModal(store: Store) {
+    console.log('foundStoreModal: ', store);
+    const dialogRef = this.dialog.open(EditStoreComponent, {
+      data: store
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('EditStore Result: ', result);
+    })
+  }
 
   resolveStore(store: Store) {
     const dialogRef = this.dialog.open(ResolveStoreComponent, {

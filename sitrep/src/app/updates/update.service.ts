@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Update } from './update.model';
 import { StoreService } from 'app/stores/store.service';
+import { stringify } from 'querystring';
 
 @Injectable({providedIn: 'root'})
 export class UpdateService {
@@ -17,6 +18,13 @@ export class UpdateService {
         .subscribe((updateData) => {
             this.updates = updateData.updates;
             this.updatesUpdated.next([...this.updates]);
+        });
+    }
+
+    getUpdate(storeId: string) {
+        this.http.get<{message: string, updates: Update[] }>("http://localhost:3000/api/updates/" + storeId)
+        .subscribe((updateData) => {
+            return updateData.updates;
         });
     }
 

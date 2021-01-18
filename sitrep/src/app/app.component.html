@@ -6,7 +6,8 @@
         <h1>SITREP</h1>
       </div>
       <nav id="nav">
-        <input id="search" name="search" placeholder="Quick Search... " (keyup)="fillSearch($event); advancedSrch = false">
+        <input id="search" name="search" placeholder="Quick Search... "
+          (keyup)="fillSearch($event); advancedSrch = false">
         <button id="advanced" (click)="advancedSrch = true; clearSearch()">Advanced Search</button>
       </nav>
     </header>
@@ -35,7 +36,7 @@
             <div>Vendor Ticket</div>
             <div>Status</div>
           </div>
-          <div class="resultBody" *ngFor="let storeFound of storesFound">
+          <div class="resultBody" *ngFor="let storeFound of storesFound" (click)="foundStoreModal(storeFound)">
             <div>{{storeFound.storeNumber}}</div>
             <div>{{convertDate(storeFound.startDate)}}</div>
             <div>{{storeFound.issue}}</div>
@@ -172,8 +173,11 @@
             </p>
           </div>
           <div class="down">
-            <p *ngIf="store.resolved">Down Time: <span class="down_time">{{finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime)}}</span> </p>
-          <p *ngIf="!store.resolved">Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
+            <p *ngIf="store.resolved">Down Time: <span
+                class="down_time">{{finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime)}}</span>
+            </p>
+            <p *ngIf="!store.resolved">Down Time: <span
+                class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
           </div>
           <div class="status">
             <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}"
