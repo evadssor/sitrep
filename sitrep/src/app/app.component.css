@@ -23,12 +23,12 @@
     grid-column: 2 / 3;
     justify-items: center;
     align-items: center;
-    font-family: 'Faster One';
+    font-family: 'Shirkhand';
     color: var(--white);
 }
 
 h1{
-    font-size: 64px;
+    font-size: 54px;
 }
 
 /*O'Reilly Logo*/

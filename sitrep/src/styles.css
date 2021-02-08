@@ -24,6 +24,21 @@ font-family: 'Faster One';
 font-family: 'Ubuntu', ;
 font-family: 'Open Sans', ; */
 
+@font-face{
+    font-family: 'Faster One';
+    src: url("./assets/fonts/FasterOne-Regular.ttf");
+}
+
+@font-face{
+    font-family: 'Ubuntu';
+    src: url("./assets/fonts/Ubuntu-Regular.ttf");
+}
+
+@font-face{
+    font-family: 'Shirkhand';
+    src: url("./assets/fonts/Shrikhand-Regular.ttf");
+}
+
 
 body, div, h1, h2, header, p, button, a, img, select, option, input{
     margin: 0;
