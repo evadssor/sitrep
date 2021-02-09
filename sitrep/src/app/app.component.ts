@@ -157,10 +157,10 @@ export class AppComponent implements OnDestroy, OnInit {
     this.updateEditable = updateId;
   }
 
-  saveUpdate(update: Update, store: Store) :void {
+  saveUpdate(update: Update, store: Store): void {
     console.log('store', store);
     this.editing = '';
-    if(!store.resolved) {
+    if (!store.resolved) {
       store.startTime = update.time;
       store.startDate = update.date;
       this.updateService.editUpdate(update);
@@ -189,28 +189,6 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   saveStore(newStore: Store) {
-    // const newStore = {
-    //   storeNumber: form.value.new_storeNum,
-    //   issue: form.value.issue_type,
-    //   bmcTicket: form.value.bmc_Num,
-    //   serviceTicket: form.value.vend_Num,
-    //   serverType: form.value.server,
-    //   serverModel: form.value.model_num,
-    //   commType: form.value.type_num,
-    //   provider: form.value.provider,
-    //   hardware: form.value.hardware,
-    //   startDate: form.value.new_date,
-    //   startTime: form.value.new_time,
-    //   downTime: this.downTime(form.value.new_date, form.value.new_time),
-    //   resolved: false,
-    //   show: true,
-    //   updates: [{
-    //     storeNumber: form.value.new_storeNum,
-    //     date: form.value.new_date,
-    //     time: form.value.new_time,
-    //     message: form.value.new_text
-    //   }],
-    // }
     this.storeService.addStore(newStore);
     this.showStore = false;
    // form.reset(); //<-- added to reset form on submit - evad
@@ -354,7 +332,7 @@ export class AppComponent implements OnDestroy, OnInit {
     this.storeService.getStoresQuickSearch(event.target.value);
   }
 
-  clearSearch(){
+  clearSearch() {
     this.search = '';
     (<HTMLInputElement>document.getElementById('search')).value = '';
   }
