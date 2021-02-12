@@ -162,6 +162,59 @@ a:hover{
     background-color: var(--white);
 }
 
+.filterOptions>div{
+    display: grid;
+    justify-content: center;
+    align-content: start;
+}
+
+#store_filter>input{
+    font-size: 16px;
+}
+
+#date_filter>input{
+    font-size: 14px;
+}
+
+#store_filter>input, #date_filter>input{
+    margin: 5px;
+    padding: 5px;
+    color: var(--black);
+    width: 95px;
+    height: 20px;
+    background-color: var(--whiter);
+    font-size: 16px;
+    text-align: center;
+}
+
+#store_filter>label, #date_filter>p{
+    text-align: center;
+}
+
+#issue_filter>div, #hardware_filter>div, #provider_filter>div, #serverType_filter>div, #serverModel_filter>div{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 3px;
+}
+
+#issue_filter>p, #hardware_filter>p, #provider_filter>p, #serverType_filter>p, #serverModel_filter>p{
+    margin-bottom: 5px;
+}
+
+#issue_filter>div>input, #hardware_filter>div>input, #provider_filter>div>input, #serverType_filter>div>input, #serverModel_filter>div>input{
+    height:15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+#issue_filter>div>label, #hardware_filter>div>label, #provider_filter>div>label, #serverType_filter>div>label, #serverModel_filter>div>label{
+    font-weight: 400;
+}
+
+/* #issue_filter>div>label, #hardware_filter>div>label, #provider_filter>div>label{
+    padding-bottom: 100px;
+} */
+
 .results{
     display: grid;
     grid-column: 2/3;

@@ -86,33 +86,77 @@
                 <label for="server_filter">Server</label>
               </div>
             </div>
+            <div id="serverType_filter">
+              <p>Server Type</p>
+              <div>
+                <input type="checkbox" name="iseries_filter">
+                <label for="iseries_filter">iSeries</label>
+              </div>
+              <div>
+                <input type="checkbox" name="linux_filter">
+                <label for="linux_filter">Linux</label>
+              </div>
+            </div>
+            <div id="serverModel_filter">
+              <p>Server Model</p>
+              <div>
+                <input type="checkbox" name="p5_filter">
+                <label for="p5_filter">P5</label>
+              </div>
+              <div>
+                <input type="checkbox" name="p6_filter">
+                <label for="p6_filter">P6</label>
+              </div>
+              <div>
+                <input type="checkbox" name="p7_filter">
+                <label for="p7_filter">P7</label>
+              </div>
+              <div>
+                <input type="checkbox" name="p8_filter">
+                <label for="p8_filter">P8</label>
+              </div>
+              <div>
+                <input type="checkbox" name="p9_filter">
+                <label for="p9_filter">P9</label>
+              </div>
+              <div>
+                <input type="checkbox" name="st250_filter">
+                <label for="st250_filter">ST250</label>
+              </div>
+              <div>
+                <input type="checkbox" name="st550_filter">
+                <label for="st550_filter">ST550</label>
+              </div>
+              <div>
+                <input type="checkbox" name="ts460_filter">
+                <label for="ts460_filter">TS460</label>
+              </div>
+            </div>
             <div id="hardware_filter">
               <p>Hardware</p>
               <div>
-                <div>
-                  <input type="checkbox" name="cisco_filter">
-                  <label for="cisco_filter">Cisco</label>
-                </div>
-                <div>
-                  <input type="checkbox" name="switch_filter">
-                  <label for="switch_filter">Switch</label>
-                </div>
-                <div>
-                  <input type="checkbox" name="velo_filter">
-                  <label for="velo_filter">Velo</label>
-                </div>
-                <div>
-                  <input type="checkbox" name="adtran_filter">
-                  <label for="adtran_filter">AdTran</label>
-                </div>
-                <div>
-                  <input type="checkbox" name="iad_filter">
-                  <label for="iad_filter">Cisco IAD</label>
-                </div>
-                <div>
-                  <input type="checkbox" name="pbx_filter">
-                  <label for="pbx_filter">PBX</label>
-                </div>
+                <input type="checkbox" name="cisco_filter">
+                <label for="cisco_filter">Cisco</label>
+              </div>
+              <div>
+                <input type="checkbox" name="switch_filter">
+                <label for="switch_filter">Switch</label>
+              </div>
+              <div>
+                <input type="checkbox" name="velo_filter">
+                <label for="velo_filter">Velo</label>
+              </div>
+              <div>
+                <input type="checkbox" name="adtran_filter">
+                <label for="adtran_filter">AdTran</label>
+              </div>
+              <div>
+                <input type="checkbox" name="iad_filter">
+                <label for="iad_filter">Cisco IAD</label>
+              </div>
+              <div>
+                <input type="checkbox" name="pbx_filter">
+                <label for="pbx_filter">PBX</label>
               </div>
             </div>
             <div id="provider_filter">
@@ -173,11 +217,11 @@
             </p>
           </div>
           <div class="down">
-            <p *ngIf="store.resolved">Down Time: <span
-                class="down_time">{{finalDownTime(store.startDate, store.startTime, store.endDate, store.endTime)}}</span>
+            <p *ngIf="store.resolved">Down Time: <span class="down_time">{{finalDownTime(store.startDate,
+                store.startTime, store.endDate, store.endTime)}}</span>
             </p>
-            <p *ngIf="!store.resolved">Down Time: <span
-                class="down_time">{{ downTime(store.startDate, store.startTime) }}</span></p>
+            <p *ngIf="!store.resolved">Down Time: <span class="down_time">{{ downTime(store.startDate, store.startTime)
+                }}</span></p>
           </div>
           <div class="status">
             <p [ngStyle]="{'background-color': store.resolved === true ? 'var(--green)' : 'var(--red)'}"
