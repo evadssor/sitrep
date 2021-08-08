@@ -74,6 +74,7 @@ export class AppComponent implements OnDestroy, OnInit {
   }
   
   foundStoreModal(store: Store) {
+    store.updates = this.updateService.getUpdate(store.storeId);
     console.log('foundStoreModal: ', store);
     const dialogRef = this.dialog.open(EditStoreComponent, {
       data: store

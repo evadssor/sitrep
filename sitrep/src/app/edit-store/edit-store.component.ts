@@ -50,6 +50,16 @@ export class EditStoreComponent implements OnInit {
 
     return (setHours + 'hrs ' + m + 'min');
   }
+  convertDate(date) {
+    let d = date;
+    let newDate = '';
+    if (d) {
+      d = d.replace(/(\d{4})-(\d{1,2})-(\d{1,2})/, function (match, y, m, d2) {
+        newDate = m + '/' + d2 + '/' + y;
+      });
+      return newDate;
+    }
+  }
 
   
   checkResolved(status) {

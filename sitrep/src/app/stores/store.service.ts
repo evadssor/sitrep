@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from './store.model';
 import { map } from 'rxjs/operators';
 import { Update } from 'app/updates/update.model';
+import { UpdateService } from '../updates/update.service';
 
 @Injectable({ providedIn: 'root' })
 export class StoreService {
@@ -17,7 +18,6 @@ export class StoreService {
     getStores() {
         this.http.get<{ message: string, stores: any, updates: any }>('http://localhost:3000/api/stores')
             .pipe(map((storeData) => {
-                console.log('getstores');
                 return storeData.stores.map(store => {
                     var updates = storeData.updates.filter(update => update.storeId === store._id);
                     return {
@@ -46,7 +46,6 @@ export class StoreService {
                 transformedStores.sort((a, b) => parseFloat(a.downTime) - parseFloat(b.downTime));
                 transformedStores.reverse();
                 this.stores = transformedStores;
-                console.log('this.stores: ', this.stores);
                 this.storesUpdated.next([...this.stores]);
             });
     }
@@ -81,7 +80,7 @@ export class StoreService {
                     endDate: store.endDate,
                     endTime: store.endTime,
                     resolved: store.resolved,
-                    show: store.show,
+                    show: store.show
                 }
             });
         }))
